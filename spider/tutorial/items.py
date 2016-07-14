@@ -10,12 +10,12 @@ import scrapy
 class PeopleItem(scrapy.Item):
     url=scrapy.Field()
     title=scrapy.Field()
-    content=scrapy.Field()
     contentWithImg=scrapy.Field()
-    date=scrapy.Field()
     time=scrapy.Field()
     label=scrapy.Field()
     source=scrapy.Field()
+    readNum=scrapy.Field()
+    replayNum=scrapy.Field()
 
 #class DmozItem(scrapy.Item):
 #    title=scrapy.Field()
