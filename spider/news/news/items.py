@@ -9,14 +9,14 @@ import scrapy
 
 
 class NewsItem(scrapy.Item):
+    time=scrapy.Field()
     url=scrapy.Field()
     title=scrapy.Field()
-    contentWithImg=scrapy.Field()
-    time=scrapy.Field()
     label=scrapy.Field()
     keyWords=scrapy.Field()
     source=scrapy.Field()
     readNum=scrapy.Field()
     replayNum=scrapy.Field()
-    image_urls=scrapy.Field()
     images=scrapy.Field()
+    contentWithImg=scrapy.Field()
+    image_urls=scrapy.Field()

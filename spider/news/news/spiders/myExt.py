@@ -133,7 +133,8 @@ if __name__ == "__main__":
     #url = 'http://news.xinhuanet.com/politics/2016-07/21/c_129167395.htm'
     #url='http://news.xinhuanet.com/fortune/2016-07/21/c_129167394.htm'
     #url='http://military.people.com.cn/n1/2016/0722/c1011-28577225.html'
-    url='http://military.people.com.cn/n1/2016/0722/c1011-28575929.html'
+    #url='http://military.people.com.cn/n1/2016/0722/c1011-28575929.html'
+    url='http://news.qq.com/a/20160722/033954.htm'
     #url = 'http://news.qq.com/a/20160722/001785.htm'
     proxied_request = urllib2.urlopen(url)
     status_code = proxied_request.code
