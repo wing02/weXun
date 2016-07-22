@@ -24,7 +24,7 @@ class XinhuaPipeline(object):
 
     def process_item(self, item, spider):
         if item['title']:
-            line=self.connItem(item,['time','url','title'],'\t')
+            line=self.connItem(item,['time','url','title','keyWords','source','images','contentWithImg'],';\t')
             self.news.write(line)
             return item
         else:

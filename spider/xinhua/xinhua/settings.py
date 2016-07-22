@@ -15,9 +15,11 @@ NEWSPIDER_MODULE = 'xinhua.spiders'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'tutorial (+http://www.yourdomain.com)'
-ITEM_PIPELINES = {
-    'xinhua.pipelines.XinhuaPipeline': 300,
-}
+
+#ITEM_PIPELINES = {
+#    'scrapy.pipelines.images.ImagesPipeline': 1,
+#    'xinhua.pipelines.XinhuaPipeline': 300,
+#}
 
 #IMAGES_STORE='../data/20160722/xinhua'
 
