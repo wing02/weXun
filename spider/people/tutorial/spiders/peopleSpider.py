@@ -3,7 +3,7 @@ from scrapy.contrib.spiders import CrawlSpider, Rule
 from scrapy.contrib.linkextractors import LinkExtractor
 from scrapy import signals
 from scrapy.xlib.pydispatch import dispatcher
-from tutorial.items import PeopleItem
+from tutorial.items import NewsItem
 import time
 import scrapy
 import re
@@ -25,7 +25,7 @@ class PeopleSpider(scrapy.Spider):
     def __init__(self):
         dispatcher.connect(self.__del__, signals.spider_closed)
         now=time.time()
-        self.timeArray=[time.strftime('%Y%m%d',time.localtime(now-i*24*60*60)) for i in range(2)]
+        self.timeArray=[time.strftime('%Y%m%d',time.localtime(now-i*24*60*60)) for i in range(1)]
         today=time.strftime('%Y%m%d',time.localtime(now))
         self.crawledPath='data/'+today+'/peopleCrawled.pickle'
         if not os.path.exists('data/'+today):
@@ -58,7 +58,7 @@ class PeopleSpider(scrapy.Spider):
                     yield scrapy.Request(subUrl,callback=self.parseItem)
 
     def getInfo(self,response):
-        item = PeopleItem()
+        item = NewsItem()
         item['url']=response.url
         item['title'] = response.xpath('//title/text()').extract()[0].replace('\t','').split('--')[0]
         item['contentWithImg']=''.join(response.xpath('//div[@class="content clear clearfix"]//p//text()|//div[@class="content clear clearfix"]//img').extract()).replace('\n','').replace('\t','')

@@ -7,20 +7,17 @@
 
 import scrapy
 
-class PeopleItem(scrapy.Item):
+class NewsItem(scrapy.Item):
     url=scrapy.Field()
     title=scrapy.Field()
     contentWithImg=scrapy.Field()
     time=scrapy.Field()
     label=scrapy.Field()
+    keyWords=scrapy.Field()
     source=scrapy.Field()
     readNum=scrapy.Field()
     replayNum=scrapy.Field()
+    image_urls=scrapy.Field()
+    images=scrapy.Field()
 
-#class DmozItem(scrapy.Item):
-#    title=scrapy.Field()
-#    link=scrapy.Field()
-#    desc=scrapy.Field()
-    # define the fields for your item here like:
-    # name = scrapy.Field()
 

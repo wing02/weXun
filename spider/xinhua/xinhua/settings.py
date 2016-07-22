@@ -8,13 +8,18 @@
 #     http://doc.scrapy.org/en/latest/topics/settings.html
 #
 
-BOT_NAME = 'tutorial'
+BOT_NAME = 'xinhua'
 
-SPIDER_MODULES = ['tutorial.spiders']
-NEWSPIDER_MODULE = 'tutorial.spiders'
+SPIDER_MODULES = ['xinhua.spiders']
+NEWSPIDER_MODULE = 'xinhua.spiders'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'tutorial (+http://www.yourdomain.com)'
 ITEM_PIPELINES = {
-    'tutorial.pipelines.TutorialPipeline': 300,
+    'xinhua.pipelines.XinhuaPipeline': 300,
 }
+
+#IMAGES_STORE='../data/20160722/xinhua'
+
+ROBOTSTXT_OBEY = True
+#DEPTH_LIMIT=3
