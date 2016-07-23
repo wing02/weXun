@@ -16,16 +16,21 @@ class NewsPipeline(object):
         self.spiderName='xinhua'
         curDate=time.strftime('%Y%m%d',time.localtime(time.time()))
         curTime=time.strftime('%H%M%S',time.localtime(time.time()))
-        dirPath=osp.join(self.savePath,curDate,self.spiderName)
-        if not osp.isdir(dirPath):
-            os.makedirs(dirPath)
-        self.news=open(osp.join(dirPath,curTime),'w')
+        self.dirPath=osp.join(self.savePath,curDate,self.spiderName)
+        if not osp.isdir(self.dirPath):
+            os.makedirs(self.dirPath)
+        self.news=open(osp.join(self.dirPath,curTime),'w')
 
     def process_item(self, item, spider):
+
+        for image in item['images']:
+            image['path']=osp.join(self.dirPath,image['path'])
+            
         keys=['time','url','title','label','keyWords','source','readNum','replayNum','images','contentWithImg']
         for key in keys:
             if not key in item:
                 item[key]=''
+
         if item['title']:
             line=self.connItem(item,keys,';\t')
             self.news.write(line)

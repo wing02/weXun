@@ -134,12 +134,14 @@ if __name__ == "__main__":
     #url='http://news.xinhuanet.com/fortune/2016-07/21/c_129167394.htm'
     #url='http://military.people.com.cn/n1/2016/0722/c1011-28577225.html'
     #url='http://military.people.com.cn/n1/2016/0722/c1011-28575929.html'
-    url='http://news.qq.com/a/20160722/033954.htm'
+    #url='http://news.qq.com/a/20160722/033954.htm'
+    #url='http://www.taiwan.cn/taiwan/jsxw/201607/t20160722_11516597.htm'
+    url='http://russian.news.cn/2016-07/23/c_135534579.htm'
     #url = 'http://news.qq.com/a/20160722/001785.htm'
     proxied_request = urllib2.urlopen(url)
     status_code = proxied_request.code
     mimetype = proxied_request.headers.typeheader or mimetypes.guess_type(url)
-    content = proxied_request.read().decode('gbk')
+    content = proxied_request.read()
     #encoding = proxied_request.headers['content-type'].split('charset=')[-1]
     #ucontent = unicode(content, encoding)
     text_extract = TextExtract(content)

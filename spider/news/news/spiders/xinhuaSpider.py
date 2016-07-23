@@ -15,8 +15,8 @@ from news.spiders.myExt import TextExtract
 class XinhuaSpider(scrapy.Spider):
     name='xinhua'
     allowed_domains=["xinhuanet.com","news.cn"]
-    start_urls=["http://www.xinhuanet.com"]
-    deny_domains=['sike\.news\.cn']
+    start_urls = ["http://www.xinhuanet.com/rss.htm"]
+    deny_domains=['sike\.news\.cn','info\.search\.news\.cn']
     curTime=time.time()
     days=1
 
@@ -24,7 +24,7 @@ class XinhuaSpider(scrapy.Spider):
 
     def __init__(self):
         scrapy.Spider.__init__(self)
-        self.dateRange=[time.strftime('/%Y-%m[-/]%d/',time.localtime(self.curTime-i*24*60*60)) for i in range(self.days)]
+        self.dateRange=[time.strftime('%Y%m%d',time.localtime(self.curTime-i*24*60*60)) for i in range(self.days)]
         self.crawledPath='../data/recent/xinhua.pickle'
 
         dispatcher.connect(self.__del__, signals.spider_closed)
@@ -46,10 +46,30 @@ class XinhuaSpider(scrapy.Spider):
         f.close()
 
     def parse(self,response):
-        for url in response.xpath('//div[@id="navBody"]//a/@href').extract():
-            if self.isDenyDomains(url):
+        rssXml=response.xpath("//body/table[2]//tr//td[1]//table[2]/tbody//a/text()").extract()
+        for rss in rssXml:
+            yield scrapy.Request(rss,callback=self.parseXml)
+        yield scrapy.Request('http://www.xinhuanet.com/',callback=self.parse3W)
+
+    def parse3W(self,response):
+        for home in response.xpath('//div[@id="navBody"]//a/@href').extract():
+            if self.isDenyDomains(home):
                 continue
-            yield scrapy.Request(url,callback=self.parseHome)
+            yield scrapy.Request(home,callback=self.parseHome)
+
+    def parseXml(self, response):
+        date=int(''.join(response.xpath('/rss/channel/item/link/text()|/rss/channel/item/description/text()').re('/(20\d{2})-([01]\d)[-/]([0123]\d)/')[:3]))
+        #3 days
+        outDate=int(time.strftime('%Y%m%d',time.localtime(self.curTime-3*24*60*60)))
+        home=response.xpath('/rss/channel/image/link/text()').extract()[0]
+        if date>outDate:
+            yield scrapy.Request(home,callback=self.parseNone)
+            newsLinks=response.xpath('/rss/channel/item/link/text()').extract()
+            for newsLink in newsLinks:
+                newsDate=self.isNews(newsLink)
+                if newsDate:
+                    if self.isInTime(newsDate):
+                        yield scrapy.Request(newsLink,callback=self.parseNews)
 
     def parseHome(self,response):
         prePath=self.getPrePath(response.url)
@@ -57,8 +77,9 @@ class XinhuaSpider(scrapy.Spider):
             if self.isDenyDomains(url):
                 continue
             url=url if re.search('^http',url) else prePath+url
-            if self.isNews(url):
-                if self.isInTime(url):
+            newsDate=self.isNews(url)
+            if newsDate:
+                if self.isInTime(newsDate):
                     yield scrapy.Request(url,callback=self.parseNews)
             else:
                 yield scrapy.Request(url,callback=self.parsePart)
@@ -67,8 +88,9 @@ class XinhuaSpider(scrapy.Spider):
         prePath=self.getPrePath(response.url)
         for url in response.xpath('//a/@href').extract():
             url=url if re.search('^http',url) else prePath+url
-            if self.isNews(url):
-                if self.isInTime(url):
+            newsDate=self.isNews(url)
+            if newsDate:
+                if self.isInTime(newsDate):
                     yield scrapy.Request(url,callback=self.parseNews)
 
     def parseNews(self, response):
@@ -96,22 +118,26 @@ class XinhuaSpider(scrapy.Spider):
         tex=TextExtract(response.body_as_unicode())
         item['contentWithImg']=tex.content
         item['image_urls']=map(lambda url:url if re.search('^http',url) else prePath+url,tex.imgs)
-       # imageUrls=response.xpath('//img[@id]/@src').extract()
-       # item['image_urls']=map(lambda url:url if re.search('^http',url) else prePath+url,imageUrls)
 
-       # item['contentWithImg']=''.join(response.xpath('//div[@class="article"]//p/text()|//img[@id]').extract())
+        #imageUrls=response.xpath('//img[@id]/@src').extract()
+        #item['image_urls']=map(lambda url:url if re.search('^http',url) else prePath+url,imageUrls)
+
+        #item['contentWithImg']=re.sub(r'<img.[^>]*>','IMG0$',''.join(response.xpath('//div[@class="article"]//p/text()|//img[@id]').extract())).replace('\n','').replace('\r','')
 
         self.recentUrl[response.url]=int(item['time'])
         return item
 
-    def isNews(self,url):
-        return  re.search('/20\d{2}-[01]\d[-/][0123]\d/',url)
+    def parseNone(self, response):
+        pass
 
-    def isInTime(self,url):
-        for reg in self.dateRange:
-            if re.search(reg,url):
-                return True
-        return False
+    def isNews(self,url):
+        result=re.search('/(20\d{2})-?([01]\d)[-/]?([0123]\d)/',url)
+        if result:
+            return result.group(1)+result.group(2)+result.group(3)
+
+    def isInTime(self,date):
+        if date in self.dateRange:
+            return True
 
     def getPrePath(self,url):
         return re.search('(.*/)',url).group(1)
