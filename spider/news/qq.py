@@ -1,12 +1,12 @@
 import scrapy
 from scrapy.crawler import CrawlerProcess
-from news.spiders.xinhuaSpider import XinhuaSpider
+from news.spiders.qqSpider import QQSpider
 import time
 import os
 import os.path as osp
 
 curTime=time.time()
-name='xinhua'
+name='qq'
 os.environ['SPIDER_NAME']=name
 
 date=time.strftime('%Y%m%d',time.localtime(curTime))
@@ -14,7 +14,7 @@ imageStore=osp.join('../data',date,name)
 if not osp.isdir(imageStore):
     os.makedirs(imageStore)
 
-XinhuaSpider.curTime=curTime
+QQSpider.curTime=curTime
 
 process = CrawlerProcess({
     'USER_AGENT': 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)',
@@ -25,5 +25,5 @@ process = CrawlerProcess({
     'IMAGES_STORE':imageStore,
     })
 
-process.crawl(XinhuaSpider)
+process.crawl(QQSpider)
 process.start()

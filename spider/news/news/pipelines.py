@@ -13,7 +13,8 @@ import os.path as osp
 class NewsPipeline(object):
     def __init__(self):
         self.savePath='../data'
-        self.spiderName='xinhua'
+        self.spiderName=os.getenv('SPIDER_NAME')
+        #self.spiderName='xinhua'
         curDate=time.strftime('%Y%m%d',time.localtime(time.time()))
         curTime=time.strftime('%H%M%S',time.localtime(time.time()))
         self.dirPath=osp.join(self.savePath,curDate,self.spiderName)
@@ -23,13 +24,14 @@ class NewsPipeline(object):
 
     def process_item(self, item, spider):
 
-        for image in item['images']:
-            image['path']=osp.join(self.dirPath,image['path'])
-            
         keys=['time','url','title','label','keyWords','source','readNum','replayNum','images','contentWithImg']
         for key in keys:
             if not key in item:
                 item[key]=''
+
+        for image in item['images']:
+            image['path']=osp.join(self.dirPath,image['path'])
+            
 
         if item['title']:
             line=self.connItem(item,keys,';\t')

@@ -15,8 +15,8 @@ class TextExtract(object):
     re_body = re.compile(r'<body[^>]*>.*</body>', re.I|re.U|re.S)
     re_doc_type = re.compile(r'<!DOCTYPE.*?>', re.I|re.U|re.S)
     re_comment = re.compile(r'<!--.*?-->', re.I|re.U|re.S)
-    re_js = re.compile(r'<script.[^>]*>.*?</script>', re.I|re.U|re.S)
-    re_img = re.compile(r'<img.[^>]*>')
+    re_js = re.compile(r'<script[^>]*>.*?</script>', re.I|re.U|re.S)
+    re_img = re.compile(r'<img[^>]*>',re.I|re.S|re.U)
     re_css = re.compile(r'<style[^>]*>.*?</style>', re.I|re.U|re.S)
     re_special = re.compile(r'&.{2,8};|&#.{2,8};', re.I|re.U|re.S)
     re_other = re.compile(r'<[^>]*>', re.I|re.U|re.S)
@@ -77,6 +77,7 @@ class TextExtract(object):
                 line_len += len(lines[i+j])
             blocks.append(line_len)
         
+        #self.drawBlock(blocks)
         maxBlock=max(blocks)*2/3
         minBlock=self.BLOCK_HEIGHT*1
         peaks=[]
@@ -90,7 +91,7 @@ class TextExtract(object):
                 rhs=i
                 while(blocks[lhs]>minBlock):
                     lhs-=1
-                while(blocks[rhs]>minBlock):
+                while(blocks[rhs]>minBlock and rhs<len(blocks)-1):
                     rhs+=1
                 peaks.append((lhs+self.BLOCK_HEIGHT,rhs))
         
@@ -130,20 +131,18 @@ class TextExtract(object):
         
  
 if __name__ == "__main__":
-    #url = 'http://news.xinhuanet.com/politics/2016-07/21/c_129167395.htm'
-    #url='http://news.xinhuanet.com/fortune/2016-07/21/c_129167394.htm'
-    #url='http://military.people.com.cn/n1/2016/0722/c1011-28577225.html'
-    #url='http://military.people.com.cn/n1/2016/0722/c1011-28575929.html'
-    #url='http://news.qq.com/a/20160722/033954.htm'
-    #url='http://www.taiwan.cn/taiwan/jsxw/201607/t20160722_11516597.htm'
-    url='http://russian.news.cn/2016-07/23/c_135534579.htm'
-    #url = 'http://news.qq.com/a/20160722/001785.htm'
-    proxied_request = urllib2.urlopen(url)
-    status_code = proxied_request.code
-    mimetype = proxied_request.headers.typeheader or mimetypes.guess_type(url)
-    content = proxied_request.read()
-    #encoding = proxied_request.headers['content-type'].split('charset=')[-1]
-    #ucontent = unicode(content, encoding)
+
+    #url='http://ln.qq.com/a/20160723/003673.htm'
+    #proxied_request = urllib2.urlopen(url)
+    #status_code = proxied_request.code
+    #mimetype = proxied_request.headers.typeheader or mimetypes.guess_type(url)
+    #content = proxied_request.read().decode('gbk')
+    #f=open('qq','w')
+    #f.write(content.encode('u8'))
+    #f.close()
+
+    f=open('qq','r')
+    content=f.read().decode('u8')
     text_extract = TextExtract(content)
     print (text_extract.content)
     print (text_extract.imgs)
