@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from scrapy.spiders import CrawlSpider, Rule
-from scrapy.linkextractors import LinkExtractor
 from scrapy import signals
 from pydispatch import dispatcher
 import time
@@ -16,7 +14,7 @@ class QQSpider(scrapy.Spider):
     name='qq'
     allowed_domains=["qq.com"]
     start_urls = ["http://news.qq.com/"]
-    deny_domains=[]
+    deny_domains=["v.qq.com","class.qq.com","club.auto.qq.com","db.house.qq.com","t.qq.com"]
     curTime=time.time()
     days=1
 
@@ -24,10 +22,10 @@ class QQSpider(scrapy.Spider):
 
     def __init__(self):
         scrapy.Spider.__init__(self)
+        dispatcher.connect(self.__del__, signals.spider_closed)
         self.dateRange=[time.strftime('%Y%m%d',time.localtime(self.curTime-i*24*60*60)) for i in range(self.days)]
         self.crawledPath='../data/recent/'+self.name+'.pickle'
 
-        dispatcher.connect(self.__del__, signals.spider_closed)
         if os.path.isfile(self.crawledPath):
             f=open(self.crawledPath,'r')
             self.recentUrl=cPickle.load(f)
@@ -54,7 +52,8 @@ class QQSpider(scrapy.Spider):
             newsDate=self.isNews(url)
             if newsDate:
                 if self.isInTime(newsDate):
-                    yield scrapy.Request(url,callback=self.parseNews)
+                    if not url in self.recentUrl:
+                        yield scrapy.Request(url,callback=self.parseNews)
             else:
                 yield scrapy.Request(url,callback=self.parseHome)
 
@@ -67,7 +66,8 @@ class QQSpider(scrapy.Spider):
             newsDate=self.isNews(url)
             if newsDate:
                 if self.isInTime(newsDate):
-                    yield scrapy.Request(url,callback=self.parseNews)
+                    if not url in self.recentUrl:
+                        yield scrapy.Request(url,callback=self.parseNews)
             else:
                 yield scrapy.Request(url,callback=self.parsePart)
 
@@ -78,11 +78,10 @@ class QQSpider(scrapy.Spider):
             newsDate=self.isNews(url)
             if newsDate:
                 if self.isInTime(newsDate):
-                    yield scrapy.Request(url,callback=self.parseNews)
+                    if not url in self.recentUrl:
+                        yield scrapy.Request(url,callback=self.parseNews)
 
     def parseNews(self, response):
-        if response.url in self.recentUrl:
-            return
         prePath=self.getPrePath(response.url)
         item = NewsItem()
 

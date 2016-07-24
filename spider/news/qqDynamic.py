@@ -1,28 +1,21 @@
 import scrapy
 from scrapy.crawler import CrawlerProcess
-from news.spiders.qqDynamicSpider import QQDynamicSpider
+from news.spiders.dynamicSpider import DynamicSpider
 import time
 import os
 import os.path as osp
 
-curTime=time.time()
-name='qq'
-os.environ['SPIDER_NAME']=name
+class QQDynamicSpider(DynamicSpider):
+    name='qqDynamic'
+    allowed_domains=["qq.com"]
+    start_urls = ["http://news.qq.com/"]
+    deny_domains=["v.qq.com","class.qq.com","club.auto.qq.com","db.house.qq.com","t.qq.com"]
+    #curTime=time.time()
+    oldTime=''
 
-date=time.strftime('%Y%m%d',time.localtime(curTime))
-imageStore=osp.join('../data',date,name)
-if not osp.isdir(imageStore):
-    os.makedirs(imageStore)
-
-QQDynamicSpider.curTime=curTime
-
+#QQDynamicSpider.oldTime='20160723114000'
 process = CrawlerProcess({
     'USER_AGENT': 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)',
-    'ITEM_PIPELINES' :{
-        'scrapy.pipelines.images.ImagesPipeline': 1,
-        'news.pipelines.NewsPipeline': 300,
-        },
-    'IMAGES_STORE':imageStore,
     })
 
 process.crawl(QQDynamicSpider)

@@ -3,8 +3,8 @@ import sys, os, codecs, re
 import pdb
 import matplotlib.pyplot as plt
  
-reload(sys) 
-sys.setdefaultencoding('utf-8')
+#reload(sys) 
+#sys.setdefaultencoding('utf-8')
  
 import cProfile
 import urllib2
@@ -21,7 +21,7 @@ class TextExtract(object):
     re_special = re.compile(r'&.{2,8};|&#.{2,8};', re.I|re.U|re.S)
     re_other = re.compile(r'<[^>]*>', re.I|re.U|re.S)
      
-    blockHeight = 9
+    BLOCK_HEIGHT = 3
     def __init__(self, new_html, join=True):
         self.html = new_html
         self.join = join
@@ -57,8 +57,7 @@ class TextExtract(object):
         self.text_body = self.re_css.sub('', self.text_body)
         self.text_body = self.re_special.sub('', self.text_body)
         self.replaceImg()
-        #self.text_body = self.text_body.replace('\r\n','').replace('\n','')
-        self.text_body = self.re_other.sub('\n', self.text_body)
+        self.text_body = self.re_other.sub('', self.text_body)
 
  
     def extract_text(self):
@@ -72,15 +71,15 @@ class TextExtract(object):
                 lines[i] = ''
  
         blocks=[]
-        for i in xrange(0, len(lines)-self.blockHeight, 1):
+        for i in xrange(0, len(lines)-self.BLOCK_HEIGHT, 1):
             line_len = 0
-            for j in xrange(0, self.blockHeight, 1):
+            for j in xrange(0, self.BLOCK_HEIGHT, 1):
                 line_len += len(lines[i+j])
             blocks.append(line_len)
         
         #self.drawBlock(blocks)
         maxBlock=max(blocks)*2/3
-        minBlock=self.blockHeight*1
+        minBlock=self.BLOCK_HEIGHT*1
         peaks=[]
 
         rhs=0
@@ -94,7 +93,7 @@ class TextExtract(object):
                     lhs-=1
                 while(blocks[rhs]>minBlock and rhs<len(blocks)-1):
                     rhs+=1
-                peaks.append((lhs+self.blockHeight,rhs))
+                peaks.append((lhs+self.BLOCK_HEIGHT,rhs))
         
         for peak in peaks:
             for i in range(peak[0],peak[1]):
@@ -134,23 +133,16 @@ class TextExtract(object):
 if __name__ == "__main__":
 
     #url='http://ln.qq.com/a/20160723/003673.htm'
-    #url='http://www.taiwan.cn/xwzx/la/201607/t20160723_11516742.htm'
-    #url='http://www.gov.cn/xinwen/2016-07/23/content_5094173.htm'
-    #url='http://www.taiwan.cn/taiwan/jsxw/201607/t20160723_11516785.htm'
-    #url='http://www.taiwan.cn/xwzx/la/201607/t20160723_11516742.htm'
-    url='http://zz.house.qq.com/a/20160724/004694.htm'
-    #url='http://news.xinhuanet.com/politics/2016-07/24/c_1119270615.htm'
-    #url='http://military.people.com.cn/n1/2016/0724/c1011-28580193.html'
-    proxied_request = urllib2.urlopen(url)
-
-    content = proxied_request.read().decode('gbk')
-    #content = proxied_request.read()
+    #proxied_request = urllib2.urlopen(url)
+    #status_code = proxied_request.code
+    #mimetype = proxied_request.headers.typeheader or mimetypes.guess_type(url)
+    #content = proxied_request.read().decode('gbk')
     #f=open('qq','w')
     #f.write(content.encode('u8'))
     #f.close()
 
-    #f=open('qq','r')
-    #content=f.read().decode('u8')
+    f=open('qq','r')
+    content=f.read().decode('u8')
     text_extract = TextExtract(content)
     print (text_extract.content)
     print (text_extract.imgs)
