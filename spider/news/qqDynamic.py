@@ -10,7 +10,7 @@ class QQDynamicSpider(DynamicSpider):
     allowed_domains=["qq.com"]
     start_urls = ["http://news.qq.com/"]
     deny_domains=["v.qq.com","class.qq.com","club.auto.qq.com","db.house.qq.com","t.qq.com"]
-    #curTime=time.time()
+    curTime=time.time()
     oldTime=''
 
 #QQDynamicSpider.oldTime='20160723114000'

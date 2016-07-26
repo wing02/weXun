@@ -3,3 +3,4 @@ spider/data/
 simhash
 *.pickle
 w2v
+*.log

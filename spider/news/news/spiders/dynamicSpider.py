@@ -12,12 +12,12 @@ import hashlib
 from news.spiders.newsSpider import NewsSpider
 
 class DynamicSpider(NewsSpider):
-    #name='dynamic'
-    #allowed_domains=[]
-    #start_urls = []
-    #deny_domains=[]
+    name='dynamic'
+    allowed_domains=[]
+    start_urls = []
+    deny_domains=[]
     curTime=time.time()
-    #oldTime=''
+    oldTime=''
 
     def __init__(self):
         scrapy.Spider.__init__(self)

@@ -49,7 +49,6 @@ class JsonPipeline(object):
     def __init__(self):
         self.savePath='../data'
         self.spiderName=os.getenv('SPIDER_NAME','defaultPipe')
-        #self.spiderName='xinhua'
         curDate=time.strftime('%Y%m%d',time.localtime(time.time()))
         curTime=time.strftime('%H%M%S',time.localtime(time.time()))
         self.dirPath=osp.join(self.savePath,curDate,self.spiderName)

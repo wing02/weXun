@@ -99,8 +99,7 @@ class XinhuaSpider(scrapy.Spider):
         prePath=self.getPrePath(response.url)
         item = NewsItem()
 
-        item['url']=response.url
-
+        item['url']=response.url 
         item['label']=re.search('//.*?/(\w+)/',response.url).group(1)
 
         item['title']=response.xpath('/html/head/title/text()').extract()[0].strip('\r\n')
