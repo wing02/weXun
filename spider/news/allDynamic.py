@@ -7,7 +7,7 @@ import os.path as osp
 
 class BBCDynamicSpider(DynamicSpider):
     name='bbcDynamic'
-    allowed_domains=["www.bbc.com/zhongwen/simp"]
+    allowed_domains=["www.bbc.com"]
     start_urls = ["http://www.bbc.com/zhongwen/simp"]
     oldTime=''
 
@@ -17,7 +17,7 @@ class ChinaDynamicSpider(DynamicSpider):
     start_urls = ['http://news.china.com/']
     oldTime=''
 
-class ChinaNewsDynamicSpider(DynamicSpider):
+class ChinanewsDynamicSpider(DynamicSpider):
     name='chinanewsDynamic'
     allowed_domains=['chinanews.com']
     start_urls = ['http://www.chinanews.com/']
@@ -76,8 +76,9 @@ class XinhuanetDynamicSpider(DynamicSpider):
     
 process = CrawlerProcess({
     })
-
 process.crawl(BBCDynamicSpider)
-process.start()
+process.crawl(ChinanewsDynamicSpider)
 process.crawl(ChinaDynamicSpider)
+process.crawl(IfengDynamicSpider)
+process.crawl(PeopleDynamicSpider)
 process.start()
