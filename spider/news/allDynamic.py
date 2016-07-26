@@ -4,12 +4,19 @@ from news.spiders.dynamicSpider import DynamicSpider
 import time
 import os
 import os.path as osp
+import re
 
 class BBCDynamicSpider(DynamicSpider):
     name='bbcDynamic'
     allowed_domains=["www.bbc.com"]
     start_urls = ["http://www.bbc.com/zhongwen/simp"]
     oldTime=''
+    def isNews(self,url):
+        result=re.search('/(20\d{2})/([01]\d)/\d{4}([0123]\d)',url)
+        if result:
+            return result.group(1)+result.group(2)+result.group(3)
+    def getPrePath(self,url):
+        return 'http://www.bbc.com'
 
 class ChinaDynamicSpider(DynamicSpider):
     name='chinaDynamic'
@@ -49,7 +56,7 @@ class SinaDynamicSpider(DynamicSpider):
     start_urls = ["http://news.sina.com.cn/"]
     oldTime=''
 
-class SohuTmpDynamicSpider(DynamicSpider):
+class SohuDynamicSpider(DynamicSpider):
     name='sohuDynamic'
     allowed_domains=['news.sohu.com']
     start_urls = ['http://news.sohu.com/']
@@ -81,4 +88,10 @@ process.crawl(ChinanewsDynamicSpider)
 process.crawl(ChinaDynamicSpider)
 process.crawl(IfengDynamicSpider)
 process.crawl(PeopleDynamicSpider)
+process.crawl(QQDynamicSpider)
+process.crawl(SinaDynamicSpider)
+process.crawl(SohuDynamicSpider)
+process.crawl(SznewsDynamicSpider)
+process.crawl(WangyiDynamicSpider)
+process.crawl(XinhuanetDynamicSpider)
 process.start()

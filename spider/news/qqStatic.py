@@ -38,7 +38,7 @@ if not osp.isdir(imageStore):
 process = CrawlerProcess({
     'USER_AGENT': 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)',
     'ITEM_PIPELINES' :{
-        #'scrapy.pipelines.images.ImagesPipeline': 1,
+        'scrapy.pipelines.images.ImagesPipeline': 1,
         #'news.pipelines.NewsPipeline': 300,
         'news.pipelines.JsonPipeline': 300,
         },
