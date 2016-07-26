@@ -2,3 +2,4 @@ spider/data/
 *.pyc
 simhash
 *.pickle
+w2v
