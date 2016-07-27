@@ -26,7 +26,7 @@ DOWNLOAD_TIMEOUT = 15
 CONCURRENT_REQUESTS = 100
 
 ITEM_PIPELINES = {
-    'scrapy.pipelines.images.ImagesPipeline': 1,
+    #'scrapy.pipelines.images.ImagesPipeline': 1,
     'news.pipelines.JsonPipeline': 300,
 }
 

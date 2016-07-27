@@ -7,6 +7,7 @@ from news.spiders.bbcOnceSpider import BBCParser
 from news.spiders.chinanewsOnceSpider import ChinaNewsParser
 from news.spiders.qqOnceSpider import QQParser
 from news.spiders.peopleOnceSpider import PeopleParser
+from news.spiders.xinhuanetOnceSpider import XinhuanetParser
 
 class BBCCrawlSpider(CrawlSpider):
     name='bbcCrawl'
@@ -127,7 +128,7 @@ class XinhuanetCrawlSpider(CrawlSpider):
         Rule(LinkExtractor(allow=('.', )) ),
     )
     def parse_item(self, response):
-        return QQParser(response).getNewsItem()
+        return XinhuanetParser(response).getNewsItem()
 
 process = CrawlerProcess({
     'USER_AGENT': 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)',
