@@ -21,10 +21,7 @@ class XinhuanetOnceSpider(scrapy.Spider):
     curTime=time.time()
 
     def parse(self, response):
-        return XinhuanetParser(self,response).getNewsItem()
-
-    def getPrePath(self,url):
-        return re.search('(.*/)',url).group(1)
+        return XinhuanetParser(response).getNewsItem()
 
 class XinhuanetParser(NewsParser):
     def getTitleLabel(self):

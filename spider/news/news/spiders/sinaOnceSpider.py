@@ -21,8 +21,5 @@ class SinaOnceSpider(scrapy.Spider):
     curTime=time.time()
 
     def parse(self, response):
-        return NewsParser(self,response).getNewsItem()
-
-    def getPrePath(self,url):
-        return re.search('(https?://.*?)/',url).group(1)
+        return NewsParser(response).getNewsItem()
 

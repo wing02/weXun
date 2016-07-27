@@ -22,15 +22,11 @@ class QQStaticSpider(StaticSpider):
     deny_domains=[]
     curTime=time.time()
     days=1
-
     def parseNews(self, response):
         return parseQQNews(self,response)
 
-name='qq'
-os.environ['SPIDER_NAME']=name
 
 date=time.strftime('%Y%m%d',time.localtime(QQStaticSpider.curTime))
-dayTime=time.strftime('%Y%m%d',time.localtime(QQStaticSpider.curTime))
 imageStore=osp.join('../data',date,name)
 if not osp.isdir(imageStore):
     os.makedirs(imageStore)

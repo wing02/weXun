@@ -21,8 +21,4 @@ class ChinaOnceSpider(scrapy.Spider):
     curTime=time.time()
 
     def parse(self, response):
-        return NewsParser(self,response).getNewsItem()
-
-    def getPrePath(self,url):
-        return re.search('(.*/)',url).group(1)
-
+        return NewsParser(response).getNewsItem()

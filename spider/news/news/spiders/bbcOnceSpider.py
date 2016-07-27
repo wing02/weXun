@@ -21,7 +21,7 @@ class BBCOnceSpider(scrapy.Spider):
     curTime=time.time()
 
     def parse(self, response):
-        return BBCParser(self,response).getNewsItem()
+        return BBCParser(response).getNewsItem()
 
     def getPrePath(self,url):
         return re.search('(https?://.*?)/',url).group(1)

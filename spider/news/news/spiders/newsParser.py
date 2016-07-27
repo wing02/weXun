@@ -15,10 +15,10 @@ import json
 
 class NewsParser(object):
 
-    def __init__(self,spider,response):
+    def __init__(self,response):
         self.response=response
-        self.spider=spider
-        self.prePath=spider.getPrePath(response.url)
+        self.prePath=re.search('(.*/)',response.url).group(1)
+        self.domainPath=re.search('(https?://.*?)/',response.url).group(1)
 
     def getNewsItem(self):
         self.item = NewsItem()
@@ -38,7 +38,7 @@ class NewsParser(object):
     def getContentImg(self):
         tex=TextExtract(self.response.body_as_unicode())
         self.item['contentWithImg']=tex.content
-        self.item['image_urls']=map(lambda url:url if url[:4]=='http' else self.prePath+url,tex.imgs)
+        self.item['image_urls']=map(self.fillPath,tex.imgs)
 
     def getTitle(self):
         try:
@@ -64,7 +64,7 @@ class NewsParser(object):
         elif self.item['time']=='':
             self.item['time']=''.join(self.response.xpath('//meta[@name="pubdate"]/@content').re(u'(\d+)-(\d+)-(\d+).*?(\d+):(\d+):(\d+)'))
             if self.item['time']=='':
-                self.item['time']=time.strftime('%Y%m%d%H%M%S',time.localtime(spider.curTime))
+                self.item['time']=time.strftime('%Y%m%d%H%M%S',time.localtime(time.time()))
 
     def getKeyWords(self):
         self.item['keyWords']=''.join(self.response.xpath('/html/head/meta[@name="keywords"]/@content').extract()).strip('\r\n')
@@ -83,3 +83,12 @@ class NewsParser(object):
 
     def getReadNum(self):
         pass
+
+    def fillPath(self,shortUrl):
+        if shortUrl[:4]=='http':
+            return shortUrl
+        elif shortUrl[0]=='/':
+            return self.domainPath+shortUrl
+        else:
+            return self.prePath+shortUrl
+

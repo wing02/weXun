@@ -21,10 +21,7 @@ class QQOnceSpider(scrapy.Spider):
     curTime=time.time()
 
     def parse(self, response):
-        return QQParser(self,response).getNewsItem()
-
-    def getPrePath(self,url):
-        return re.search('(.*/)',url).group(1)
+        return QQParser(response).getNewsItem()
 
 class QQParser(NewsParser):
 

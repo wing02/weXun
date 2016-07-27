@@ -46,9 +46,9 @@ class NewsPipeline(object):
         return (deli.join(values)+'\n').encode('u8')
 
 class JsonPipeline(object):
-    def __init__(self):
+    def open_spider(self,spider):
         self.savePath='../data'
-        self.spiderName=os.getenv('SPIDER_NAME','defaultPipe')
+        self.spiderName=spider.name
         curDate=time.strftime('%Y%m%d',time.localtime(time.time()))
         curTime=time.strftime('%H%M%S',time.localtime(time.time()))
         self.dirPath=osp.join(self.savePath,curDate,self.spiderName)

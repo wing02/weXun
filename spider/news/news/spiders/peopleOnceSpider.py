@@ -21,11 +21,7 @@ class PeopleOnceSpider(scrapy.Spider):
     curTime=time.time()
 
     def parse(self, response):
-        return PeopleParser(self,response).getNewsItem()
-
-    def getPrePath(self,url):
-        return re.search('(.*/)',url).group(1)
-
+        return PeopleParser(response).getNewsItem()
 
 class PeopleParser(NewsParser):
     def getReadNum(self):
