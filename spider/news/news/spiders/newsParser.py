@@ -87,7 +87,7 @@ class NewsParser(object):
     def fillPath(self,shortUrl):
         if shortUrl[:4]=='http':
             return shortUrl
-        elif shortUrl[0]=='/':
+        elif shortUrl[:1]=='/':
             return self.domainPath+shortUrl
         else:
             return self.prePath+shortUrl
