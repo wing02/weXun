@@ -19,9 +19,11 @@ class TextExtract(object):
     re_img = re.compile(r'<img[^>]*>',re.I|re.S|re.U)
     re_css = re.compile(r'<style[^>]*>.*?</style>', re.I|re.U|re.S)
     re_special = re.compile(r'&.{2,8};|&#.{2,8};', re.I|re.U|re.S)
+    re_p = re.compile(r'</p>', re.I|re.U|re.S)
     re_other = re.compile(r'<[^>]*>', re.I|re.U|re.S)
      
-    blockHeight = 9
+    blockHeight = 11
+    doRemoveLF=False
     def __init__(self, new_html, join=True):
         self.html = new_html
         self.join = join
@@ -57,7 +59,9 @@ class TextExtract(object):
         self.text_body = self.re_css.sub('', self.text_body)
         self.text_body = self.re_special.sub('', self.text_body)
         self.replaceImg()
-        #self.text_body = self.text_body.replace('\r\n','').replace('\n','')
+        if self.doRemoveLF:
+            self.text_body = self.text_body.replace('\r\n','').replace('\n','')
+        self.text_body = self.re_p.sub('{p}', self.text_body)
         self.text_body = self.re_other.sub('\n', self.text_body)
 
  
@@ -80,7 +84,8 @@ class TextExtract(object):
         
         #self.drawBlock(blocks)
         maxBlock=max(blocks)*2/3
-        minBlock=self.blockHeight*1
+        #minBlock=self.blockHeight
+        minBlock=10
         peaks=[]
 
         rhs=0
@@ -110,7 +115,7 @@ class TextExtract(object):
         txts=self.re_img.split(self.text_body)
         self.text_body=txts[0]
         for i in range(len(txts)-1):
-            self.text_body+='IMG'+str(i)+'$'
+            self.text_body+='{img'+str(i)+'$'*40+'}'
             self.text_body+=txts[i+1]
 
     def getImgSrc(self,img):
@@ -122,12 +127,12 @@ class TextExtract(object):
 
     def getUsedImgs(self):
         #pdb.set_trace()
-        indexs=map(int,re.findall('IMG(\d+)\$',self.content))
+        indexs=map(int,re.findall('{img(\d+)\$*}',self.content))
+        self.content=re.sub('{img(\d+)\$*}','{img}',self.content)
         self.imgs=[]
         for index in indexs:
             self.imgs.append(self.imgSrcs[index])
         return self.imgs
-
 
         
  
