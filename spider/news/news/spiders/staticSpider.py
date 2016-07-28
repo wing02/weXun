@@ -53,11 +53,10 @@ class StaticSpider(NewsSpider):
         f.close()
 
     def parse(self,response):
-        prePath=self.getPrePath(response.url)
         for url in response.xpath("//a/@href").extract():
             if self.isDenyDomains(url):
                 continue
-            url=url if re.search('^http',url) else prePath+url
+            url=self.fillPath(url,response)
             newsDate=self.isNews(url)
             if newsDate:
                 if self.isInTime(newsDate):

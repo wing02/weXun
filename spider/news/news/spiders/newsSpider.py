@@ -17,8 +17,15 @@ class NewsSpider(scrapy.Spider):
         if result:
             return result.group(1)+result.group(2)+result.group(3)
 
-    def getPrePath(self,url):
-        return re.search('(.*/)',url).group(1)
+    def fillPath(self,shortUrl,response):
+        prePath=re.search('(.*/)',response.url).group(1)
+        domainPath=re.search('(https?://.*?)/',response.url).group(1)
+        if shortUrl[:4]=='http':
+            return shortUrl
+        elif shortUrl[:1]=='/':
+            return domainPath+shortUrl
+        else:
+            return prePath+shortUrl
     
     def isDenyDomains(self,url):
         for reg in self.deny_domains:

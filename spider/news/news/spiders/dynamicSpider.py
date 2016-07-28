@@ -21,7 +21,7 @@ class DynamicSpider(NewsSpider):
     oldTime=''
 
     def __init__(self):
-        scrapy.Spider.__init__(self)
+        NewsSpider.__init__(self)
         dispatcher.connect(self.__del__, signals.spider_closed)
 
         self.oldPath='../data/md5/'+self.name+self.oldTime+'_MD5.pkl'
@@ -49,11 +49,10 @@ class DynamicSpider(NewsSpider):
 
     def parse(self,response):
         toNews=False
-        prePath=self.getPrePath(response.url)
         for url in response.xpath("//a/@href").extract():
             if self.isDenyDomains(url):
                 continue
-            url=url if re.search('^http',url) else prePath+url
+            url=self.fillPath(url,response)
             newsDate=self.isNews(url)
             if newsDate and toNews==False:
                 toNews=True
@@ -64,11 +63,10 @@ class DynamicSpider(NewsSpider):
 
     def parseHome(self,response):
         toNews=False
-        prePath=self.getPrePath(response.url)
         for url in response.xpath('//a/@href').extract():
             if self.isDenyDomains(url):
                 continue
-            url=url if re.search('^http',url) else prePath+url
+            url=self.fillPath(url,response)
             newsDate=self.isNews(url)
             if newsDate and toNews==False:
                 toNews=True
@@ -78,9 +76,8 @@ class DynamicSpider(NewsSpider):
             self.addUrl(response)
 
     def parsePart(self,response):
-        prePath=self.getPrePath(response.url)
         for url in response.xpath('//a/@href').extract():
-            url=url if re.search('^http',url) else prePath+url
+            url=self.fillPath(url,response)
             newsDate=self.isNews(url)
             if newsDate:
                 self.addUrl(response)

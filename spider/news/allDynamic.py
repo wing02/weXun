@@ -12,7 +12,7 @@ class BBCDynamicSpider(DynamicSpider):
     start_urls = ["http://www.bbc.com/zhongwen/simp"]
     oldTime=''
     def isNews(self,url):
-        result=re.search('/(20\d{2})/([01]\d)/\d{4}([0123]\d)',url)
+        result=re.search('/(20\d{2})/([01]\d)/\d{4}([0123]\d)/',url)
         if result:
             return result.group(1)+result.group(2)+result.group(3)
 
@@ -71,6 +71,10 @@ class WangyiDynamicSpider(DynamicSpider):
     allowed_domains=['news.163.com']
     start_urls = ['http://news.163.com/']
     oldTime=''
+    def isNews(self,url):
+        result=re.search('/(\d{2})/([01]\d)([0123]\d)/',url)
+        if result:
+            return '20'+result.group(1)+result.group(2)+result.group(3)
 
 class XinhuanetDynamicSpider(DynamicSpider):
     name='xinhuanetDynamic'
@@ -94,6 +98,6 @@ process.crawl(BBCDynamicSpider)
 #process.crawl(SinaDynamicSpider)
 #process.crawl(SohuDynamicSpider)
 #process.crawl(SznewsDynamicSpider)
-process.crawl(WangyiDynamicSpider)
+#process.crawl(WangyiDynamicSpider)
 #process.crawl(XinhuanetDynamicSpider)
 process.start()
