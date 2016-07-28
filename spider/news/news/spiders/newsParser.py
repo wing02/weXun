@@ -17,8 +17,12 @@ class NewsParser(object):
 
     def __init__(self,response):
         self.response=response
-        self.prePath=re.search('(.*/)',response.url).group(1)
-        self.domainPath=re.search('(https?://.*?)/',response.url).group(1)
+        try:
+            self.prePath=re.search('(https?://.*/)',response.url).group(1)
+            self.domainPath=re.search('(https?://.*?)/',response.url).group(1)
+        except:
+            self.prePath=response.url+'/'
+            self.domainPath=response.url
 
     def getNewsItem(self):
         self.item = NewsItem()

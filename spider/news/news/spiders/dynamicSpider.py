@@ -16,7 +16,7 @@ class DynamicSpider(NewsSpider):
     name='dynamic'
     allowed_domains=[]
     start_urls = []
-    deny_domains=[]
+    deny_domains=['\.jpg$','\.pdf$','\.apk$']
     curTime=time.time()
     oldTime=''
 

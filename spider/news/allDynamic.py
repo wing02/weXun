@@ -80,7 +80,7 @@ class XinhuanetDynamicSpider(DynamicSpider):
     name='xinhuanetDynamic'
     allowed_domains=["xinhua.com","news.cn"]
     start_urls = ["http://www.xinhuanet.com"]
-    deny_domains=['sike\.news\.cn','info\.search\.news\.cn','qnssl\.com']
+    deny_domains=['sike\.news\.cn','info\.search\.news\.cn','qnssl\.com','\.jpg&','\.pdf$','\.apk$']
     oldTime=''
     
 process = CrawlerProcess({
@@ -97,14 +97,14 @@ process = CrawlerProcess({
     'DOWNLOAD_TIMEOUT ':' 15',
     })
 process.crawl(BBCDynamicSpider)
-#process.crawl(ChinanewsDynamicSpider)
-#process.crawl(ChinaDynamicSpider)
-#process.crawl(IfengDynamicSpider)
-#process.crawl(PeopleDynamicSpider)
-#process.crawl(QQDynamicSpider)
-#process.crawl(SinaDynamicSpider)
-#process.crawl(SohuDynamicSpider)
-#process.crawl(SznewsDynamicSpider)
-#process.crawl(WangyiDynamicSpider)
-#process.crawl(XinhuanetDynamicSpider)
+process.crawl(ChinanewsDynamicSpider)
+process.crawl(ChinaDynamicSpider)
+process.crawl(IfengDynamicSpider)
+process.crawl(PeopleDynamicSpider)
+process.crawl(QQDynamicSpider)
+process.crawl(SinaDynamicSpider)
+process.crawl(SohuDynamicSpider)
+process.crawl(SznewsDynamicSpider)
+process.crawl(WangyiDynamicSpider)
+process.crawl(XinhuanetDynamicSpider)
 process.start()
