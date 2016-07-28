@@ -23,14 +23,11 @@ class BBCOnceSpider(scrapy.Spider):
     def parse(self, response):
         return BBCParser(response).getNewsItem()
 
-    def getPrePath(self,url):
-        return re.search('(https?://.*?)/',url).group(1)
-
 class BBCParser(NewsParser):
     def getContentImg(self):
         tex=BBCTextExtract(self.response.body_as_unicode())
         self.item['contentWithImg']=tex.content
-        self.item['image_urls']=map(lambda url:url if re.search('^http',url) else prePath+url,tex.imgs)
+        self.item['image_urls']=map(self.fillPath,tex.imgs)
 
 class BBCTextExtract(TextExtract):
     re_p = re.compile(r'</p>|</figure>', re.I|re.U|re.S)

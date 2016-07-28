@@ -120,7 +120,7 @@ class WangyiCrawlSpider(CrawlSpider):
     allowed_domains=['news.163.com']
     start_urls = ['http://news.163.com/']
     rules = (
-        Rule(LinkExtractor(allow=('/(20\d{2})-?([01]\d)[-/]?([0123]\d)/', )), follow=True, callback='parse_item'),
+        Rule(LinkExtractor(allow=('/(\d{2})/([01]\d)([0123]\d)/', )), follow=True, callback='parse_item'),
         Rule(LinkExtractor(allow=('.', )) ),
     )
     def isNews(self,url):

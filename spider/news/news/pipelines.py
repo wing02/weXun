@@ -18,8 +18,7 @@ class JsonPipeline(object):
         self.spiderName=spider.name
         curDate=time.strftime('%Y%m%d',time.localtime(time.time()))
         curTime=time.strftime('%H%M%S',time.localtime(time.time()))
-        #self.dirPath=osp.join(self.savePath,curDate,self.spiderName)
-        self.dirPath=osp.join(self.savePath,curDate)
+        self.dirPath=osp.join(self.savePath,curDate,self.spiderName)
         if not osp.isdir(self.dirPath):
             os.makedirs(self.dirPath)
         self.news = codecs.open(osp.join(self.dirPath,curTime+'.json'),'wb',encoding='utf-8')
