@@ -80,7 +80,7 @@ class XinhuanetDynamicSpider(DynamicSpider):
     name='xinhuanetDynamic'
     allowed_domains=["xinhua.com","news.cn"]
     start_urls = ["http://www.xinhuanet.com"]
-    deny_domains=['sike\.news\.cn','info\.search\.news\.cn','qnssl\.com','\.jpg&','\.pdf$','\.apk$']
+    deny_domains=['sike\.news\.cn','info\.search\.news\.cn','qnssl\.com','\.jpg&','\.pdf$','\.apk$','game\.news\.cn']
     oldTime=''
     
 process = CrawlerProcess({
@@ -95,6 +95,7 @@ process = CrawlerProcess({
     'COOKIES_ENABLED ':' False',
     #'RETRY_ENABLED ':' False',
     'DOWNLOAD_TIMEOUT ':' 15',
+    'REDIRECT_ENABLED': False,
     })
 process.crawl(BBCDynamicSpider)
 process.crawl(ChinanewsDynamicSpider)

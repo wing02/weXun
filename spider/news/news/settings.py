@@ -21,16 +21,16 @@ NEWSPIDER_MODULE = 'news.spiders'
 # Obey robots.txt rules
 #ROBOTSTXT_OBEY = True
 #RETRY_ENABLED = False
-COOKIES_ENABLED = False
-DOWNLOAD_TIMEOUT = 15
-CONCURRENT_REQUESTS = 100
+#COOKIES_ENABLED = False
+#DOWNLOAD_TIMEOUT = 15
+#CONCURRENT_REQUESTS = 100
 
 ITEM_PIPELINES = {
-    'scrapy.pipelines.images.ImagesPipeline': 1,
+    #'scrapy.pipelines.images.ImagesPipeline': 1,
     'news.pipelines.JsonPipeline': 300,
 }
 
-IMAGES_STORE='../data/onceImg'
+#IMAGES_STORE='../data/onceImg'
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
 
