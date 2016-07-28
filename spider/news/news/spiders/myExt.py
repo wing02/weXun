@@ -82,6 +82,9 @@ class TextExtract(object):
                 line_len += len(lines[i+j])
             blocks.append(line_len)
         
+        if len(blocks)==0:
+            self.content=''
+            return
         #self.drawBlock(blocks)
         maxBlock=max(blocks)*2/3
         #minBlock=self.blockHeight

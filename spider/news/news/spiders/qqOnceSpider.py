@@ -43,7 +43,7 @@ class QQParser(NewsParser):
         else:
             tex=QQTextExtract(self.response.body_as_unicode())
             self.item['contentWithImg']=tex.content
-            uelf.item['image_urls']=map(self.fillPath,tex.imgs)
+            self.item['image_urls']=map(self.fillPath,tex.imgs)
 
 
 

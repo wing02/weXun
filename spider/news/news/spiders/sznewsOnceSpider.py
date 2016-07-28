@@ -17,7 +17,7 @@ import json
 class SznewsOnceSpider(scrapy.Spider):
     name='sznewsOnce'
     allowed_domains=['sznews.com']
-    start_urls = ['http://www.sznews.com/news/content/2016-07/27/content_13656228.htm']
+    start_urls = ['http://www.sznews.com/news/content/2015-08/21/content_12124960.htm']
     curTime=time.time()
 
     def parse(self, response):
