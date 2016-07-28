@@ -10,6 +10,7 @@ import os.path as osp
 from news.items import NewsItem
 import hashlib
 from news.spiders.newsSpider import NewsSpider
+import logging
 
 class DynamicSpider(NewsSpider):
     name='dynamic'
@@ -23,18 +24,19 @@ class DynamicSpider(NewsSpider):
         scrapy.Spider.__init__(self)
         dispatcher.connect(self.__del__, signals.spider_closed)
 
-        self.oldPath='../data/chgPage/'+self.name+self.oldTime+'.md5'
+        self.oldPath='../data/md5/'+self.name+self.oldTime+'_MD5.pkl'
         if os.path.isfile(self.oldPath):
             f=open(self.oldPath,'r')
             self.urlMd5=cPickle.load(f)
             f.close()
         else:
+            logging.warn(self.name+' oldTime pickle is not found')
             self.urlMd5={}
 
         self.chgUrl=set()
 
         newTime=time.strftime('%Y%m%d%H%M%S',time.localtime(self.curTime))
-        self.newPath='../data/chgPage/'+self.name+newTime+'_MD5.pkl'
+        self.newPath='../data/md5/'+self.name+newTime+'_MD5.pkl'
         self.chgUrlPath='../data/chgPage/'+self.name+'_ChgUrl.pkl'
 
     def __del__(self):
@@ -88,7 +90,7 @@ class DynamicSpider(NewsSpider):
         newMd5=getMd5(''.join(response.xpath('//a/@href').extract()).encode('u8'))
         if response.url in self.urlMd5:
             if self.urlMd5[response.url]!=newMd5:
-                chgUrl.add(response.url)
+                self.chgUrl.add(response.url)
         else:
             self.urlMd5[response.url]=newMd5
 

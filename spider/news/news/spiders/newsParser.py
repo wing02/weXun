@@ -30,7 +30,10 @@ class NewsParser(object):
         self.getSource()
         self.getReplayNum()
         self.getReadNum()
-        return self.item
+        if self.item['title']=='' or self.item['contentWithImg']=='':
+            return
+        else:
+            return self.item
 
     def getUrl(self):
         self.item['url']=self.response.url
@@ -51,7 +54,10 @@ class NewsParser(object):
                 self.item['title']=titles[0]
                 self.item['label']=titles[1]
             except:
-                self.item['title']=self.response.xpath('/html/head/title/text()').extract()[0].strip('\r\n')
+                try:
+                    self.item['title']=self.response.xpath('/html/head/title/text()').extract()[0].strip('\r\n')
+                except:
+                    pass
 
     def getLabel(self):
         pass

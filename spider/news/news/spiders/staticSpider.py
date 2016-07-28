@@ -40,6 +40,13 @@ class StaticSpider(NewsSpider):
         else:
             self.recentUrl={}
 
+        try:
+            imageStore=self.custom_settings['IMAGES_STORE']
+            if not osp.isdir(imageStore):
+                os.makedirs(imageStore)
+        except:
+            pass
+
     def __del__(self):
         f=open(self.crawledPath,'w')
         cPickle.dump(self.recentUrl,f)

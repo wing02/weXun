@@ -143,7 +143,6 @@ process = CrawlerProcess({
     'COOKIES_ENABLED ':' False',
     'RETRY_ENABLED ':' False',
     'DOWNLOAD_TIMEOUT ':' 15',
-    'REDIRECT_ENABLED ':' False',
     })
 
 process.crawl(BBCCrawlSpider)

@@ -12,46 +12,14 @@ import os.path as osp
 import codecs
 import json
 
-class NewsPipeline(object):
-    def __init__(self):
-        self.savePath='../data'
-        self.spiderName=os.getenv('SPIDER_NAME','defaultPipe')
-        #self.spiderName='xinhua'
-        curDate=time.strftime('%Y%m%d',time.localtime(time.time()))
-        curTime=time.strftime('%H%M%S',time.localtime(time.time()))
-        self.dirPath=osp.join(self.savePath,curDate,self.spiderName)
-        if not osp.isdir(self.dirPath):
-            os.makedirs(self.dirPath)
-        self.news=open(osp.join(self.dirPath,curTime),'w')
-
-    def process_item(self, item, spider):
-
-        #keys=['time','url','title','label','keyWords','source','readNum','replayNum','images','contentWithImg']
-        keys=['title','label','url']
-
-        for key in keys:
-            if not key in item:
-                item[key]=''
-
-        if 'images' in item:
-            for image in item['images']:
-                image['path']=osp.join(self.dirPath,image['path'])
-
-        line=self.connItem(item,keys,'\t')
-        self.news.write(line)
-        return item
-
-    def connItem(self,item,keys,deli):
-        values=map(lambda key:item[key] if key != 'images' else str(item[key]),keys)
-        return (deli.join(values)+'\n').encode('u8')
-
 class JsonPipeline(object):
     def open_spider(self,spider):
         self.savePath='../data'
         self.spiderName=spider.name
         curDate=time.strftime('%Y%m%d',time.localtime(time.time()))
         curTime=time.strftime('%H%M%S',time.localtime(time.time()))
-        self.dirPath=osp.join(self.savePath,curDate,self.spiderName)
+        #self.dirPath=osp.join(self.savePath,curDate,self.spiderName)
+        self.dirPath=osp.join(self.savePath,curDate)
         if not osp.isdir(self.dirPath):
             os.makedirs(self.dirPath)
         self.news = codecs.open(osp.join(self.dirPath,curTime+'.json'),'wb',encoding='utf-8')
@@ -69,3 +37,35 @@ class JsonPipeline(object):
 
     def spider_closed(self, spider):
         self.news.close()
+
+#class NewsPipeline(object):
+#    def __init__(self):
+#        self.savePath='../data'
+#        self.spiderName=os.getenv('SPIDER_NAME','defaultPipe')
+#        #self.spiderName='xinhua'
+#        curDate=time.strftime('%Y%m%d',time.localtime(time.time()))
+#        curTime=time.strftime('%H%M%S',time.localtime(time.time()))
+#        self.dirPath=osp.join(self.savePath,curDate,self.spiderName)
+#        if not osp.isdir(self.dirPath):
+#            os.makedirs(self.dirPath)
+#        self.news=open(osp.join(self.dirPath,curTime),'w')
+#
+#    def process_item(self, item, spider):
+#
+#        #keys=['time','url','title','label','keyWords','source','readNum','replayNum','images','contentWithImg']
+#        keys=['title','label','url']
+#
+#        for key in keys:
+#            if not key in item:
+#                item[key]=''
+#
+#        if 'images' in item:
+#            for image in item['images']:
+#                image['path']=osp.join(self.dirPath,image['path'])
+#
+#        line=self.connItem(item,keys,'\t')
+#        self.news.write(line)
+#        return item
+#    def connItem(self,item,keys,deli):
+#        values=map(lambda key:item[key] if key != 'images' else str(item[key]),keys)
+#        return (deli.join(values)+'\n').encode('u8')

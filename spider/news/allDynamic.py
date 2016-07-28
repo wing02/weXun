@@ -46,7 +46,7 @@ class QQDynamicSpider(DynamicSpider):
     start_urls = ["http://news.qq.com/"]
     deny_domains=["v.qq.com","class.qq.com","club.auto.qq.com","db.house.qq.com","t.qq.com"]
     curTime=time.time()
-    oldTime=''
+    oldTime='20160727003159'
 
 class SinaDynamicSpider(DynamicSpider):
     name='sinaDynamic'
@@ -86,14 +86,14 @@ process = CrawlerProcess({
     }
     })
 process.crawl(BBCDynamicSpider)
-process.crawl(ChinanewsDynamicSpider)
-process.crawl(ChinaDynamicSpider)
-process.crawl(IfengDynamicSpider)
-process.crawl(PeopleDynamicSpider)
-process.crawl(QQDynamicSpider)
-process.crawl(SinaDynamicSpider)
-process.crawl(SohuDynamicSpider)
-process.crawl(SznewsDynamicSpider)
+#process.crawl(ChinanewsDynamicSpider)
+#process.crawl(ChinaDynamicSpider)
+#process.crawl(IfengDynamicSpider)
+#process.crawl(PeopleDynamicSpider)
+#process.crawl(QQDynamicSpider)
+#process.crawl(SinaDynamicSpider)
+#process.crawl(SohuDynamicSpider)
+#process.crawl(SznewsDynamicSpider)
 process.crawl(WangyiDynamicSpider)
-process.crawl(XinhuanetDynamicSpider)
+#process.crawl(XinhuanetDynamicSpider)
 process.start()
