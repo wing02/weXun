@@ -27,6 +27,10 @@ class BBCStaticSpider(StaticSpider):
     deny_domains=[]
     curTime=time.time()
     days=1
+    custom_settings={
+        'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(curTime)),name),
+        'REDIRECT_ENABLED': True,
+    }
     def isNews(self,url):
         result=re.search('/(20\d{2})/([01]\d)/\d{4}([0123]\d)/',url)
         if result:
@@ -182,11 +186,11 @@ process = CrawlerProcess({
         },
     #'IMAGES_STORE':imageStore,
     'LOG_LEVEL' : 'INFO',
-    'CONCURRENT_REQUESTS ':'100',
-    'REACTOR_THREADPOOL_MAXSIZE ':'20',
-    'COOKIES_ENABLED ':'False',
-    #'RETRY_ENABLED ':' False',
-    'DOWNLOAD_TIMEOUT ':'15',
+    'CONCURRENT_REQUESTS ':100,
+    'REACTOR_THREADPOOL_MAXSIZE':20,
+    'COOKIES_ENABLED':False,
+    'RETRY_ENABLED':True,#
+    'DOWNLOAD_TIMEOUT':15,
     'REDIRECT_ENABLED': False,
     })
 

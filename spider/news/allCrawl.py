@@ -17,6 +17,9 @@ class BBCCrawlSpider(CrawlSpider):
         Rule(LinkExtractor(allow=('/(20\d{2})/([01]\d)/\d{4}([0123]\d)', )), follow=True, callback='parse_item'),
         Rule(LinkExtractor(allow=('.', )) ),
     )
+    custom_settings={
+        'REDIRECT_ENABLED': True,
+    }
     def isNews(self,url):
         result=re.search('/(20\d{2})/([01]\d)/\d{4}([0123]\d)/',url)
         if result:
@@ -146,11 +149,11 @@ process = CrawlerProcess({
     'DEPTH_LIMIT':5,
     'AUTOTHROTTLE_ENABLED':True,
     'LOG_LEVEL' : 'INFO',
-    'CONCURRENT_REQUESTS ':' 100',
-    'REACTOR_THREADPOOL_MAXSIZE ':' 20',
-    'COOKIES_ENABLED ':' False',
-    'RETRY_ENABLED ':' False',
-    'DOWNLOAD_TIMEOUT ':' 15',
+    'CONCURRENT_REQUESTS':100,
+    'REACTOR_THREADPOOL_MAXSIZE':20,
+    'COOKIES_ENABLED':False,
+    'RETRY_ENABLED':True,
+    'DOWNLOAD_TIMEOUT':15,
     'REDIRECT_ENABLED': False,
     })
 

@@ -15,6 +15,9 @@ class BBCDynamicSpider(DynamicSpider):
         result=re.search('/(20\d{2})/([01]\d)/\d{4}([0123]\d)',url)
         if result:
             return result.group(1)+result.group(2)+result.group(3)
+    custom_settings={
+        'REDIRECT_ENABLED': True,
+    }
 
 class ChinaDynamicSpider(DynamicSpider):
     name='chinaDynamic'
@@ -44,7 +47,7 @@ class QQDynamicSpider(DynamicSpider):
     name='qqDynamic'
     allowed_domains=["qq.com"]
     start_urls = ["http://news.qq.com/"]
-    deny_domains=["v.qq.com","class.qq.com","club.auto.qq.com","db.house.qq.com","t.qq.com"]
+    deny_domains=["v.qq.com","class.qq.com","club.auto.qq.com","db.house.qq.com","t.qq.com"]+DynamicSpider.deny_domains
     curTime=time.time()
     oldTime='20160727003159'
 
@@ -52,6 +55,7 @@ class SinaDynamicSpider(DynamicSpider):
     name='sinaDynamic'
     allowed_domains=["sina.com.cn"]
     start_urls = ["http://news.sina.com.cn/"]
+    deny_domains=['roll.news.sina.com.cn']+DynamicSpider.deny_domains
     oldTime=''
 
 class SohuDynamicSpider(DynamicSpider):
@@ -80,7 +84,7 @@ class XinhuanetDynamicSpider(DynamicSpider):
     name='xinhuanetDynamic'
     allowed_domains=["xinhua.com","news.cn"]
     start_urls = ["http://www.xinhuanet.com"]
-    deny_domains=['sike\.news\.cn','info\.search\.news\.cn','qnssl\.com','\.jpg&','\.pdf$','\.apk$','game\.news\.cn']
+    deny_domains=['sike\.news\.cn','info\.search\.news\.cn','qnssl\.com','game\.news\.cn']+DynamicSpider.deny_domains
     oldTime=''
     
 process = CrawlerProcess({
@@ -90,11 +94,11 @@ process = CrawlerProcess({
     },
     'AUTOTHROTTLE_ENABLED':True,
     'LOG_LEVEL' : 'INFO',
-    'CONCURRENT_REQUESTS ':' 100',
-    'REACTOR_THREADPOOL_MAXSIZE ':' 20',
-    'COOKIES_ENABLED ':' False',
-    #'RETRY_ENABLED ':' False',
-    'DOWNLOAD_TIMEOUT ':' 15',
+    'CONCURRENT_REQUESTS':100,
+    'REACTOR_THREADPOOL_MAXSIZE': 20,
+    'COOKIES_ENABLED': False,
+    'RETRY_ENABLED':True,#
+    'DOWNLOAD_TIMEOUT': 15,
     'REDIRECT_ENABLED': False,
     })
 process.crawl(BBCDynamicSpider)
