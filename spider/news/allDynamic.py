@@ -12,7 +12,7 @@ class BBCDynamicSpider(DynamicSpider):
     start_urls = ["http://www.bbc.com/zhongwen/simp"]
     oldTime=''
     def isNews(self,url):
-        result=re.search('/(20\d{2})/([01]\d)/\d{4}([0123]\d)/',url)
+        result=re.search('/(20\d{2})/([01]\d)/\d{4}([0123]\d)',url)
         if result:
             return result.group(1)+result.group(2)+result.group(3)
 
@@ -85,9 +85,16 @@ class XinhuanetDynamicSpider(DynamicSpider):
     
 process = CrawlerProcess({
     'ITEM_PIPELINES' : {
-        'scrapy.pipelines.images.ImagesPipeline': 1,
-        'news.pipelines.JsonPipeline': 300,
-    }
+        #'scrapy.pipelines.images.ImagesPipeline': 1,
+        #'news.pipelines.JsonPipeline': 300,
+    },
+    'AUTOTHROTTLE_ENABLED':True,
+    'LOG_LEVEL' : 'INFO',
+    'CONCURRENT_REQUESTS ':' 100',
+    'REACTOR_THREADPOOL_MAXSIZE ':' 20',
+    'COOKIES_ENABLED ':' False',
+    #'RETRY_ENABLED ':' False',
+    'DOWNLOAD_TIMEOUT ':' 15',
     })
 process.crawl(BBCDynamicSpider)
 #process.crawl(ChinanewsDynamicSpider)

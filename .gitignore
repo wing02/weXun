@@ -4,3 +4,4 @@ simhash
 *.pickle
 w2v
 *.log
+nohup.out

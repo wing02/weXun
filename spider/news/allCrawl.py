@@ -17,6 +17,10 @@ class BBCCrawlSpider(CrawlSpider):
         Rule(LinkExtractor(allow=('/(20\d{2})/([01]\d)/\d{4}([0123]\d)', )), follow=True, callback='parse_item'),
         Rule(LinkExtractor(allow=('.', )) ),
     )
+    def isNews(self,url):
+        result=re.search('/(20\d{2})/([01]\d)/\d{4}([0123]\d)/',url)
+        if result:
+            return result.group(1)+result.group(2)+result.group(3)
     def parse_item(self, response):
         return BBCParser(response).getNewsItem()
 
@@ -116,6 +120,10 @@ class WangyiCrawlSpider(CrawlSpider):
         Rule(LinkExtractor(allow=('/(20\d{2})-?([01]\d)[-/]?([0123]\d)/', )), follow=True, callback='parse_item'),
         Rule(LinkExtractor(allow=('.', )) ),
     )
+    def isNews(self,url):
+        result=re.search('/(\d{2})/([01]\d)([0123]\d)/',url)
+        if result:
+            return '20'+result.group(1)+result.group(2)+result.group(3)
     def parse_item(self, response):
         return NewsParser(response).getNewsItem()
 
@@ -131,7 +139,7 @@ class XinhuanetCrawlSpider(CrawlSpider):
         return XinhuanetParser(response).getNewsItem()
 
 process = CrawlerProcess({
-    'USER_AGENT': 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)',
+    #'USER_AGENT': 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)',
     'ITEM_PIPELINES' :{
         'news.pipelines.JsonPipeline': 300,
         },
