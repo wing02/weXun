@@ -48,7 +48,7 @@ class ChinaStaticSpider(StaticSpider):
     custom_settings={
     'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(curTime)),name),
     }
-    def parse_item(self, response):
+    def parseNews(self, response):
         return NewsParser(response).getNewsItem()
 
 class ChinanewsStaticSpider(StaticSpider):
@@ -61,7 +61,7 @@ class ChinanewsStaticSpider(StaticSpider):
     custom_settings={
     'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(curTime)),name),
     }
-    def parse_item(self, response):
+    def parseNews(self, response):
         return ChinaNewsParser(response).getNewsItem()
 
 class IfengStaticSpider(StaticSpider):
@@ -74,7 +74,7 @@ class IfengStaticSpider(StaticSpider):
     custom_settings={
     'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(curTime)),name),
     }
-    def parse_item(self, response):
+    def parseNews(self, response):
         return NewsParser(response).getNewsItem()
 
 class PeopleStaticSpider(StaticSpider):
@@ -87,7 +87,7 @@ class PeopleStaticSpider(StaticSpider):
     custom_settings={
     'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(curTime)),name),
     }
-    def parse_item(self, response):
+    def parseNews(self, response):
         return PeopleParser(response).getNewsItem()
 
 class QQStaticSpider(StaticSpider):
@@ -113,7 +113,7 @@ class SinaStaticSpider(StaticSpider):
     custom_settings={
     'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(curTime)),name),
     }
-    def parse_item(self, response):
+    def parseNews(self, response):
         return NewsParser(response).getNewsItem()
 
 class SohuStaticSpider(StaticSpider):
@@ -126,7 +126,7 @@ class SohuStaticSpider(StaticSpider):
     custom_settings={
     'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(curTime)),name),
     }
-    def parse_item(self, response):
+    def parseNews(self, response):
         return NewsParser(response).getNewsItem()
 
 class SznewsStaticSpider(StaticSpider):
@@ -139,7 +139,7 @@ class SznewsStaticSpider(StaticSpider):
     custom_settings={
     'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(curTime)),name),
     }
-    def parse_item(self, response):
+    def parseNews(self, response):
         return NewsParser(response).getNewsItem()
 
 class WangyiStaticSpider(StaticSpider):
@@ -156,7 +156,7 @@ class WangyiStaticSpider(StaticSpider):
         result=re.search('/(\d{2})/([01]\d)([0123]\d)/',url)
         if result:
             return '20'+result.group(1)+result.group(2)+result.group(3)
-    def parse_item(self, response):
+    def parseNews(self, response):
         return NewsParser(response).getNewsItem()
 
 class XinhuanetStaticSpider(StaticSpider):
@@ -169,7 +169,7 @@ class XinhuanetStaticSpider(StaticSpider):
     custom_settings={
     'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(curTime)),name),
     }
-    def parse_item(self, response):
+    def parseNews(self, response):
         return XinhuanetParser(response).getNewsItem()
 
 
