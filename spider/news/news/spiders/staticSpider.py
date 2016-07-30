@@ -18,7 +18,7 @@ class StaticSpider(NewsSpider):
     #start_urls=cPickle.load(open('../data/chgPage/qqDynamicChg.url'))
     #start_urls=[]
     #deny_domains=[]
-    #curTime=time.time()
+    curTime=time.time()
     #days=1
 
     def __init__(self):

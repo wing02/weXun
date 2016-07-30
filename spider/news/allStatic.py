@@ -24,11 +24,10 @@ class BBCStaticSpider(StaticSpider):
     name='bbc'
     allowed_domains=["www.bbc.com"]
     start_urls=cPickle.load(open('../data/chgPage/'+name+'Dynamic_ChgUrl.pkl'))
-    deny_domains=[]
-    curTime=time.time()
+    #curTime=time.time()
     days=1
     custom_settings={
-        'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(curTime)),name),
+        'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
         'REDIRECT_ENABLED': True,
     }
     def isNews(self,url):
@@ -42,11 +41,10 @@ class ChinaStaticSpider(StaticSpider):
     name='china'
     allowed_domains=['china.com']
     start_urls=cPickle.load(open('../data/chgPage/'+name+'Dynamic_ChgUrl.pkl'))
-    deny_domains=[]
-    curTime=time.time()
+    #curTime=time.time()
     days=1
     custom_settings={
-    'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(curTime)),name),
+    'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
     }
     def parseNews(self, response):
         return NewsParser(response).getNewsItem()
@@ -55,11 +53,10 @@ class ChinanewsStaticSpider(StaticSpider):
     name='chinanews'
     allowed_domains=['chinanews.com']
     start_urls=cPickle.load(open('../data/chgPage/'+name+'Dynamic_ChgUrl.pkl'))
-    deny_domains=[]
-    curTime=time.time()
+    #curTime=time.time()
     days=1
     custom_settings={
-    'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(curTime)),name),
+    'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
     }
     def parseNews(self, response):
         return ChinaNewsParser(response).getNewsItem()
@@ -68,11 +65,10 @@ class IfengStaticSpider(StaticSpider):
     name='ifeng'
     allowed_domains=['news.ifeng.com']
     start_urls=cPickle.load(open('../data/chgPage/'+name+'Dynamic_ChgUrl.pkl'))
-    deny_domains=[]
-    curTime=time.time()
+    #curTime=time.time()
     days=1
     custom_settings={
-    'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(curTime)),name),
+    'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
     }
     def parseNews(self, response):
         return NewsParser(response).getNewsItem()
@@ -81,11 +77,10 @@ class PeopleStaticSpider(StaticSpider):
     name='people'
     allowed_domains=["people.com.cn"]
     start_urls=cPickle.load(open('../data/chgPage/'+name+'Dynamic_ChgUrl.pkl'))
-    deny_domains=[]
-    curTime=time.time()
+    #curTime=time.time()
     days=1
     custom_settings={
-    'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(curTime)),name),
+    'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
     }
     def parseNews(self, response):
         return PeopleParser(response).getNewsItem()
@@ -94,11 +89,11 @@ class QQStaticSpider(StaticSpider):
     name='qq'
     allowed_domains=["qq.com"]
     start_urls=cPickle.load(open('../data/chgPage/'+name+'Dynamic_ChgUrl.pkl'))
-    deny_domains=[]
-    curTime=time.time()
+    #curTime=time.time()
     days=1
+    deny_domains=["v.qq.com","class.qq.com","club.auto.qq.com","db.house.qq.com","t.qq.com"]+StaticSpider.deny_domains
     custom_settings={
-    'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(curTime)),name),
+    'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
     }
     def parseNews(self, response):
         return QQParser(response).getNewsItem()
@@ -107,11 +102,11 @@ class SinaStaticSpider(StaticSpider):
     name='sina'
     allowed_domains=["sina.com.cn"]
     start_urls=cPickle.load(open('../data/chgPage/'+name+'Dynamic_ChgUrl.pkl'))
-    deny_domains=[]
-    curTime=time.time()
+    #curTime=time.time()
+    deny_domains=['roll.news.sina.com.cn']+StaticSpider.deny_domains
     days=1
     custom_settings={
-    'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(curTime)),name),
+    'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
     }
     def parseNews(self, response):
         return NewsParser(response).getNewsItem()
@@ -120,11 +115,10 @@ class SohuStaticSpider(StaticSpider):
     name='sohu'
     allowed_domains=['news.sohu.com']
     start_urls=cPickle.load(open('../data/chgPage/'+name+'Dynamic_ChgUrl.pkl'))
-    deny_domains=[]
-    curTime=time.time()
+    #curTime=time.time()
     days=1
     custom_settings={
-    'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(curTime)),name),
+    'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
     }
     def parseNews(self, response):
         return NewsParser(response).getNewsItem()
@@ -133,11 +127,11 @@ class SznewsStaticSpider(StaticSpider):
     name='sznews'
     allowed_domains=['sznews.com']
     start_urls=cPickle.load(open('../data/chgPage/'+name+'Dynamic_ChgUrl.pkl'))
-    deny_domains=[]
-    curTime=time.time()
+    deny_domains=['sike\.news\.cn','info\.search\.news\.cn','qnssl\.com','game\.news\.cn']+StaticSpider.deny_domains
+    #curTime=time.time()
     days=1
     custom_settings={
-    'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(curTime)),name),
+    'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
     }
     def parseNews(self, response):
         return NewsParser(response).getNewsItem()
@@ -146,11 +140,10 @@ class WangyiStaticSpider(StaticSpider):
     name='wangyi'
     allowed_domains=['news.163.com']
     start_urls=cPickle.load(open('../data/chgPage/'+name+'Dynamic_ChgUrl.pkl'))
-    deny_domains=[]
-    curTime=time.time()
+    #curTime=time.time()
     days=1
     custom_settings={
-    'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(curTime)),name),
+    'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
     }
     def isNews(self,url):
         result=re.search('/(\d{2})/([01]\d)([0123]\d)/',url)
@@ -163,11 +156,10 @@ class XinhuanetStaticSpider(StaticSpider):
     name='xinhuanet'
     allowed_domains=["xinhua.com","news.cn"]
     start_urls=cPickle.load(open('../data/chgPage/'+name+'Dynamic_ChgUrl.pkl'))
-    deny_domains=[]
-    curTime=time.time()
+    #curTime=time.time()
     days=1
     custom_settings={
-    'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(curTime)),name),
+    'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
     }
     def parseNews(self, response):
         return XinhuanetParser(response).getNewsItem()
@@ -185,7 +177,7 @@ process = CrawlerProcess({
         'news.pipelines.JsonPipeline': 300,
         },
     #'IMAGES_STORE':imageStore,
-    'LOG_LEVEL' : 'INFO',
+    #'LOG_LEVEL' : 'INFO',
     'CONCURRENT_REQUESTS ':100,
     'REACTOR_THREADPOOL_MAXSIZE':20,
     'COOKIES_ENABLED':False,

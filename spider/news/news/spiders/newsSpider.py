@@ -12,7 +12,7 @@ import hashlib
 
 class NewsSpider(scrapy.Spider):
 
-    deny_domains=['\.jpg$','\.pdf$','\.apk$','\.swf$','\.rar$','\.doc$']
+    deny_domains=['\.jpg$','\.pdf$','\.apk$','\.swf$','\.rar$','\.doc$','\.bmp$']
 
     def isNews(self,url):
         result=re.search('/(20\d{2})-?([01]\d)[-/]?([0123]\d)/',url)
