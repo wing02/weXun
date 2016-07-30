@@ -1,7 +1,9 @@
 spider/data/
 *.pyc
-simhash
+dict
 *.pickle
 w2v
 *.log
 nohup.out
+getSimhash.so
+
