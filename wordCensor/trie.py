@@ -2,16 +2,21 @@
 class Trie:
     root = dict()
 
-    def insert(self, string):
+    def insert(self, string,senType):
         index, node = self.findLastNode(string)
         for char in string[index:]:
             new_node = dict()
             node[char] = new_node
             node = new_node
+        node['type']=senType
 
     def find(self, string):
         index, node = self.findLastNode(string)
-        return (index == len(string))
+        if index <= len(string):
+            if 'type' in node:
+                return node['type']
+        return False
+        #return (index == len(string))
 
     def findLastNode(self, string):
         '''

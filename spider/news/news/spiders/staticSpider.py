@@ -19,6 +19,7 @@ class StaticSpider(NewsSpider):
     #start_urls=[]
     #deny_domains=[]
     curTime=time.time()
+    strfCur=int(time.strftime('%Y%m%d%H%M%S',time.localtime(self.curTime)))
     #days=1
 
     def __init__(self):
@@ -61,6 +62,7 @@ class StaticSpider(NewsSpider):
             if newsDate:
                 if self.isInTime(newsDate):
                     if not url in self.recentUrl:
+                        self.recentUrl[url]=self.strfCur
                         yield scrapy.Request(url,callback=self.parseNews)
 
 
