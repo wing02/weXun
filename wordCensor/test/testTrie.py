@@ -1,4 +1,5 @@
 #coding=utf-8
+
 from trie import Trie
 
 trie=Trie()

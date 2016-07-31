@@ -177,6 +177,9 @@ process = CrawlerProcess({
         'news.pipelines.JsonPipeline': 300,
         },
     #'IMAGES_STORE':imageStore,
+    'IMAGES_THUMBS' : {
+            'small': (172, 120),
+                },
     #'LOG_LEVEL' : 'INFO',
     'CONCURRENT_REQUESTS ':100,
     'REACTOR_THREADPOOL_MAXSIZE':20,

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import scrapy
 from scrapy.crawler import CrawlerProcess
 from news.spiders.dynamicSpider import DynamicSpider

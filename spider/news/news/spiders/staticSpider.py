@@ -19,7 +19,7 @@ class StaticSpider(NewsSpider):
     #start_urls=[]
     #deny_domains=[]
     curTime=time.time()
-    strfCur=int(time.strftime('%Y%m%d%H%M%S',time.localtime(self.curTime)))
+    strfCur=int(time.strftime('%Y%m%d%H%M%S',time.localtime(curTime)))
     #days=1
 
     def __init__(self):

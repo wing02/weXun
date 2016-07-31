@@ -1,6 +1,7 @@
-
+#codeing=utf-8
 class Trie:
-    root = dict()
+    def __init__(self):
+        self.root = dict()
 
     def insert(self, string,senType):
         index, node = self.findLastNode(string)

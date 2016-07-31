@@ -6,4 +6,4 @@ w2v
 *.log
 nohup.out
 getSimhash.so
-
+trie.pkl
