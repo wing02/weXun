@@ -9,7 +9,7 @@ import re
 
 class BBCDynamicSpider(DynamicSpider):
     name='bbcDynamic'
-    allowed_domains=["www.bbc.com"]
+    allowed_domains=["bbc.com"]
     start_urls = ["http://www.bbc.com/zhongwen/simp"]
     #oldTime=''
     def isNews(self,url):
@@ -61,7 +61,7 @@ class SinaDynamicSpider(DynamicSpider):
 
 class SohuDynamicSpider(DynamicSpider):
     name='sohuDynamic'
-    allowed_domains=['news.sohu.com']
+    allowed_domains=['sohu.com']
     start_urls = ['http://news.sohu.com/']
     #oldTime=''
 
@@ -73,7 +73,7 @@ class SznewsDynamicSpider(DynamicSpider):
 
 class WangyiDynamicSpider(DynamicSpider):
     name='wangyiDynamic'
-    allowed_domains=['news.163.com']
+    allowed_domains=['163.com']
     start_urls = ['http://news.163.com/']
     #oldTime=''
     def isNews(self,url):
@@ -102,7 +102,7 @@ process = CrawlerProcess({
     'DOWNLOAD_TIMEOUT': 15,
     'REDIRECT_ENABLED': False,
     })
-process.crawl(BBCDynamicSpider)
+#process.crawl(BBCDynamicSpider)
 process.crawl(ChinanewsDynamicSpider)
 process.crawl(ChinaDynamicSpider)
 process.crawl(IfengDynamicSpider)
