@@ -94,7 +94,7 @@ process = CrawlerProcess({
         #'news.pipelines.JsonPipeline': 300,
     },
     'AUTOTHROTTLE_ENABLED':True,
-    'LOG_LEVEL' : 'INFO',
+    #'LOG_LEVEL' : 'INFO',
     'CONCURRENT_REQUESTS':100,
     'REACTOR_THREADPOOL_MAXSIZE': 20,
     'COOKIES_ENABLED': False,

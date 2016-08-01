@@ -32,7 +32,7 @@ class ChinaCrawlSpider(CrawlSpider):
     allowed_domains=['china.com']
     start_urls = ['http://news.china.com/']
     rules = (
-        Rule(LinkExtractor(allow=('/(20\d{2})-?([01]\d)[-/]?([0123]\d)/', )), follow=True, callback='parse_item'),
+        Rule(LinkExtractor(allow=('/(20\d{2})[-/]?([01]\d)[-/]?([0123]\d)/', )), follow=True, callback='parse_item'),
         Rule(LinkExtractor(allow=('.', )) ),
     )
     def parse_item(self, response):
@@ -43,7 +43,7 @@ class ChinanewsCrawlSpider(CrawlSpider):
     allowed_domains=['chinanews.com']
     start_urls = ['http://www.chinanews.com/gn/2016/07-25/7951231.shtml']
     rules = (
-        Rule(LinkExtractor(allow=('/(20\d{2})-?([01]\d)[-/]?([0123]\d)/', )), follow=True, callback='parse_item'),
+        Rule(LinkExtractor(allow=('/(20\d{2})[-/]?([01]\d)[-/]?([0123]\d)/', )), follow=True, callback='parse_item'),
         Rule(LinkExtractor(allow=('.', )) ),
     )
     def parse_item(self, response):
@@ -54,7 +54,7 @@ class IfengCrawlSpider(CrawlSpider):
     allowed_domains=['news.ifeng.com']
     start_urls = ['http://news.ifeng.com/']
     rules = (
-        Rule(LinkExtractor(allow=('/(20\d{2})-?([01]\d)[-/]?([0123]\d)/', )), follow=True, callback='parse_item'),
+        Rule(LinkExtractor(allow=('/(20\d{2})[-/]?([01]\d)[-/]?([0123]\d)/', )), follow=True, callback='parse_item'),
         Rule(LinkExtractor(allow=('.', )) ),
     )
     def parse_item(self, response):
@@ -65,7 +65,7 @@ class PeopleCrawlSpider(CrawlSpider):
     allowed_domains=["people.com.cn"]
     start_urls = ["http://www.people.com.cn"]
     rules = (
-        Rule(LinkExtractor(allow=('/(20\d{2})-?([01]\d)[-/]?([0123]\d)/', )), follow=True, callback='parse_item'),
+        Rule(LinkExtractor(allow=('/(20\d{2})[-/]?([01]\d)[-/]?([0123]\d)/', )), follow=True, callback='parse_item'),
         Rule(LinkExtractor(allow=('.', )) ),
     )
     def parse_item(self, response):
@@ -76,7 +76,7 @@ class QQCrawlSpider(CrawlSpider):
     allowed_domains=["qq.com"]
     start_urls = ["http://news.qq.com/a/20160725/029157.htm"]
     rules = (
-        Rule(LinkExtractor(allow=('/(20\d{2})-?([01]\d)[-/]?([0123]\d)/', )), follow=True, callback='parse_item'),
+        Rule(LinkExtractor(allow=('/(20\d{2})[-/]?([01]\d)[-/]?([0123]\d)/', )), follow=True, callback='parse_item'),
         Rule(LinkExtractor(allow=('.', )) ),
     )
     def parse_item(self, response):
@@ -87,7 +87,7 @@ class SinaCrawlSpider(CrawlSpider):
     allowed_domains=["sina.com.cn"]
     start_urls = ["http://news.sina.com.cn/"]
     rules = (
-        Rule(LinkExtractor(allow=('/(20\d{2})-?([01]\d)[-/]?([0123]\d)/', )), follow=True, callback='parse_item'),
+        Rule(LinkExtractor(allow=('/(20\d{2})[-/]?([01]\d)[-/]?([0123]\d)/', )), follow=True, callback='parse_item'),
         Rule(LinkExtractor(allow=('.', )) ),
     )
     def parse_item(self, response):
@@ -98,7 +98,7 @@ class SohuCrawlSpider(CrawlSpider):
     allowed_domains=['news.sohu.com']
     start_urls = ['http://news.sohu.com/']
     rules = (
-        Rule(LinkExtractor(allow=('/(20\d{2})-?([01]\d)[-/]?([0123]\d)/', )), follow=True, callback='parse_item'),
+        Rule(LinkExtractor(allow=('/(20\d{2})[-/]?([01]\d)[-/]?([0123]\d)/', )), follow=True, callback='parse_item'),
         Rule(LinkExtractor(allow=('.', )) ),
     )
     def parse_item(self, response):
@@ -109,7 +109,7 @@ class SznewsCrawlSpider(CrawlSpider):
     allowed_domains=['sznews.com']
     start_urls = ['http://www.sznews.com/']
     rules = (
-        Rule(LinkExtractor(allow=('/(20\d{2})-?([01]\d)[-/]?([0123]\d)/', )), follow=True, callback='parse_item'),
+        Rule(LinkExtractor(allow=('/(20\d{2})[-/]?([01]\d)[-/]?([0123]\d)/', )), follow=True, callback='parse_item'),
         Rule(LinkExtractor(allow=('.', )) ),
     )
     def parse_item(self, response):
@@ -135,7 +135,7 @@ class XinhuanetCrawlSpider(CrawlSpider):
     allowed_domains=["xinhua.com","news.cn"]
     start_urls = ["http://www.xinhuanet.com"]
     rules = (
-        Rule(LinkExtractor(allow=('/(20\d{2})-?([01]\d)[-/]?([0123]\d)/', )), follow=True, callback='parse_item'),
+        Rule(LinkExtractor(allow=('/(20\d{2})[-/]?([01]\d)[-/]?([0123]\d)/', )), follow=True, callback='parse_item'),
         Rule(LinkExtractor(allow=('.', )) ),
     )
     def parse_item(self, response):

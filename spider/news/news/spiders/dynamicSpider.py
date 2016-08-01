@@ -88,8 +88,10 @@ class DynamicSpider(NewsSpider):
         if response.url in self.urlMd5:
             if self.urlMd5[response.url]!=newMd5:
                 self.chgUrl.add(response.url)
+                logging.debug('Add a chgUrl:'+response.url)
         else:
             self.urlMd5[response.url]=newMd5
+            logging.debug('Add a md5 Url:'+response.url)
 
 
 def getMd5(links):
