@@ -35,7 +35,9 @@ class BBCStaticSpider(StaticSpider):
         if result:
             return result.group(1)+result.group(2)+result.group(3)
     def parseNews(self, response):
-        return BBCParser(response).getNewsItem()
+        yield BBCParser(response).getNewsItem()
+        for url in self.allNewsUrl(response):
+            yield scrapy.Request(url,callback=self.parseNews)
 
 class ChinaStaticSpider(StaticSpider):
     name='china'
@@ -47,7 +49,9 @@ class ChinaStaticSpider(StaticSpider):
     'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
     }
     def parseNews(self, response):
-        return NewsParser(response).getNewsItem()
+        yield NewsParser(response).getNewsItem()
+        for url in self.allNewsUrl(response):
+            yield scrapy.Request(url,callback=self.parseNews)
 
 class ChinanewsStaticSpider(StaticSpider):
     name='chinanews'
@@ -59,7 +63,9 @@ class ChinanewsStaticSpider(StaticSpider):
     'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
     }
     def parseNews(self, response):
-        return ChinaNewsParser(response).getNewsItem()
+        yield ChinaNewsParser(response).getNewsItem()
+        for url in self.allNewsUrl(response):
+            yield scrapy.Request(url,callback=self.parseNews)
 
 class IfengStaticSpider(StaticSpider):
     name='ifeng'
@@ -71,7 +77,9 @@ class IfengStaticSpider(StaticSpider):
     'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
     }
     def parseNews(self, response):
-        return NewsParser(response).getNewsItem()
+        yield NewsParser(response).getNewsItem()
+        for url in self.allNewsUrl(response):
+            yield scrapy.Request(url,callback=self.parseNews)
 
 class PeopleStaticSpider(StaticSpider):
     name='people'
@@ -83,7 +91,9 @@ class PeopleStaticSpider(StaticSpider):
     'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
     }
     def parseNews(self, response):
-        return PeopleParser(response).getNewsItem()
+        yield PeopleParser(response).getNewsItem()
+        for url in self.allNewsUrl(response):
+            yield scrapy.Request(url,callback=self.parseNews)
 
 class QQStaticSpider(StaticSpider):
     name='qq'
@@ -96,7 +106,9 @@ class QQStaticSpider(StaticSpider):
     'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
     }
     def parseNews(self, response):
-        return QQParser(response).getNewsItem()
+        yield QQParser(response).getNewsItem()
+        for url in self.allNewsUrl(response):
+            yield scrapy.Request(url,callback=self.parseNews)
 
 class SinaStaticSpider(StaticSpider):
     name='sina'
@@ -109,7 +121,9 @@ class SinaStaticSpider(StaticSpider):
     'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
     }
     def parseNews(self, response):
-        return NewsParser(response).getNewsItem()
+        yield NewsParser(response).getNewsItem()
+        for url in self.allNewsUrl(response):
+            yield scrapy.Request(url,callback=self.parseNews)
 
 class SohuStaticSpider(StaticSpider):
     name='sohu'
@@ -121,7 +135,9 @@ class SohuStaticSpider(StaticSpider):
     'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
     }
     def parseNews(self, response):
-        return NewsParser(response).getNewsItem()
+        yield NewsParser(response).getNewsItem()
+        for url in self.allNewsUrl(response):
+            yield scrapy.Request(url,callback=self.parseNews)
 
 class SznewsStaticSpider(StaticSpider):
     name='sznews'
@@ -134,7 +150,9 @@ class SznewsStaticSpider(StaticSpider):
     'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
     }
     def parseNews(self, response):
-        return NewsParser(response).getNewsItem()
+        yield NewsParser(response).getNewsItem()
+        for url in self.allNewsUrl(response):
+            yield scrapy.Request(url,callback=self.parseNews)
 
 class WangyiStaticSpider(StaticSpider):
     name='wangyi'
@@ -150,7 +168,9 @@ class WangyiStaticSpider(StaticSpider):
         if result:
             return '20'+result.group(1)+result.group(2)+result.group(3)
     def parseNews(self, response):
-        return NewsParser(response).getNewsItem()
+        yield NewsParser(response).getNewsItem()
+        for url in self.allNewsUrl(response):
+            yield scrapy.Request(url,callback=self.parseNews)
 
 class XinhuanetStaticSpider(StaticSpider):
     name='xinhuanet'
@@ -162,7 +182,9 @@ class XinhuanetStaticSpider(StaticSpider):
     'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
     }
     def parseNews(self, response):
-        return XinhuanetParser(response).getNewsItem()
+        yield XinhuanetParser(response).getNewsItem()
+        for url in self.allNewsUrl(response):
+            yield scrapy.Request(url,callback=self.parseNews)
 
 
 #date=time.strftime('%Y%m%d',time.localtime(time.time()))

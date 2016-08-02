@@ -54,6 +54,21 @@ class StaticSpider(NewsSpider):
         f.close()
 
     def parse(self,response):
+        for url in self.allNewsUrl(response):
+            yield scrapy.Request(url,callback=self.parseNews)
+
+#        for url in response.xpath("//a/@href").extract():
+#            if self.isDenyDomains(url):
+#                continue
+#            url=self.fillPath(url,response)
+#            newsDate=self.isNews(url)
+#            if newsDate:
+#                if self.isInTime(newsDate):
+#                    if not url in self.recentUrl:
+#                        self.recentUrl[url]=self.strfCur
+#                        yield scrapy.Request(url,callback=self.parseNews)
+
+    def allNewsUrl(self,response):
         for url in response.xpath("//a/@href").extract():
             if self.isDenyDomains(url):
                 continue
@@ -63,7 +78,7 @@ class StaticSpider(NewsSpider):
                 if self.isInTime(newsDate):
                     if not url in self.recentUrl:
                         self.recentUrl[url]=self.strfCur
-                        yield scrapy.Request(url,callback=self.parseNews)
+                        yield url
 
 
     def isInTime(self,date):

@@ -9,7 +9,7 @@ class Uniquer(object):
 
     def __init__(self):
         self.hashLen=16#as hex
-        self.db = MySQLdb.connect("localhost","wexun","wexun","simhash" )
+        self.db = MySQLdb.connect("localhost","wexun","wexun","test" )
         self.cursor = self.db.cursor()
 
     def __del__(self):

@@ -1,30 +1,31 @@
 /*CREATE USER 'wexun'@'localhost' IDENTIFIED BY 'wexun';*/
-DROP DATABASE IF EXISTS simhash;
-CREATE DATABASE simhash;
-GRANT ALL ON SIMHASH.* TO 'wexun'@'localhost';
+/*GRANT ALL ON test.* TO 'wexun'@'localhost';*/
+/*FLUSH PRIVILEGES;*/
+/*DROP DATABASE IF EXISTS test;*/
+/*CREATE DATABASE test;*/
 
-USE SIMHASH;
+/*USE test;*/
 CREATE TABLE item0
 (
     item SMALLINT UNSIGNED,
-    other VARCHAR(600),
+    other VARCHAR(20000),
     PRIMARY KEY(item)
 );
 CREATE TABLE item1
 (
     item SMALLINT UNSIGNED,
-    other VARCHAR(600),
+    other VARCHAR(20000),
     PRIMARY KEY(item)
 );
 CREATE TABLE item2
 (
     item SMALLINT UNSIGNED,
-    other VARCHAR(600),
+    other VARCHAR(20000),
     PRIMARY KEY(item)
 );
 CREATE TABLE item3
 (
     item SMALLINT UNSIGNED,
-    other VARCHAR(600),
+    other VARCHAR(20000),
     PRIMARY KEY(item)
 );
