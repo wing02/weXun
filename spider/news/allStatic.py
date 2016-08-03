@@ -20,24 +20,24 @@ from news.spiders.peopleOnceSpider import PeopleParser
 from news.spiders.xinhuanetOnceSpider import XinhuanetParser
 import json
 
-class BBCStaticSpider(StaticSpider):
-    name='bbc'
-    allowed_domains=["www.bbc.com"]
-    start_urls=cPickle.load(open('../data/chgPage/'+name+'Dynamic_ChgUrl.pkl'))
-    #curTime=time.time()
-    days=1
-    custom_settings={
-        'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
-        'REDIRECT_ENABLED': True,
-    }
-    def isNews(self,url):
-        result=re.search('/(20\d{2})/([01]\d)/\d{4}([0123]\d)/',url)
-        if result:
-            return result.group(1)+result.group(2)+result.group(3)
-    def parseNews(self, response):
-        yield BBCParser(response).getNewsItem()
-        for url in self.allNewsUrl(response):
-            yield scrapy.Request(url,callback=self.parseNews)
+#class BBCStaticSpider(StaticSpider):
+#    name='bbc'
+#    allowed_domains=["www.bbc.com"]
+#    start_urls=cPickle.load(open('../data/chgPage/'+name+'Dynamic_ChgUrl.pkl'))
+#    #curTime=time.time()
+#    days=1
+#    custom_settings={
+#        'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
+#        'REDIRECT_ENABLED': True,
+#    }
+#    def isNews(self,url):
+#        result=re.search('/(20\d{2})/([01]\d)/\d{4}([0123]\d)/',url)
+#        if result:
+#            return result.group(1)+result.group(2)+result.group(3)
+#    def parseNews(self, response):
+#        yield BBCParser(response).getNewsItem()
+#        for url in self.allNewsUrl(response):
+#            yield scrapy.Request(url,callback=self.parseNews)
 
 class ChinaStaticSpider(StaticSpider):
     name='china'
@@ -202,7 +202,7 @@ process = CrawlerProcess({
     'IMAGES_THUMBS' : {
             'small': (172, 120),
                 },
-    #'LOG_LEVEL' : 'INFO',
+    'LOG_LEVEL' : 'INFO',
     'CONCURRENT_REQUESTS ':100,
     'REACTOR_THREADPOOL_MAXSIZE':20,
     'COOKIES_ENABLED':False,
@@ -211,7 +211,7 @@ process = CrawlerProcess({
     'REDIRECT_ENABLED': False,
     })
 
-process.crawl(BBCStaticSpider)
+#process.crawl(BBCStaticSpider)
 process.crawl(ChinanewsStaticSpider)
 process.crawl(ChinaStaticSpider)
 process.crawl(IfengStaticSpider)

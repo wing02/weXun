@@ -29,16 +29,18 @@ class StaticSpider(NewsSpider):
         self.dateRange=[time.strftime('%Y%m%d',time.localtime(self.curTime-i*24*60*60)) for i in range(self.days)]
         self.crawledPath='../data/recent/'+self.name+'.pkl'
 
-        if os.path.isfile(self.crawledPath):
+        # 2 day 
+        outTime=int(time.strftime('%Y%m%d%H%M%S',time.localtime(self.curTime-2*24*60*60)))
+        #if os.path.isfile(self.crawledPath):
+        try: 
             f=open(self.crawledPath,'r')
             self.recentUrl=cPickle.load(f)
             f.close()
-            # 2 day 
-            outTime=int(time.strftime('%Y%m%d%H%M%S',time.localtime(self.curTime-2*24*60*60)))
             for url,t in self.recentUrl.items():
                 if t < outTime:
                     self.recentUrl.pop(url)
-        else:
+        #else:
+        except:
             self.recentUrl={}
 
         try:
