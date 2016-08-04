@@ -11,13 +11,23 @@ class Trie:
             node = new_node
         node['type']=senType
 
-    def find(self, string):
-        index, node = self.findLastNode(string)
-        if index <= len(string):
-            if 'type' in node:
-                return node['type']
-        return False
-        #return (index == len(string))
+    #def find(self, string):
+    #    index, node = self.findLastNode(string)
+    #    if index <= len(string):
+    #        if 'type' in node:
+    #            return node['type']
+    #    return False
+    #    #return (index == len(string))
+    def find(self,string,start):
+        node=self.root
+        for index in range(len(string)-start):
+            char=string[index]
+            if char in node:
+                if 'type' in node[char]:
+                    return (string[start:start+index+1],node[char]['type'])
+                node=node[char]
+            else:
+                return None
 
     def findLastNode(self, string):
         '''

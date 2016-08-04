@@ -9,6 +9,7 @@ import os
 import os.path as osp
 from news.items import NewsItem
 import hashlib
+from news.spiders.newsParser import NewsParser
 
 class NewsSpider(scrapy.Spider):
 
@@ -20,29 +21,31 @@ class NewsSpider(scrapy.Spider):
             return result.group(1)+result.group(2)+result.group(3)
 
     def fillPath(self,shortUrl,response):
-        result=re.search('(https?://.*/)',response.url)
-        if result:
-            prePath=result.group(1)
-            domainPath=re.search('(https?://.*?)/',response.url).group(1)
-        else:
-            prePath=response.url+'/'
-            domainPath=response.url
+        return NewsParser(response).fillPath(shortUrl)
 
-        if shortUrl[:4]=='http':
-            return self.simpleUrl(shortUrl)
-        elif shortUrl[:1]=='/':
-            return self.simpleUrl(domainPath+shortUrl)
-        else:
-            return self.simpleUrl(prePath+shortUrl)
+#        result=re.search('(https?://.*/)',response.url)
+#        if result:
+#            prePath=result.group(1)
+#            domainPath=re.search('(https?://.*?)/',response.url).group(1)
+#        else:
+#            prePath=response.url+'/'
+#            domainPath=response.url
+#
+#        if shortUrl[:4]=='http':
+#            return self.simpleUrl(shortUrl)
+#        elif shortUrl[:1]=='/':
+#            return self.simpleUrl(domainPath+shortUrl)
+#        else:
+#            return self.simpleUrl(prePath+shortUrl)
     
     def isDenyDomains(self,url):
         for reg in self.deny_domains:
             if re.search(reg,url,re.I):
                 return True
             
-    def simpleUrl(self,url):
-        url=re.sub('/\./','/',url)
-        num=1
-        while num:
-            url,num=re.subn('[^/^.]+/\.\./','',url)
-        return url
+#    def simpleUrl(self,url):
+#        url=re.sub('/\./','/',url)
+#        num=1
+#        while num:
+#            url,num=re.subn('[^/^.]+/\.\./','',url)
+#        return url

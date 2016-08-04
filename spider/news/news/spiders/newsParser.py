@@ -17,10 +17,11 @@ class NewsParser(object):
 
     def __init__(self,response):
         self.response=response
-        try:
-            self.prePath=re.search('(https?://.*/)',response.url).group(1)
+        result=re.search('(https?://.*/)',response.url)
+        if result:
+            self.prePath=result.group(1)
             self.domainPath=re.search('(https?://.*?)/',response.url).group(1)
-        except:
+        else:
             self.prePath=response.url+'/'
             self.domainPath=response.url
 
@@ -96,9 +97,15 @@ class NewsParser(object):
 
     def fillPath(self,shortUrl):
         if shortUrl[:4]=='http':
-            return shortUrl
+            return self.simpleUrl(shortUrl)
         elif shortUrl[:1]=='/':
-            return self.domainPath+shortUrl
+            return self.simpleUrl(self.domainPath+shortUrl)
         else:
-            return self.prePath+shortUrl
+            return self.simpleUrl(self.prePath+shortUrl)
 
+    def simpleUrl(self,url):
+        url=re.sub('/\./','/',url)
+        num=1
+        while num:
+            url,num=re.subn('[^/^.]+/\.\./','',url)
+        return url
