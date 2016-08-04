@@ -7,18 +7,18 @@ import os
 import os.path as osp
 import re
 
-class BBCDynamicSpider(DynamicSpider):
-    name='bbcDynamic'
-    allowed_domains=["bbc.com"]
-    start_urls = ["http://www.bbc.com/zhongwen/simp"]
-    #oldTime=''
-    def isNews(self,url):
-        result=re.search('/(20\d{2})/([01]\d)/\d{4}([0123]\d)',url)
-        if result:
-            return result.group(1)+result.group(2)+result.group(3)
-    custom_settings={
-        'REDIRECT_ENABLED': True,
-    }
+#class BBCDynamicSpider(DynamicSpider):
+#    name='bbcDynamic'
+#    allowed_domains=["bbc.com"]
+#    start_urls = ["http://www.bbc.com/zhongwen/simp"]
+#    #oldTime=''
+#    def isNews(self,url):
+#        result=re.search('/(20\d{2})/([01]\d)/\d{4}([0123]\d)',url)
+#        if result:
+#            return result.group(1)+result.group(2)+result.group(3)
+#    custom_settings={
+#        'REDIRECT_ENABLED': True,
+#    }
 
 class ChinaDynamicSpider(DynamicSpider):
     name='chinaDynamic'
@@ -34,7 +34,7 @@ class ChinanewsDynamicSpider(DynamicSpider):
     
 class IfengDynamicSpider(DynamicSpider):
     name='ifengDynamic'
-    allowed_domains=['news.ifeng.com']
+    allowed_domains=['ifeng.com']
     start_urls = ['http://news.ifeng.com/']
     #oldTime=''
 
@@ -102,7 +102,7 @@ process = CrawlerProcess({
     'DOWNLOAD_TIMEOUT': 15,
     'REDIRECT_ENABLED': False,
     })
-#process.crawl(BBCDynamicSpider)
+
 process.crawl(ChinanewsDynamicSpider)
 process.crawl(ChinaDynamicSpider)
 process.crawl(IfengDynamicSpider)

@@ -9,23 +9,23 @@ from news.spiders.qqOnceSpider import QQParser
 from news.spiders.peopleOnceSpider import PeopleParser
 from news.spiders.xinhuanetOnceSpider import XinhuanetParser
 
-class BBCCrawlSpider(CrawlSpider):
-    name='bbcCrawl'
-    allowed_domains=["www.bbc.com"]
-    start_urls = ["http://www.bbc.com/zhongwen/simp"]
-    rules = (
-        Rule(LinkExtractor(allow=('/(20\d{2})/([01]\d)/\d{4}([0123]\d)', )), follow=True, callback='parse_item'),
-        Rule(LinkExtractor(allow=('.', )) ),
-    )
-    custom_settings={
-        'REDIRECT_ENABLED': True,
-    }
-    def isNews(self,url):
-        result=re.search('/(20\d{2})/([01]\d)/\d{4}([0123]\d)/',url)
-        if result:
-            return result.group(1)+result.group(2)+result.group(3)
-    def parse_item(self, response):
-        return BBCParser(response).getNewsItem()
+#class BBCCrawlSpider(CrawlSpider):
+#    name='bbcCrawl'
+#    allowed_domains=["www.bbc.com"]
+#    start_urls = ["http://www.bbc.com/zhongwen/simp"]
+#    rules = (
+#        Rule(LinkExtractor(allow=('/(20\d{2})/([01]\d)/\d{4}([0123]\d)', )), follow=True, callback='parse_item'),
+#        Rule(LinkExtractor(allow=('.', )) ),
+#    )
+#    custom_settings={
+#        'REDIRECT_ENABLED': True,
+#    }
+#    def isNews(self,url):
+#        result=re.search('/(20\d{2})/([01]\d)/\d{4}([0123]\d)/',url)
+#        if result:
+#            return result.group(1)+result.group(2)+result.group(3)
+#    def parse_item(self, response):
+#        return BBCParser(response).getNewsItem()
 
 class ChinaCrawlSpider(CrawlSpider):
     name='chinaCrawl'
@@ -51,7 +51,7 @@ class ChinanewsCrawlSpider(CrawlSpider):
 
 class IfengCrawlSpider(CrawlSpider):
     name='ifengCrawl'
-    allowed_domains=['news.ifeng.com']
+    allowed_domains=['ifeng.com']
     start_urls = ['http://news.ifeng.com/']
     rules = (
         Rule(LinkExtractor(allow=('/(20\d{2})[-/]?([01]\d)[-/]?([0123]\d)/', )), follow=True, callback='parse_item'),
@@ -95,7 +95,7 @@ class SinaCrawlSpider(CrawlSpider):
 
 class SohuCrawlSpider(CrawlSpider):
     name='sohuCrawl'
-    allowed_domains=['news.sohu.com']
+    allowed_domains=['sohu.com']
     start_urls = ['http://news.sohu.com/']
     rules = (
         Rule(LinkExtractor(allow=('/(20\d{2})[-/]?([01]\d)[-/]?([0123]\d)/', )), follow=True, callback='parse_item'),
@@ -117,7 +117,7 @@ class SznewsCrawlSpider(CrawlSpider):
 
 class WangyiCrawlSpider(CrawlSpider):
     name='wangyiCrawl'
-    allowed_domains=['news.163.com']
+    allowed_domains=['163.com']
     start_urls = ['http://news.163.com/']
     rules = (
         Rule(LinkExtractor(allow=('/(\d{2})/([01]\d)([0123]\d)/', )), follow=True, callback='parse_item'),
@@ -157,7 +157,6 @@ process = CrawlerProcess({
     'REDIRECT_ENABLED': False,
     })
 
-process.crawl(BBCCrawlSpider)
 process.crawl(ChinanewsCrawlSpider)
 process.crawl(ChinaCrawlSpider)
 process.crawl(IfengCrawlSpider)

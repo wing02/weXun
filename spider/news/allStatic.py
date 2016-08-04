@@ -69,7 +69,7 @@ class ChinanewsStaticSpider(StaticSpider):
 
 class IfengStaticSpider(StaticSpider):
     name='ifeng'
-    allowed_domains=['news.ifeng.com']
+    allowed_domains=['ifeng.com']
     start_urls=cPickle.load(open('../data/chgPage/'+name+'Dynamic_ChgUrl.pkl'))
     #curTime=time.time()
     days=1
@@ -127,7 +127,7 @@ class SinaStaticSpider(StaticSpider):
 
 class SohuStaticSpider(StaticSpider):
     name='sohu'
-    allowed_domains=['news.sohu.com']
+    allowed_domains=['sohu.com']
     start_urls=cPickle.load(open('../data/chgPage/'+name+'Dynamic_ChgUrl.pkl'))
     #curTime=time.time()
     days=1
@@ -156,7 +156,7 @@ class SznewsStaticSpider(StaticSpider):
 
 class WangyiStaticSpider(StaticSpider):
     name='wangyi'
-    allowed_domains=['news.163.com']
+    allowed_domains=['163.com']
     start_urls=cPickle.load(open('../data/chgPage/'+name+'Dynamic_ChgUrl.pkl'))
     #curTime=time.time()
     days=1
