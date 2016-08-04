@@ -27,7 +27,8 @@ class JsonPipeline(object):
         try:
             item.pop('image_urls')
             for image in item['images']:
-                image['path']=osp.join(self.dirPath,image['path'])
+                if not self.dirPath==image['path'][:len(self.dirPath)]:
+                    image['path']=osp.join(self.dirPath,image['path'])
         except:
             pass
         line = json.dumps(dict(item), ensure_ascii=False) + "\n"

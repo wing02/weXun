@@ -29,13 +29,20 @@ class NewsSpider(scrapy.Spider):
             domainPath=response.url
 
         if shortUrl[:4]=='http':
-            return shortUrl
+            return self.simpleUrl(shortUrl)
         elif shortUrl[:1]=='/':
-            return domainPath+shortUrl
+            return self.simpleUrl(domainPath+shortUrl)
         else:
-            return prePath+shortUrl
+            return self.simpleUrl(prePath+shortUrl)
     
     def isDenyDomains(self,url):
         for reg in self.deny_domains:
             if re.search(reg,url,re.I):
                 return True
+            
+    def simpleUrl(self,url):
+        url=re.sub('/\./','/',url)
+        num=1
+        while num:
+            url,num=re.subn('[^/^.]+/\.\./','',url)
+        return url

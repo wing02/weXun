@@ -187,11 +187,6 @@ class XinhuanetStaticSpider(StaticSpider):
             yield scrapy.Request(url,callback=self.parseNews)
 
 
-#date=time.strftime('%Y%m%d',time.localtime(time.time()))
-#imageStore=osp.join('../data',date)
-#if not osp.isdir(imageStore):
-#    os.makedirs(imageStore)
-
 process = CrawlerProcess({
     'USER_AGENT': 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)',
     'ITEM_PIPELINES' :{
@@ -211,7 +206,6 @@ process = CrawlerProcess({
     'REDIRECT_ENABLED': False,
     })
 
-#process.crawl(BBCStaticSpider)
 process.crawl(ChinanewsStaticSpider)
 process.crawl(ChinaStaticSpider)
 process.crawl(IfengStaticSpider)
