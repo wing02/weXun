@@ -20,10 +20,11 @@ class NewsSpider(scrapy.Spider):
             return result.group(1)+result.group(2)+result.group(3)
 
     def fillPath(self,shortUrl,response):
-        try:
-            prePath=re.search('(https?://.*/)',response.url).group(1)
+        result=re.search('(https?://.*/)',response.url)
+        if result:
+            prePath=result.group(1)
             domainPath=re.search('(https?://.*?)/',response.url).group(1)
-        except:
+        else:
             prePath=response.url+'/'
             domainPath=response.url
 
