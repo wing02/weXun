@@ -38,11 +38,9 @@ class News2Db:
 
     def __del__(self):
         self.db.close()
-        print "Close"
+        #print "Close"
 
     def insertJson(self,jsonFile):
-        cutPath=jsonFile.split('/')
-        
         dirPath=re.search('(.*)\.json$',jsonFile).group(1)+'Content'
         if not os.path.isdir(dirPath):
             os.makedirs(dirPath)
@@ -51,27 +49,29 @@ class News2Db:
         f=open(jsonFile)
         for line in f:
             item=json.loads(line)
-            fileName=self.calcSha1(item['title'])
-            fullPath=os.path.join(dirPath,fileName)
-            #while os.path.isfile(fullPath):
-            #    fileName=self.calcSha1(fileName)
-            #    fullPath=os.path.join(dirPath,fileName)
-            with open(fullPath,'w') as content:
-                content.write(item['contentWithImg'].encode('u8'))
-                content.write('\n')
-                for image in item['images']:
-                    content.write(image["path"])
-                    content.write('\t')
-            item['contentWithImg']=fullPath
-            item['time']=item['time'][2:]
-            item['keyWords']=item['keyWords'][:50]
-            for jsKey in self.jsKeys:
-                if not jsKey in item:
-                    item[jsKey]=''
+            self.insertItem(item,dirPath)
+
+    def insertItem(self,item,dirPath):
+        fileName=self.calcSha1(item['title'])
+        fullPath=os.path.join(dirPath,fileName)
+        #while os.path.isfile(fullPath):
+        #    fileName=self.calcSha1(fileName)
+        #    fullPath=os.path.join(dirPath,fileName)
+        with open(fullPath,'w') as content:
+            content.write(item['contentWithImg'].encode('u8'))
+            content.write('\n')
+            for image in item['images']:
+                content.write(image["path"])
+                content.write('\t')
+        item['contentWithImg']=fullPath
+        item['time']=item['time'][2:]
+        item['keyWords']=item['keyWords'][:50]
+        for jsKey in self.jsKeys:
+            if not jsKey in item:
+                item[jsKey]=''
 
             sql=''' INSERT INTO News(%s) VALUES('%s')'''%(','.join(self.dbKeys),"','".join(map(lambda x:item[x],self.jsKeys)))
-            print sql
-
+            #print sql
             try:
                 self.cursor.execute(sql)
                 self.db.commit()
@@ -89,5 +89,3 @@ class News2Db:
 if __name__=="__main__":
     news2Db=News2Db()
     news2Db.insertJson("../data/20160806/sznews/183646.json")
-
-

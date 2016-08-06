@@ -4,6 +4,8 @@ import MySQLdb
 import time
 import pdb
 import sys
+import json
+import re
 
 class Uniquer(object):
 
@@ -15,8 +17,8 @@ class Uniquer(object):
     def __del__(self):
         self.db.close()
 
-    def checkNews(self,content):
-        simLong=getSimhash.getSimhash(content)
+    def checkNews(self,content,add=True):
+        simLong=getSimhash.getSimhash(content.encode('u8'))
         items=[]
         others=[]
         isUnique=True
@@ -37,7 +39,8 @@ class Uniquer(object):
                 isUnique=False
                 break
         if isUnique:
-            self.addNews(items,others,itemResults)
+            if add:
+                self.addNews(items,others,itemResults)
             return True
         else:
             return False
@@ -80,6 +83,16 @@ class Uniquer(object):
                     self.db.commit()
                 except:
                     self.db.rollback()
+
+    def checkFile(self,fileName,add=True):
+        f=open(fileName)
+        for line in f:
+            item=json.loads(line)
+            content=item['contentWithImg']
+            content=re.sub('{img}|{p}','',content)
+            if self.checkNews(content,add):
+                yield item
+        f.close()
 
 if __name__ =="__main__":
     uniquer=Uniquer()

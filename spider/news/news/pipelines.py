@@ -11,7 +11,7 @@ import os
 import os.path as osp
 import codecs
 import json
-from news.integra import Integra
+from integra.integra import Integra
 
 class JsonPipeline(object):
     def open_spider(self,spider):
@@ -43,8 +43,10 @@ class JsonPipeline(object):
     def spider_closed(self, spider):
         self.news.close()
         if spider.name in self.oCaIs:
-            Integration(self.FileName).writeFile(self.FileName,'oCaI')
+            Integra(self.FileName).writeFile(self.FileName,'oCaI')
         elif spider.name in self.aCaIs:
-            Integration(self.FileName).writeFile(self.FileName,'aCaI')
+            Integra(self.FileName).writeFile(self.FileName,'aCaI')
+
+
 
 

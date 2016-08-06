@@ -5,16 +5,15 @@ import codecs
 
 class Integra:
     def __init__(self,fileName):
-        fileName='210102.json'
         self.root=dict()
         f=open(fileName)
         for line in f:
-            js=json.loads(line)
-            title=js['title']
+            item=json.loads(line)
+            title=item['title']
             if title in self.root:
-                self.root[title].append(js)
+                self.root[title].append(item)
             else:
-                self.root[title]=[js]
+                self.root[title]=[item]
         f.close()
 
     def allNews(self,integraType):
@@ -64,7 +63,6 @@ class Integra:
             line = json.dumps(dict(item), ensure_ascii=False) + "\n"
             f.write(line)
         f.close()
-
 
 
 if __name__=="__main__":

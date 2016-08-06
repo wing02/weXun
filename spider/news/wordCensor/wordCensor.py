@@ -1,4 +1,8 @@
-#codeing=utf-8
+#coding=utf-8
+import glob
+import os.path as osp
+import re
+import cPickle
 class Trie:
     def __init__(self):
         self.root = dict()
@@ -11,20 +15,13 @@ class Trie:
             node = new_node
         node['type']=senType
 
-    #def find(self, string):
-    #    index, node = self.findLastNode(string)
-    #    if index <= len(string):
-    #        if 'type' in node:
-    #            return node['type']
-    #    return False
-    #    #return (index == len(string))
     def find(self,string,start):
         node=self.root
         for index in range(start,len(string)):
             char=string[index]
             if char in node:
                 if 'type' in node[char]:
-                    return (string[start:start+index+1],node[char]['type'])
+                    return (string[start:index+1],node[char]['type'])
                 node=node[char]
             else:
                 return None
@@ -66,13 +63,43 @@ class Trie:
     def __str__(self):
         return self.printTree(self.root, 0)
 
-if __name__ == '__main__':
-    tree = Trie()
-    while True:
-        src = input()
-        if src == '':
-            break
-        else:
-            tree.insert(src)
-        print(tree)
+    @classmethod
+    def loadTrie(cls,triePath):
+        return cPickle.load(open(triePath))
 
+    def hasSensi(self,content):
+        for i in range(len(content)):
+            result=self.find(content,i)
+            if result:
+                return result
+        
+    def saveTrie(self,triePath):
+        f=open(triePath,'wb')
+        cPickle.dump(self,f)
+        f.close()
+
+
+    def createTrie(self):
+        senTypes=['politics','sexy','adv']
+        for senType in senTypes:
+            paths=glob.glob(osp.join('sensiDict',senType,'*'))
+            for path in paths:
+                f=open(path)
+                for line in f:
+                    word=re.search('(.*)=',line).group(1).decode('u8')
+                    self.insert(word,senType)
+                    print word
+                f.close()
+
+
+if __name__=="__main__":
+    trie=Trie()
+    trie.createTrie()
+    triePath='sensitive.pkl'
+    trie.saveTrie(triePath)
+
+    newTrie=Trie.loadTrie(triePath)
+    content=u'我人有的河中办发主场不为主'
+    result= newTrie.hasSensi(content)
+    if result:
+        print result[0]
