@@ -86,14 +86,14 @@ class TextExtract(object):
             self.content=''
             return
         #self.drawBlock(blocks)
-        maxBlock=max(blocks)*2/3
+        maxBlock=max(blocks)
         #minBlock=self.blockHeight
         minBlock=10
         peaks=[]
 
         rhs=0
         for i in range(len(blocks)):
-            if blocks[i]>maxBlock:
+            if blocks[i]>=maxBlock:
                 if i<rhs:
                     continue
                 lhs=i
@@ -146,13 +146,16 @@ if __name__ == "__main__":
     #url='http://www.gov.cn/xinwen/2016-07/23/content_5094173.htm'
     #url='http://www.taiwan.cn/taiwan/jsxw/201607/t20160723_11516785.htm'
     #url='http://www.taiwan.cn/xwzx/la/201607/t20160723_11516742.htm'
-    url='http://zz.house.qq.com/a/20160724/004694.htm'
+    #url='http://zz.house.qq.com/a/20160724/004694.htm'
+    #url='http://sznews.com/zhuanti/content/2016-08/04/content_13686753_11.htm'
+    url='http://yi.china.com/tuku/11177361/20160805/23208443.html'
     #url='http://news.xinhuanet.com/politics/2016-07/24/c_1119270615.htm'
     #url='http://military.people.com.cn/n1/2016/0724/c1011-28580193.html'
     proxied_request = urllib2.urlopen(url)
 
-    content = proxied_request.read().decode('gbk')
-    #content = proxied_request.read()
+    #content = proxied_request.read().decode('gbk')
+    content = proxied_request.read()
+    #content=content.decode('gbk')
     #f=open('qq','w')
     #f.write(content.encode('u8'))
     #f.close()

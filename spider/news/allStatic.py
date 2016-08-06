@@ -10,7 +10,6 @@ import cPickle
 import os.path as osp
 from news.items import NewsItem
 import hashlib
-from news.spiders.myExt import TextExtract
 from news.spiders.staticSpider import StaticSpider
 from news.spiders.newsParser import NewsParser
 from news.spiders.bbcOnceSpider import BBCParser
@@ -86,6 +85,7 @@ class PeopleStaticSpider(StaticSpider):
     allowed_domains=["people.com.cn"]
     start_urls=cPickle.load(open('../data/chgPage/'+name+'Dynamic_ChgUrl.pkl'))
     #curTime=time.time()
+    deny_domains=["tv.people.com.cn"]+StaticSpider.deny_domains
     days=1
     custom_settings={
     'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
