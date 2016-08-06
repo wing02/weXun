@@ -197,7 +197,7 @@ process = CrawlerProcess({
     'IMAGES_THUMBS' : {
             'small': (172, 120),
                 },
-    #'LOG_LEVEL' : 'INFO',
+    'LOG_LEVEL' : 'INFO',
     'CONCURRENT_REQUESTS ':100,
     'REACTOR_THREADPOOL_MAXSIZE':20,
     'COOKIES_ENABLED':False,
@@ -206,14 +206,14 @@ process = CrawlerProcess({
     'REDIRECT_ENABLED': False,
     })
 
-#process.crawl(ChinanewsStaticSpider)
-#process.crawl(ChinaStaticSpider)
-#process.crawl(IfengStaticSpider)
-#process.crawl(PeopleStaticSpider)
-#process.crawl(QQStaticSpider)
-#process.crawl(SinaStaticSpider)
-#process.crawl(SohuStaticSpider)
+process.crawl(ChinanewsStaticSpider)
+process.crawl(ChinaStaticSpider)
+process.crawl(IfengStaticSpider)
+process.crawl(PeopleStaticSpider)
+process.crawl(QQStaticSpider)
+process.crawl(SinaStaticSpider)
+process.crawl(SohuStaticSpider)
 process.crawl(SznewsStaticSpider)
-#process.crawl(WangyiStaticSpider)
-#process.crawl(XinhuanetStaticSpider)
+process.crawl(WangyiStaticSpider)
+process.crawl(XinhuanetStaticSpider)
 process.start()

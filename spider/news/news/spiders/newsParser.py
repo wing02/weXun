@@ -61,8 +61,10 @@ class NewsParser(object):
             except:
                 try:
                     self.item['title']=self.response.xpath('/html/head/title/text()').extract()[0].strip('\r\n')
+                    self.item['label']=''
                 except:
                     self.item['title']=''
+                    self.item['label']=''
 
     def getLabel(self):
         pass

@@ -20,7 +20,7 @@ class Trie:
     #    #return (index == len(string))
     def find(self,string,start):
         node=self.root
-        for index in range(len(string)-start):
+        for index in range(start,len(string)):
             char=string[index]
             if char in node:
                 if 'type' in node[char]:
