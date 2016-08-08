@@ -7,11 +7,12 @@ import re
 import os
 import json
 import hashlib
+import conf
 
 class News2Db:
     
     def __init__(self):
-        self.db = MySQLdb.connect("localhost","wexun","wexun","test" )
+        self.db = MySQLdb.connect("localhost",conf.dbUser,conf.dbPasswd,conf.dbName )
         self.cursor = self.db.cursor()
         self.jsKeys=[
                 'url',

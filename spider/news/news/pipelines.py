@@ -11,7 +11,7 @@ import os
 import os.path as osp
 import codecs
 import json
-from integra.integra import Integra
+from integra import Integra
 
 class JsonPipeline(object):
     def open_spider(self,spider):

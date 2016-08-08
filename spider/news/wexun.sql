@@ -1,30 +1,39 @@
+CREATE USER 'wexun'@'localhost' IDENTIFIED BY 'wexun';
+GRANT ALL ON wexun.* TO 'wexun'@'localhost';
+FLUSH PRIVILEGES;
+DROP DATABASE IF EXISTS wexun;
+CREATE DATABASE wexun;
+
+USE wexun;
+
+CREATE TABLE item0
+(
+    item SMALLINT UNSIGNED,
+    other VARCHAR(20000),
+    PRIMARY KEY(item)
+);
+CREATE TABLE item1
+(
+    item SMALLINT UNSIGNED,
+    other VARCHAR(20000),
+    PRIMARY KEY(item)
+);
+CREATE TABLE item2
+(
+    item SMALLINT UNSIGNED,
+    other VARCHAR(20000),
+    PRIMARY KEY(item)
+);
+CREATE TABLE item3
+(
+    item SMALLINT UNSIGNED,
+    other VARCHAR(20000),
+    PRIMARY KEY(item)
+);
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
 /* Created on:     2016/7/22 9:45:12                            */
 /*==============================================================*/
-
-
-
-drop table if exists NewsAgency;
-
-drop table if exists NewsRecord;
-
-drop table if exists NewsReportReocrd;
-
-drop table if exists UseScans;
-
-drop table if exists User;
-
-drop table if exists UserBehavior;
-
-drop table if exists UserLoginRecord;
-
-drop table if exists Label;
-
-drop table if exists newsRecommend;
-
-drop table if exists news_label;
-
 /*==============================================================*/
 /* Table: News                                                  */
 /*==============================================================*/
