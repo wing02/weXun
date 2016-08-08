@@ -43,7 +43,7 @@ CREATE TABLE `news` (
   `agency_id` tinyint(4) DEFAULT NULL,
   `agency_name` varchar(30) DEFAULT '',
   `news_time` timestamp NULL DEFAULT NULL,
-  `news_data` varchar(50) DEFAULT '',
+  `news_data` varchar(100) DEFAULT '',
   `news_type` tinyint(11) DEFAULT '0',
   `news_imgs` varchar(200) DEFAULT '',
   `news_img_num` tinyint(11) DEFAULT '0',

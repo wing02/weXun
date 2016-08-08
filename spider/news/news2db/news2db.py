@@ -7,7 +7,6 @@ import re
 import os
 import json
 import hashlib
-import time
 import conf
 
 class News2Db:
@@ -68,17 +67,17 @@ class News2Db:
 
         item['contentWithImg']=fullPath
 
-        timeArray=time.strptime(item['time'],'%Y%m%d%H%M%S')
-        timeStamp=str(int(time.mktime(timeArray)))
-        item['time']=timeStamp
-
         item['keyWords']=item['keyWords'][:50]
+
+        result=re.search('(.*?)\?',item['url']))
+        if result:
+            item['url']=result.group(1)
 
         for jsKey in self.jsKeys:
             if not jsKey in item:
                 item[jsKey]=''
 
-            sql=''' INSERT INTO News(%s) VALUES('%s')'''%(','.join(self.dbKeys),"','".join(map(lambda x:item[x],self.jsKeys)))
+            sql=''' INSERT INTO news(%s) VALUES('%s')'''%(','.join(self.dbKeys),"','".join(map(lambda x:item[x],self.jsKeys)))
             #print sql
             try:
                 self.cursor.execute(sql)

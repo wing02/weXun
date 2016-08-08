@@ -7,6 +7,7 @@ import glob
 import re
 import os
 import time
+import logging
 
 if __name__ =="__main__":
     shellTime=sys.argv[1]
@@ -19,6 +20,7 @@ if __name__ =="__main__":
     
     curTime=time.time()
     for newsFile in newsFiles:
+        logging.info('NewsFile:'+newsFile)
 
         dirPath=re.search('(.*)\.json$',newsFile).group(1)+'Content'
         if not os.path.isdir(dirPath):
@@ -31,6 +33,7 @@ if __name__ =="__main__":
                 print result[0]
                 continue
             else:
+                print 'insert item'+item['title']
                 news2db.insertItem(item,dirPath)
 
     print time.time()-curTime
