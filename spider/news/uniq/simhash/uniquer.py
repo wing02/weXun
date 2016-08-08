@@ -92,8 +92,9 @@ class Uniquer(object):
         f=open(fileName)
         for line in f:
             item=json.loads(line)
-            content=item['contentWithImg']
-            content=re.sub('{img}|{p}','',content)
+            #content=item['contentWithImg']
+            #content=re.sub('{img}|{p}','',content)
+            content=item['title']
             if self.checkNews(content,add):
                 yield item
             else:
