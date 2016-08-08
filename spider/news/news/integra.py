@@ -30,7 +30,7 @@ class Integra:
                 sortedItems=['']*(length)
                 for item in items:
                     allCount=0
-                    result=re.search('(\d*)\.[^/]*$',item['url'])
+                    result=re.search('(\d+)\.[^/]*$',item['url'])
                     if result:
                         pageNum=result.group(1)
                         pageNum=int(pageNum)-1
@@ -43,7 +43,7 @@ class Integra:
                         try:
                             sortedItems[pageNum]=item
                         except:
-                            sortedItems+=['']*(pageNum-len(sortedItems+1)
+                            sortedItems+=['']*(pageNum-len(sortedItems+1))
                             sortedItems[pageNum]=item
                     else:
                         result=re.search('all\.[^/]*$',item['url'])
@@ -80,6 +80,7 @@ class Integra:
 
 if __name__=="__main__":
     #Integra('210102.json').writeFile('210102-2.json','oCaI')
-    fileName='../../data/20160808/people/150102.json'
+    #fileName='../../data/20160808/people/150102.json'
+    fileName='../data/20160808/china/170101.json'
     Integra(fileName).writeFile(fileName+'1','oCaI')
     Integra(fileName+'1').writeFile(fileName+'2','oCaI')
