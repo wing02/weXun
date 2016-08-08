@@ -35,14 +35,19 @@ class Integra:
                         pageNum=int(pageNum)-1
                         if pageNum>length:
                             pageNum=0
-                        sortedItems[pageNum]=item
+                        try:
+                            sortedItems[pageNum]=item
+                        except:
+                            sortedItems+=['']*(pageNum-len(sortedItems+1)
+                            sortedItems[pageNum]=item
                     else:
                         result=re.search('all\.[^/]*$',item['url'])
                         if result:
                             hasAll=True
+                            yield item
                             break
                         else:
-                            print 'Error Url:',item['url']
+                            logging.error('Error Url:'+item['url'])
                 if not hasAll:
                     content=''
                     images=[]

@@ -15,7 +15,7 @@ class Uniquer(object):
         self.hashLen=16#as hex
         self.db = MySQLdb.connect("localhost",conf.dbUser,conf.dbPasswd,conf.dbName )
         self.cursor = self.db.cursor()
-        self.distance=3
+        #self.distance=3
 
     def __del__(self):
         self.db.close()
@@ -65,7 +65,7 @@ class Uniquer(object):
             for resultHex in results.split(','):
                 result=int(resultHex,16)
                 #pdb.set_trace()
-                if getSimhash.isEqual(other,result,self.distance):
+                if getSimhash.isEqual(other,result):
                     isUnique=False
                     break
         return isUnique
