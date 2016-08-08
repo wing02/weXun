@@ -7,6 +7,7 @@ import re
 import os
 import json
 import hashlib
+import time
 import conf
 
 class News2Db:
@@ -64,9 +65,15 @@ class News2Db:
             for image in item['images']:
                 content.write(image["path"])
                 content.write('\t')
+
         item['contentWithImg']=fullPath
-        item['time']=item['time'][2:]
+
+        timeArray=time.strptime(item['time'],'%Y%m%d%H%M%S')
+        timeStamp=str(int(time.mktime(timeArray)))
+        item['time']=timeStamp
+
         item['keyWords']=item['keyWords'][:50]
+
         for jsKey in self.jsKeys:
             if not jsKey in item:
                 item[jsKey]=''
