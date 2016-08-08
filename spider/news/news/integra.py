@@ -29,12 +29,17 @@ class Integra:
                 hasAll=False
                 sortedItems=['']*(length)
                 for item in items:
+                    allCount=0
                     result=re.search('(\d*)\.[^/]*$',item['url'])
                     if result:
                         pageNum=result.group(1)
                         pageNum=int(pageNum)-1
-                        if pageNum>length:
+                        if pageNum>length+10:
                             pageNum=0
+                            allCount+=1
+                            if allCount>=2:
+                                yield item
+                                break
                         try:
                             sortedItems[pageNum]=item
                         except:
