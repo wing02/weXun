@@ -83,10 +83,10 @@ class WangyiDynamicSpider(DynamicSpider):
 
 class XinhuanetDynamicSpider(DynamicSpider):
     name='xinhuanetDynamic'
-    allowed_domains=["xinhua.com","news.cn"]
+    allowed_domains=["xinhuanet.com","news.cn"]
     start_urls = ["http://www.xinhuanet.com"]
     deny_domains=['sike\.news\.cn','info\.search\.news\.cn','qnssl\.com','game\.news\.cn']+DynamicSpider.deny_domains
-    #oldTime=''
+    oldTime='20160807142143'
     
 process = CrawlerProcess({
     'ITEM_PIPELINES' : {
@@ -103,14 +103,14 @@ process = CrawlerProcess({
     #'REDIRECT_ENABLED': False,
     })
 
-process.crawl(ChinanewsDynamicSpider)
-process.crawl(ChinaDynamicSpider)
-process.crawl(IfengDynamicSpider)
-process.crawl(PeopleDynamicSpider)
-process.crawl(QQDynamicSpider)
-process.crawl(SinaDynamicSpider)
-process.crawl(SohuDynamicSpider)
-process.crawl(SznewsDynamicSpider)
-process.crawl(WangyiDynamicSpider)
+#process.crawl(ChinanewsDynamicSpider)
+#process.crawl(ChinaDynamicSpider)
+#process.crawl(IfengDynamicSpider)
+#process.crawl(PeopleDynamicSpider)
+#process.crawl(QQDynamicSpider)
+#process.crawl(SinaDynamicSpider)
+#process.crawl(SohuDynamicSpider)
+#process.crawl(SznewsDynamicSpider)
+#process.crawl(WangyiDynamicSpider)
 process.crawl(XinhuanetDynamicSpider)
 process.start()

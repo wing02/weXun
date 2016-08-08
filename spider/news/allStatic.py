@@ -174,7 +174,7 @@ class WangyiStaticSpider(StaticSpider):
 
 class XinhuanetStaticSpider(StaticSpider):
     name='xinhuanet'
-    allowed_domains=["xinhua.com","news.cn"]
+    allowed_domains=["xinhuanet.com","news.cn"]
     start_urls=cPickle.load(open('../data/chgPage/'+name+'Dynamic_ChgUrl.pkl'))
     #curTime=time.time()
     days=1

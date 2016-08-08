@@ -2,9 +2,11 @@
 import json
 import re
 import codecs
+import logging
 
 class Integra:
     def __init__(self,fileName):
+        logging.info('Integra from '+fileName)
         self.root=dict()
         f=open(fileName)
         for line in f:
@@ -58,6 +60,7 @@ class Integra:
                     hasAll=False
 
     def writeFile(self,fileName,integraType):
+        logging.info('Integra to '+fileName)
         f = codecs.open(fileName,'wb',encoding='utf-8')
         for item in self.allNews(integraType):
             line = json.dumps(dict(item), ensure_ascii=False) + "\n"
@@ -66,4 +69,7 @@ class Integra:
 
 
 if __name__=="__main__":
-    Integra('210102.json').writeFile('210102-2.json','oCaI')
+    #Integra('210102.json').writeFile('210102-2.json','oCaI')
+    fileName='../../data/20160808/people/150102.json'
+    Integra(fileName).writeFile(fileName+'1','oCaI')
+    Integra(fileName+'1').writeFile(fileName+'2','oCaI')

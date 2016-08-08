@@ -132,7 +132,7 @@ class WangyiCrawlSpider(CrawlSpider):
 
 class XinhuanetCrawlSpider(CrawlSpider):
     name='xinhuanetCrawl'
-    allowed_domains=["xinhua.com","news.cn"]
+    allowed_domains=["xinhuanet.com","news.cn"]
     start_urls = ["http://www.xinhuanet.com"]
     rules = (
         Rule(LinkExtractor(allow=('/(20\d{2})[-/]?([01]\d)[-/]?([0123]\d)/', )), follow=True, callback='parse_item'),

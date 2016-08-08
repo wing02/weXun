@@ -12,7 +12,7 @@ import conf
 class News2Db:
     
     def __init__(self):
-        self.db = MySQLdb.connect("localhost",conf.dbUser,conf.dbPasswd,conf.dbName )
+        self.db = MySQLdb.connect("localhost",conf.dbUser,conf.dbPasswd,conf.dbName, charset='utf8')
         self.cursor = self.db.cursor()
         self.jsKeys=[
                 'url',
@@ -39,7 +39,6 @@ class News2Db:
 
     def __del__(self):
         self.db.close()
-        #print "Close"
 
     def insertJson(self,jsonFile):
         dirPath=re.search('(.*)\.json$',jsonFile).group(1)+'Content'
@@ -67,9 +66,11 @@ class News2Db:
 
         item['contentWithImg']=fullPath
 
-        item['keyWords']=item['keyWords'][:50]
+        item['keyWords']=item['keyWords'][:33]
 
-        result=re.search('(.*?)\?',item['url']))
+        item['title']=item['title'][:33]
+
+        result=re.search('(.*?)\?',item['url'])
         if result:
             item['url']=result.group(1)
 
@@ -77,19 +78,23 @@ class News2Db:
             if not jsKey in item:
                 item[jsKey]=''
 
-            sql=''' INSERT INTO news(%s) VALUES('%s')'''%(','.join(self.dbKeys),"','".join(map(lambda x:item[x],self.jsKeys)))
-            #print sql
-            try:
-                self.cursor.execute(sql)
-                self.db.commit()
-            except:
-                self.db.rollback()
+        sql=''' INSERT INTO news(%s) VALUES('%s')'''%(','.join(self.dbKeys),"','".join(map(lambda x:self.escape(item[x]),self.jsKeys)))
+        sql=sql.encode('u8')
+        try:
+            self.cursor.execute(sql)
+            self.db.commit()
+        except MySQLdb.Error,e:
+            self.db.rollback()
+            print "MySQL Error:%s"%str(e)
+            print sql
 
     def calcSha1(self,content):
         sha1Obj=hashlib.sha1()
         sha1Obj.update(content.encode('u8'))
         return sha1Obj.hexdigest()
 
+    def escape(self,content):
+        return re.sub("'",r"\'",content)
 
 
 

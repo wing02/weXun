@@ -30,10 +30,10 @@ if __name__ =="__main__":
             content=re.sub('{img}|{p}','',item['contentWithImg'])
             result=trie.hasSensi(content)
             if result:
-                print result[0]
+                logging.info('Sensitive word is '+result[0])
                 continue
             else:
-                print 'insert item'+item['title']
+                logging.info('InsertDB '+item['title']+' '+item['url'])
                 news2db.insertItem(item,dirPath)
 
-    print time.time()-curTime
+    logging.info('After time:'+ str(time.time()-curTime))

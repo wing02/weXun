@@ -6,6 +6,7 @@ import pdb
 import sys
 import json
 import re
+import logging
 import conf
 
 class Uniquer(object):
@@ -14,12 +15,14 @@ class Uniquer(object):
         self.hashLen=16#as hex
         self.db = MySQLdb.connect("localhost",conf.dbUser,conf.dbPasswd,conf.dbName )
         self.cursor = self.db.cursor()
+        self.distance=3
 
     def __del__(self):
         self.db.close()
 
     def checkNews(self,content,add=True):
         simLong=getSimhash.getSimhash(content.encode('u8'))
+        #logging.info(simLong)
         items=[]
         others=[]
         isUnique=True
@@ -62,7 +65,7 @@ class Uniquer(object):
             for resultHex in results.split(','):
                 result=int(resultHex,16)
                 #pdb.set_trace()
-                if getSimhash.isEqual(other,result):
+                if getSimhash.isEqual(other,result,self.distance):
                     isUnique=False
                     break
         return isUnique
@@ -93,6 +96,8 @@ class Uniquer(object):
             content=re.sub('{img}|{p}','',content)
             if self.checkNews(content,add):
                 yield item
+            else:
+                logging.info('Repeated Item:'+str(item))
         f.close()
 
 if __name__ =="__main__":
