@@ -141,12 +141,34 @@ class XinhuanetCrawlSpider(CrawlSpider):
     def parse_item(self, response):
         return XinhuanetParser(response).getNewsItem()
 
+class MinghuiCrawlSpider(CrawlSpider):
+    name='minghui'
+    allowed_domains=['minghui.org']
+    start_urls = ['http://www.minghui.org/']
+    rules = (
+        Rule(LinkExtractor(allow=('/(20\d{2})/([01]?\d)/([0123]?\d)/', )), follow=True, callback='parse_item'),
+        Rule(LinkExtractor(allow=('.', )) ),
+    )
+    def parse_item(self, response):
+        return NewsParser(response).getNewsItem()
+
+class NtdtvCrawlSpider(CrawlSpider):
+    name='ntdtv'
+    allowed_domains=['ntdtv.com']
+    start_urls = ['http://www.ntdtv.com']
+    rules = (
+        Rule(LinkExtractor(allow=('/(20\d{2})/([01]\d)/([0123]\d)/', )), follow=True, callback='parse_item'),
+        Rule(LinkExtractor(allow=('.', )) ),
+    )
+    def parse_item(self, response):
+        return NewsParser(response).getNewsItem()
+
 process = CrawlerProcess({
     #'USER_AGENT': 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)',
     'ITEM_PIPELINES' :{
         'news.pipelines.JsonPipeline': 300,
         },
-    'DEPTH_LIMIT':5,
+    'DEPTH_LIMIT':2,
     'AUTOTHROTTLE_ENABLED':True,
     'LOG_LEVEL' : 'INFO',
     'CONCURRENT_REQUESTS':100,
@@ -157,14 +179,17 @@ process = CrawlerProcess({
     'REDIRECT_ENABLED': False,
     })
 
-process.crawl(ChinanewsCrawlSpider)
-process.crawl(ChinaCrawlSpider)
-process.crawl(IfengCrawlSpider)
-process.crawl(PeopleCrawlSpider)
-process.crawl(QQCrawlSpider)
-process.crawl(SinaCrawlSpider)
-process.crawl(SohuCrawlSpider)
-process.crawl(SznewsCrawlSpider)
-process.crawl(WangyiCrawlSpider)
-process.crawl(XinhuanetCrawlSpider)
+process.crawl(MinghuiCrawlSpider)
+process.crawl(NtdtvCrawlSpider)
+#process.crawl(ChinanewsCrawlSpider)
+#process.crawl(ChinanewsCrawlSpider)
+#process.crawl(ChinaCrawlSpider)
+#process.crawl(IfengCrawlSpider)
+#process.crawl(PeopleCrawlSpider)
+#process.crawl(QQCrawlSpider)
+#process.crawl(SinaCrawlSpider)
+#process.crawl(SohuCrawlSpider)
+#process.crawl(SznewsCrawlSpider)
+#process.crawl(WangyiCrawlSpider)
+#process.crawl(XinhuanetCrawlSpider)
 process.start()
