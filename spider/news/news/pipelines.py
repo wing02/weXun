@@ -26,8 +26,10 @@ class JsonPipeline(object):
             os.makedirs(self.dirPath)
         self.news = codecs.open(self.FileName,'wb',encoding='utf-8')
 
+        self.unKnown=['qq','wangyi','sina','chinanews','ifeng','sznews']
         self.oCaIs=['china']
-        self.aCaIs=['people','xinhuanet','sohu','qq','wangyi','sina']
+        self.aCaIs=['people','xinhuanet','sohu']
+        self.aCaIs+=self.unKnown
 
     def process_item(self, item, spider):
         try:

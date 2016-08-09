@@ -163,12 +163,34 @@ class NtdtvCrawlSpider(CrawlSpider):
     def parse_item(self, response):
         return NewsParser(response).getNewsItem()
 
+class PeoplePoliticsCrawlSpider(CrawlSpider):
+    name='peoplePoliticsCrawl'
+    allowed_domains=["politics.people.com.cn"]
+    start_urls = ["http://politics.people.com.cn"]
+    rules = (
+        Rule(LinkExtractor(allow=('/(20\d{2})[-/]?([01]\d)[-/]?([0123]\d)/', )), follow=True, callback='parse_item'),
+        Rule(LinkExtractor(allow=('.', )) ),
+    )
+    def parse_item(self, response):
+        return PeopleParser(response).getNewsItem()
+
+class XinhuanetPoliticsCrawlSpider(CrawlSpider):
+    name='xinhuanetPoliticsCrawl'
+    allowed_domains=["xinhuanet.com","news.cn"]
+    start_urls = ["http://www.news.cn/politics/"]
+    rules = (
+        Rule(LinkExtractor(allow=('/politics.*/(20\d{2})[-/]?([01]\d)[-/]?([0123]\d)/', )), follow=True, callback='parse_item'),
+        Rule(LinkExtractor(allow=('/politics/', )) ),
+    )
+    def parse_item(self, response):
+        return XinhuanetParser(response).getNewsItem()
+
 process = CrawlerProcess({
     #'USER_AGENT': 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)',
     'ITEM_PIPELINES' :{
         'news.pipelines.JsonPipeline': 300,
         },
-    'DEPTH_LIMIT':2,
+    'DEPTH_LIMIT':4,
     'AUTOTHROTTLE_ENABLED':True,
     'LOG_LEVEL' : 'INFO',
     'CONCURRENT_REQUESTS':100,
@@ -179,8 +201,10 @@ process = CrawlerProcess({
     'REDIRECT_ENABLED': False,
     })
 
-process.crawl(MinghuiCrawlSpider)
-process.crawl(NtdtvCrawlSpider)
+process.crawl(PeoplePoliticsCrawlSpider)
+process.crawl(XinhuanetPoliticsCrawlSpider)
+#process.crawl(MinghuiCrawlSpider)
+#process.crawl(NtdtvCrawlSpider)
 #process.crawl(ChinanewsCrawlSpider)
 #process.crawl(ChinanewsCrawlSpider)
 #process.crawl(ChinaCrawlSpider)
