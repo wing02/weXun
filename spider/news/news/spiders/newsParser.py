@@ -76,8 +76,14 @@ class NewsParser(object):
             self.item['time']+='00'
         elif self.item['time']=='':
             self.item['time']=''.join(self.response.xpath('//meta[@name="pubdate"]/@content').re(u'(\d+)-(\d+)-(\d+).*?(\d+):(\d+):(\d+)'))
-            if self.item['time']=='':
-                self.item['time']=time.strftime('%Y%m%d%H%M%S',time.localtime(time.time()))
+
+        days=2
+        timeRange=[]
+        curTime=time.time()
+        for day in range(days):
+            timeRange.append(time.strftime('%Y%m%d',time.localtime(curTime-day*24*60*60)))
+        if self.item['time']=='' or self.item['time'][:8]! not in timeRange:
+            self.item['time']=time.strftime('%Y%m%d%H%M%S',time.localtime(curTime))
 
     def getKeyWords(self):
         self.item['keyWords']=''.join(self.response.xpath('/html/head/meta[@name="keywords"]/@content').extract()).strip('\r\n')
@@ -110,4 +116,5 @@ class NewsParser(object):
         num=1
         while num:
             url,num=re.subn('[^/^.]+/\.\./','',url)
+        url=re.sub('\?.*$','',url)
         return url

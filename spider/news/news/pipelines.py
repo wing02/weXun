@@ -27,7 +27,7 @@ class JsonPipeline(object):
         self.news = codecs.open(self.FileName,'wb',encoding='utf-8')
 
         self.oCaIs=['china']
-        self.aCaIs=['people']
+        self.aCaIs=['people','xinhuanet','sohu','qq','wangyi','sina']
 
     def process_item(self, item, spider):
         try:
