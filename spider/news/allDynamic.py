@@ -86,7 +86,7 @@ class XinhuanetDynamicSpider(DynamicSpider):
     allowed_domains=["xinhuanet.com","news.cn"]
     start_urls = ["http://www.xinhuanet.com"]
     deny_domains=['sike\.news\.cn','info\.search\.news\.cn','qnssl\.com','game\.news\.cn']+DynamicSpider.deny_domains
-    oldTime='20160807142143'
+    oldTime='20160808210553'
     
 process = CrawlerProcess({
     'ITEM_PIPELINES' : {

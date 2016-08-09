@@ -82,7 +82,7 @@ class NewsParser(object):
         curTime=time.time()
         for day in range(days):
             timeRange.append(time.strftime('%Y%m%d',time.localtime(curTime-day*24*60*60)))
-        if self.item['time']=='' or self.item['time'][:8]! not in timeRange:
+        if self.item['time']=='' or self.item['time'][:8] not in timeRange:
             self.item['time']=time.strftime('%Y%m%d%H%M%S',time.localtime(curTime))
 
     def getKeyWords(self):
