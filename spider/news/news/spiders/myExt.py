@@ -148,14 +148,17 @@ if __name__ == "__main__":
     #url='http://www.taiwan.cn/xwzx/la/201607/t20160723_11516742.htm'
     #url='http://zz.house.qq.com/a/20160724/004694.htm'
     #url='http://sznews.com/zhuanti/content/2016-08/04/content_13686753_11.htm'
-    url='http://yi.china.com/tuku/11177361/20160805/23208443.html'
+    #url='http://yi.china.com/tuku/11177361/20160805/23208443.html'
+    #url='http://www.bannedbook.org/bnews/topimagenews/20160808/568794.html'
+    #url='http://news.qq.com/a/20160809/011891.htm'
+    url='http://stock.qq.com/a/20160809/043400.htm'
     #url='http://news.xinhuanet.com/politics/2016-07/24/c_1119270615.htm'
     #url='http://military.people.com.cn/n1/2016/0724/c1011-28580193.html'
     proxied_request = urllib2.urlopen(url)
 
     #content = proxied_request.read().decode('gbk')
     content = proxied_request.read()
-    #content=content.decode('gbk')
+    content=content.decode('gbk')
     #f=open('qq','w')
     #f.write(content.encode('u8'))
     #f.close()

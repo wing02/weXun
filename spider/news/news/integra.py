@@ -81,6 +81,7 @@ class Integra:
 if __name__=="__main__":
     #Integra('210102.json').writeFile('210102-2.json','oCaI')
     #fileName='../../data/20160808/people/150102.json'
-    fileName='../data/20160808/china/170101.json'
-    Integra(fileName).writeFile(fileName+'1','oCaI')
-    Integra(fileName+'1').writeFile(fileName+'2','oCaI')
+    #fileName='../data/20160808/china/170101.json'
+    fileName='test.json'
+    Integra(fileName).writeFile(fileName+'1','aCaI')
+    #Integra(fileName+'1').writeFile(fileName+'2','oCaI')
