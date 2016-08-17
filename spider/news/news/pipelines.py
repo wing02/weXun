@@ -45,8 +45,8 @@ class JsonPipeline(object):
 
     def close_spider(self, spider):
         self.news.close()
-        if spider.name in self.oCaIs:
-            Integra(self.FileName).writeFile(self.FileName,'oCaI')
-        elif spider.name in self.aCaIs:
-            Integra(self.FileName).writeFile(self.FileName,'aCaI')
+        #if spider.name in self.oCaIs:
+        #    Integra(self.FileName).writeFile(self.FileName,'oCaI')
+        #elif spider.name in self.aCaIs:
+        #    Integra(self.FileName).writeFile(self.FileName,'aCaI')
 

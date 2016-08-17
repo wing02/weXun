@@ -19,25 +19,6 @@ from news.spiders.peopleOnceSpider import PeopleParser
 from news.spiders.xinhuanetOnceSpider import XinhuanetParser
 import json
 
-#class BBCStaticSpider(StaticSpider):
-#    name='bbc'
-#    allowed_domains=["www.bbc.com"]
-#    start_urls=cPickle.load(open('../data/chgPage/'+name+'Dynamic_ChgUrl.pkl'))
-#    #curTime=time.time()
-#    days=1
-#    custom_settings={
-#        'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
-#        'REDIRECT_ENABLED': True,
-#    }
-#    def isNews(self,url):
-#        result=re.search('/(20\d{2})/([01]\d)/\d{4}([0123]\d)/',url)
-#        if result:
-#            return result.group(1)+result.group(2)+result.group(3)
-#    def parseNews(self, response):
-#        yield BBCParser(response).getNewsItem()
-#        for url in self.allNewsUrl(response):
-#            yield scrapy.Request(url,callback=self.parseNews)
-
 class ChinaStaticSpider(StaticSpider):
     name='china'
     allowed_domains=['china.com']
@@ -48,7 +29,10 @@ class ChinaStaticSpider(StaticSpider):
     'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
     }
     def parseNews(self, response):
-        yield NewsParser(response).getNewsItem()
+        item=NewsParser(response).getNewsItem()
+        item['spider']=self.name
+        item['crawlTime']=StaticSpider.curTime
+        yield item
         for url in self.allNewsUrl(response):
             yield scrapy.Request(url,callback=self.parseNews)
 
@@ -62,7 +46,10 @@ class ChinanewsStaticSpider(StaticSpider):
     'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
     }
     def parseNews(self, response):
-        yield ChinaNewsParser(response).getNewsItem()
+        item=ChinaNewsParser(response).getNewsItem()
+        item['spider']=self.name
+        item['crawlTime']=StaticSpider.curTime
+        yield item
         for url in self.allNewsUrl(response):
             yield scrapy.Request(url,callback=self.parseNews)
 
@@ -76,7 +63,10 @@ class IfengStaticSpider(StaticSpider):
     'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
     }
     def parseNews(self, response):
-        yield NewsParser(response).getNewsItem()
+        item=NewsParser(response).getNewsItem()
+        item['spider']=self.name
+        item['crawlTime']=StaticSpider.curTime
+        yield item
         for url in self.allNewsUrl(response):
             yield scrapy.Request(url,callback=self.parseNews)
 
@@ -91,7 +81,10 @@ class PeopleStaticSpider(StaticSpider):
     'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
     }
     def parseNews(self, response):
-        yield PeopleParser(response).getNewsItem()
+        item=PeopleParser(response).getNewsItem()
+        item['spider']=self.name
+        item['crawlTime']=StaticSpider.curTime
+        yield item
         for url in self.allNewsUrl(response):
             yield scrapy.Request(url,callback=self.parseNews)
 
@@ -106,7 +99,10 @@ class QQStaticSpider(StaticSpider):
     'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
     }
     def parseNews(self, response):
-        yield QQParser(response).getNewsItem()
+        item=QQParser(response).getNewsItem()
+        item['spider']=self.name
+        item['crawlTime']=StaticSpider.curTime
+        yield item
         for url in self.allNewsUrl(response):
             yield scrapy.Request(url,callback=self.parseNews)
 
@@ -121,7 +117,10 @@ class SinaStaticSpider(StaticSpider):
     'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
     }
     def parseNews(self, response):
-        yield NewsParser(response).getNewsItem()
+        item=NewsParser(response).getNewsItem()
+        item['spider']=self.name
+        item['crawlTime']=StaticSpider.curTime
+        yield item
         for url in self.allNewsUrl(response):
             yield scrapy.Request(url,callback=self.parseNews)
 
@@ -135,7 +134,10 @@ class SohuStaticSpider(StaticSpider):
     'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
     }
     def parseNews(self, response):
-        yield NewsParser(response).getNewsItem()
+        item=NewsParser(response).getNewsItem()
+        item['spider']=self.name
+        item['crawlTime']=StaticSpider.curTime
+        yield item
         for url in self.allNewsUrl(response):
             yield scrapy.Request(url,callback=self.parseNews)
 
@@ -150,7 +152,10 @@ class SznewsStaticSpider(StaticSpider):
     'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
     }
     def parseNews(self, response):
-        yield NewsParser(response).getNewsItem()
+        item=NewsParser(response).getNewsItem()
+        item['spider']=self.name
+        item['crawlTime']=StaticSpider.curTime
+        yield item
         for url in self.allNewsUrl(response):
             yield scrapy.Request(url,callback=self.parseNews)
 
@@ -168,7 +173,10 @@ class WangyiStaticSpider(StaticSpider):
         if result:
             return '20'+result.group(1)+result.group(2)+result.group(3)
     def parseNews(self, response):
-        yield NewsParser(response).getNewsItem()
+        item=NewsParser(response).getNewsItem()
+        item['spider']=self.name
+        item['crawlTime']=StaticSpider.curTime
+        yield item
         for url in self.allNewsUrl(response):
             yield scrapy.Request(url,callback=self.parseNews)
 
@@ -182,7 +190,10 @@ class XinhuanetStaticSpider(StaticSpider):
     'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
     }
     def parseNews(self, response):
-        yield XinhuanetParser(response).getNewsItem()
+        item=XinhuanetParser(response).getNewsItem()
+        item['spider']=self.name
+        item['crawlTime']=StaticSpider.curTime
+        yield item
         for url in self.allNewsUrl(response):
             yield scrapy.Request(url,callback=self.parseNews)
 

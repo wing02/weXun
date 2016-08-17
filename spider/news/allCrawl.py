@@ -201,8 +201,8 @@ process = CrawlerProcess({
     'REDIRECT_ENABLED': False,
     })
 
-process.crawl(PeoplePoliticsCrawlSpider)
-process.crawl(XinhuanetPoliticsCrawlSpider)
+#process.crawl(PeoplePoliticsCrawlSpider)
+#process.crawl(XinhuanetPoliticsCrawlSpider)
 #process.crawl(MinghuiCrawlSpider)
 #process.crawl(NtdtvCrawlSpider)
 #process.crawl(ChinanewsCrawlSpider)

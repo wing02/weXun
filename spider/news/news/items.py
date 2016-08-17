@@ -9,7 +9,9 @@ import scrapy
 
 
 class NewsItem(scrapy.Item):
+    spider=scrapy.Field()
     time=scrapy.Field()
+    crawlTime=scrapy.Field()
     url=scrapy.Field()
     title=scrapy.Field()
     label=scrapy.Field()

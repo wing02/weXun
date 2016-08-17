@@ -12,7 +12,7 @@ import os.path as osp
 class JiasuCrawlSpider(CrawlSpider):
     name='12jiasu'
     allowed_domain=['12jiasu.com','c9cc.com']
-    start_urls = ['http://apj8fdsq.12jiasu.com/cvbf08r/8ey3z16hixd.html']
+    start_urls = ['http://apj8fdsq.12jiasu.com/cvbf08r/8ey3z16hixd.html','http://www.c9cc.com/saduirdf5/c9_2ixd.html']
     rules = (
         #Rule(LinkExtractor(allow=('/(20\d{2})/([01]\d)/([0123]\d)/', )), follow=True, callback='parse_item'),
         Rule(LinkExtractor(allow=('.', )), follow=True,callback='parse_item'),
@@ -29,7 +29,7 @@ process = CrawlerProcess({
         #'scrapy.pipelines.images.ImagesPipeline': 1,
         'news.pipelines.JsonPipeline': 300,
         },
-    'DEPTH_LIMIT':8,
+    #'DEPTH_LIMIT':8,
     #'REDIRECT_ENABLED': True,
     #'AUTOTHROTTLE_ENABLED':True,
     #'LOG_LEVEL' : 'INFO',
