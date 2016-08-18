@@ -1,5 +1,5 @@
-#CREATE USER 'wexun'@'localhost' IDENTIFIED BY 'wexun';
-GRANT ALL ON wexun.* TO 'wexun'@'localhost';
+CREATE USER 'wing'@'10.198.19.176' IDENTIFIED BY 'wexun';
+GRANT ALL ON wexun.* TO 'wing'@'10.198.19.176';
 FLUSH PRIVILEGES;
 DROP DATABASE IF EXISTS wexun;
 CREATE DATABASE wexun;
@@ -37,8 +37,8 @@ CREATE TABLE item3
 /*==============================================================*/
 /* Table: News                                                  */
 /*==============================================================*/
-DROP TABLE IF EXISTS `news`;
-CREATE TABLE `news` (
+DROP TABLE IF EXISTS `tmp_news`;
+CREATE TABLE `tmp_news` (
   `news_id` int(11) NOT NULL AUTO_INCREMENT,
   `agency_name` varchar(30) DEFAULT '',
   `news_time` timestamp NULL DEFAULT NULL,

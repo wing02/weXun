@@ -1,6 +1,6 @@
 
 dbIp='10.198.19.176'
-dbUser='wexun'
+dbUser='wing'
 dbPasswd='wexun'
 dbName='wexun'
 tableName='tmp_news'
