@@ -36,7 +36,7 @@ class NewsParser(object):
         self.getReplayNum()
         self.getReadNum()
         if self.item['title']=='' or self.item['contentWithImg']=='':
-            return
+            return None
         else:
             return self.item
 

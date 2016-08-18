@@ -19,7 +19,8 @@ class TextExtract(object):
     re_img = re.compile(r'<img[^>]*>',re.I|re.S|re.U)
     re_css = re.compile(r'<style[^>]*>.*?</style>', re.I|re.U|re.S)
     re_special = re.compile(r'&.{2,8};|&#.{2,8};', re.I|re.U|re.S)
-    re_p = re.compile(r'</p>', re.I|re.U|re.S)
+    re_p = re.compile(r'<p>', re.I|re.U|re.S)
+    re_up = re.compile(r'</p>', re.I|re.U|re.S)
     re_other = re.compile(r'<[^>]*>', re.I|re.U|re.S)
      
     blockHeight = 11
@@ -61,7 +62,8 @@ class TextExtract(object):
         self.replaceImg()
         if self.doRemoveLF:
             self.text_body = self.text_body.replace('\r\n','').replace('\n','')
-        self.text_body = self.re_p.sub('{p}', self.text_body)
+        #self.text_body = self.re_p.sub('{p}', self.text_body)
+        self.text_body = self.re_up.sub('{up}', self.text_body)
         self.text_body = self.re_other.sub('\n', self.text_body)
 
  

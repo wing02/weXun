@@ -59,3 +59,4 @@ class QQTextExtract(TextExtract):
         if self.doRemoveLF:
             self.text_body = self.text_body.replace('\r\n','').replace('\n','')
         self.text_body = self.re_p.sub('{p}', self.text_body)
+        self.text_body = self.re_up.sub('{up}', self.text_body)

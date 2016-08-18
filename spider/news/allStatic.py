@@ -99,10 +99,12 @@ class QQStaticSpider(StaticSpider):
     'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
     }
     def parseNews(self, response):
-        item=QQParser(response).getNewsItem()
-        item['spider']=self.name
-        item['crawlTime']=StaticSpider.curTime
-        yield item
+        #item=QQParser(response).getNewsItem()
+        item=NewsParser(response).getNewsItem()
+        if item:
+            item['spider']=self.name
+            item['crawlTime']=StaticSpider.curTime
+            yield item
         for url in self.allNewsUrl(response):
             yield scrapy.Request(url,callback=self.parseNews)
 
