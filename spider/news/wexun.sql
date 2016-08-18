@@ -54,7 +54,8 @@ CREATE TABLE `news` (
   `keys_data` varchar(200) DEFAULT '',
 
   `news_resource_link` varchar(100) DEFAULT '',
-  `news_flag` varchar(100) DEFAULT '',
+  `news_flag` varchar(10) DEFAULT '',
+  `news_label` varchar(10) DEFAULT '',
 
   PRIMARY KEY (`news_id`),
   KEY `newstimeIndex` (`news_time`)

@@ -1,4 +1,6 @@
 #coding=utf8
+from __future__ import (division,absolute_import,print_function,unicode_literals)
+import conf
 import sys
 import os.path as osp
 import MySQLdb
@@ -8,14 +10,14 @@ import glob
 class DataInserter:
     def __init__(self,updateTime):
         self.filters=[]
-        self.dbIp='localhost'
-        self.dbUser='wexun'
-        self.dbPasswd='wexun'
-        self.dbName='wexun'
-        self.update_time=''
-        self.tfsUrl='10.198.19.176:8100'
+        self.dbIp=conf.dbIp
+        self.dbUser=conf.dbUser
+        self.dbPasswd=conf.dbPasswd
+        self.dbName=conf.dbName
+        self.tableName=conf.tableName
+        self.tfsUrl='%s:%s'%(conf.dbIp,conf.tfsPort)
         self.dataPrePath=''
-        self.tfsPrePath='http://10.198.19.176:8080/v1/tfs/'
+        self.tfsPrePath='http://%s:%s/v1/tfs/'%(conf.dbIp,conf.tfsNginxPort)
         self.updateTime=updateTime
 
         self.db = MySQLdb.connect(self.dbIp,self.dbUser,self.dbPasswd,self.dbName, charset='utf8')
@@ -62,16 +64,17 @@ class DataInserter:
             with open(path) as f:
                 subImageTfsNames.append(self.tfs.put(f.read()))
         item['news_imgs']=','.join(subImageTfsNames)
-        item['news_title']=jsItem['title'][:33]
-        item['news_resource_link']=re.search('[^?]*',jsItem['url']).group()
+        item['news_title']=jsItem['title'][:100]
+        item['news_resource_link']=re.search('[^?]*',jsItem['url']).group()[:100]
         item['news_time']=jsItem['time']
         item['update_time']=self.updateTime
         item['agency_name']=jsItem['spider']
-        item['flag']='unknown'
-        item['news_abstract']=re.sub('{up}|{img}','',jsItem['contentWithImg'])[:80]
-        item['news_type']='new'
+        item['news_flag']='unknown'
+        item['news_abstract']=re.sub('{up}|{img}','',jsItem['contentWithImg'])[:255]
+        item['news_type']=u'新获取新闻'
+        item['news_label']=jsItem['label'][:10]
 
-        sql=''' INSERT INTO news(%s) VALUES('%s')'''%(','.join(item.keys()) ,"','".join(item.values() ) )
+        sql=''' INSERT INTO %s(%s) VALUES('%s')'''%(self.tableName,','.join(item.keys()) ,"','".join(item.values() ) )
         sql=sql.encode('u8')
         try:
             self.cursor.execute(sql)
