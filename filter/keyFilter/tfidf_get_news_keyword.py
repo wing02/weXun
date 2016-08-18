@@ -10,7 +10,7 @@ try:
 except:
     pass
 
-prePath='filter/keyFilter/data'
+prePath='filter/keyFilter/data/'
 
 
 def tfidf_keyword(title,text):
