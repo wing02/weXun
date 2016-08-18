@@ -41,11 +41,11 @@ class FilterSet:
         db = MySQLdb.connect(self.dbIp,self.dbUser,self.dbPasswd,self.dbName, charset='utf8')
         tfs = pytfs.TfsClient()
         tfs.init(self.tfsUrl)
-        item=Item(db,tfs,self.tableName)
         for result in self.results:
-            item.setItem(result)
+            item=Item(db,tfs,self.tableName,result)
             for filterInst in filterInsts:
                 filterInst.doFilter(item)
+	    item.toDb()
         db.close()
 
         

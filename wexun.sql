@@ -1,6 +1,6 @@
-CREATE USER 'wing'@'10.198.19.176' IDENTIFIED BY 'wexun';
-GRANT ALL ON wexun.* TO 'wing'@'10.198.19.176';
-FLUSH PRIVILEGES;
+-- CREATE USER 'wing'@'10.198.19.176' IDENTIFIED BY 'wexun';
+-- GRANT ALL ON wexun.* TO 'wing'@'10.198.19.176';
+-- FLUSH PRIVILEGES;
 DROP DATABASE IF EXISTS wexun;
 CREATE DATABASE wexun;
 
@@ -40,18 +40,18 @@ CREATE TABLE item3
 DROP TABLE IF EXISTS `tmp_news`;
 CREATE TABLE `tmp_news` (
   `news_id` int(11) NOT NULL AUTO_INCREMENT,
-  `agency_name` varchar(30) DEFAULT '',
+  `agency_name` varchar(20) DEFAULT '',
   `news_time` timestamp NULL DEFAULT NULL,
-  `news_data` varchar(100) DEFAULT '',
-  `news_imgs` varchar(200) DEFAULT '',
+  `news_data` char(18) DEFAULT '',
+  `news_imgs` varchar(60) DEFAULT '',
   `news_title` varchar(100) DEFAULT '',
   `news_abstract` varchar(255) DEFAULT '',
 
   `update_time` timestamp NULL DEFAULT NULL,
   `news_type` varchar(11) DEFAULT '',
-  `head1` varchar(11) DEFAULT '',
-  `head2` varchar(11) DEFAULT '',
-  `keys_data` varchar(200) DEFAULT '',
+  `head1` varchar(10) DEFAULT '',
+  `head2` varchar(10) DEFAULT '',
+  `keys_data` text DEFAULT '',
 
   `news_resource_link` varchar(100) DEFAULT '',
   `news_flag` varchar(10) DEFAULT '',

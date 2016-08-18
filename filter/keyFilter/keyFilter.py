@@ -5,4 +5,5 @@ from filter.keyFilter.get_news_weight import json_keywords
 
 class keyFilter:
     def doFilter(self,item):
-        self.head1,self.head2,self.keywords=json_keywords(item.title,item.label,item.getTxt())
+        item.head1,item.head2,item.keywords=json_keywords(item.title,item.label,item.getTxt())
+        item.staticKeywords=item.keywords

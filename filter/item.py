@@ -7,19 +7,18 @@ import re
 
 
 class Item:
-    def __init__(self,db,tfs,tableName):
+    def __init__(self,db,tfs,tableName,result):
         self.db=db
         self.cursor=self.db.cursor()
         self.tableName=tableName
         self.tfs=tfs
-    
-    def setItem(self,result):
+
         self.id=result[0]
         self.dataTfsName=result[1]
         self.title=result[2]
         self.flag=result[3]
         self.label=result[4]
-
+    
     def getImgs(self):
         try:
             return self.imgDatas
@@ -48,17 +47,13 @@ class Item:
     def toDb(self):
         if self.keywords:
             keyLine=json.dumps(self.keywords, ensure_ascii=False)
-            sql='''UPDATE %s SET keys_data='%s' AND news_flag='%s' AND head1='%s' AND head2='%s' WHERE news_id=%s'''%(self.tableName,keyLine,self.flag,self.head1,self.head2,self.id)
+            sql='''UPDATE %s SET keys_data='%s' , news_flag='%s' , head1='%s' , head2='%s' WHERE news_id=%s'''%(self.tableName,keyLine,self.flag,self.head1,self.head2,self.id)
         else:
             sql='''UPDATE %s SET news_flag='%s' WHERE news_id=%s'''%(self.tableName,self.flag,self.id)
         try:
-            cursor.execute(sql.encode('u8'))
-            self.results=cursor.fetchall()
-        except:
-            print ("Error: %s"%s(sql))
-        self.clean()
-
-    def clean(self):
-        del self.imgDatas
-        del self.txtData
-        del self.data
+            self.cursor.execute(sql.encode('u8'))
+            self.db.commit()
+        except Exception,e:
+	    self.db.rollback()
+            print ("Error: %s"%(sql))
+	    print (e)
