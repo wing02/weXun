@@ -104,6 +104,7 @@ class NewsParser(object):
         pass
 
     def fillPath(self,shortUrl):
+        shortUrl=re.search('[^?]*',shortUrl).group()
         if shortUrl[:4]=='http':
             return self.simpleUrl(shortUrl)
         elif shortUrl[:1]=='/':
