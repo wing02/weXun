@@ -77,7 +77,6 @@ class DataInserter:
         item['news_label']=jsItem['label'][:10]
 
         sql=''' INSERT INTO %s(%s) VALUES('%s')'''%(self.tableName,','.join(item.keys()) ,"','".join(item.values() ) )
-	print sql
         sql=sql.encode('u8')
         try:
             self.cursor.execute(sql)

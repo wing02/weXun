@@ -2,6 +2,8 @@
 from __future__ import (division,absolute_import,print_function,unicode_literals)
 import conf
 import json
+import re
+
 
 
 class Item:
@@ -14,7 +16,7 @@ class Item:
     def setItem(self,result):
         self.id=result[0]
         self.dataTfsName=result[1]
-        self.titel=result[2]
+        self.title=result[2]
         self.flag=result[3]
         self.label=result[4]
 
@@ -25,7 +27,7 @@ class Item:
             self.imgDatas=[]
             imgSrcs=re.findall('src=([^>]*)',self.data)
             for imgSrc in imgSrcs:
-                self.imgDatas.append(tfs.get(imgSrc[-18:]))
+                self.imgDatas.append(self.tfs.get(imgSrc[-18:]))
             return self.imgDatas
 
     def getTxt(self):
@@ -39,7 +41,7 @@ class Item:
         try:
             return self.data
         except:
-            self.data=tfs.get(self.dataTfsName)
+            self.data=self.tfs.get(self.dataTfsName)
             return self.data
         
 
@@ -53,7 +55,7 @@ class Item:
             cursor.execute(sql.encode('u8'))
             self.results=cursor.fetchall()
         except:
-            print "Error: %s"%s(sql)
+            print ("Error: %s"%s(sql))
         self.clean()
 
     def clean(self):

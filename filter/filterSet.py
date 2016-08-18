@@ -5,6 +5,7 @@ import sys
 import os.path as osp
 import MySQLdb
 import pytfs
+from filter.item import Item
 from filter.keyFilter.keyFilter import keyFilter
 
 class FilterSet:
@@ -24,12 +25,12 @@ class FilterSet:
     def start(self):
         self.db = MySQLdb.connect(self.dbIp,self.dbUser,self.dbPasswd,self.dbName, charset='utf8')
         self.cursor = self.db.cursor()
-        sql='SELECT news_id,news_data,news_title,news_flag,news_label FROM %s WHERE updata_time=%s'%(self.tableName,self.updateTime)
+        sql='SELECT news_id,news_data,news_title,news_flag,news_label FROM %s WHERE update_time=%s'%(self.tableName,self.updateTime)
         try:
-            cursor.execute(sql.encode('u8'))
-            self.results=cursor.fetchall()
+            self.cursor.execute(sql.encode('u8'))
+            self.results=self.cursor.fetchall()
         except:
-            print "Error: unable to fetch data"
+            print ("Error: unable to fetch data")
         self.db.close()
         self.doFilter()
 
@@ -39,7 +40,7 @@ class FilterSet:
             filterInsts.append(filter())
         db = MySQLdb.connect(self.dbIp,self.dbUser,self.dbPasswd,self.dbName, charset='utf8')
         tfs = pytfs.TfsClient()
-        tfs.tfs_init(self.tfsUrl)
+        tfs.init(self.tfsUrl)
         item=Item(db,tfs,self.tableName)
         for result in self.results:
             item.setItem(result)
