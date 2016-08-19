@@ -66,15 +66,15 @@ class DataInserter:
             with open(path) as f:
                 subImageTfsNames.append(self.tfs.put(f.read()))
         item['news_imgs']=','.join(subImageTfsNames)
-        item['news_title']=re.sub("'",r"\'",jsItem['title'][:100])
+        item['news_title']=self.escapte(jsItem['title'][:100])
         item['news_resource_link']=re.search('[^?]*',jsItem['url']).group()[:100]
         item['news_time']=jsItem['time']
         item['update_time']=self.updateTime
-        item['agency_name']=jsItem['spider']
+        item['agency_name']=jsItem['spider'][:20]
         item['news_flag']='unknown'
-        item['news_abstract']=re.sub("'",r"\'",re.sub('{u?p}|{img}','',jsItem['contentWithImg'])[:255])
+        item['news_abstract']=self.escape(re.sub('{u?p}|{img}','',jsItem['contentWithImg'])[:255])
         item['news_type']=u'新获取新闻'
-        item['news_label']=jsItem['label'][:10]
+        item['news_label']=self.escape(jsItem['label'][:10])
 
         sql=''' INSERT INTO %s(%s) VALUES('%s')'''%(self.tableName,','.join(item.keys()) ,"','".join(item.values() ) )
         sql=sql.encode('u8')
@@ -85,6 +85,11 @@ class DataInserter:
             self.db.rollback()
             print ("MySQL Error:%s"%str(e))
             print (sql)
+
+    def escape(self,txt):
+        tmp=re.sub(r"\\",r"\\\\",txt)
+        tmp=re.sub("'",r"\'",tmp)
+        return tmp
 
 if __name__=="__main__":
     update_time='20160818112230'

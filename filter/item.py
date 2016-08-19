@@ -45,15 +45,16 @@ class Item:
         
 
     def toDb(self):
-        if self.keywords:
+        try:
             keyLine=json.dumps(self.keywords, ensure_ascii=False)
             sql='''UPDATE %s SET keys_data='%s' , news_flag='%s' , head1='%s' , head2='%s' WHERE news_id=%s'''%(self.tableName,keyLine,self.flag,self.head1,self.head2,self.id)
-        else:
+        except:
             sql='''UPDATE %s SET news_flag='%s' WHERE news_id=%s'''%(self.tableName,self.flag,self.id)
+
         try:
             self.cursor.execute(sql.encode('u8'))
             self.db.commit()
         except Exception,e:
-	    self.db.rollback()
+            self.db.rollback()
             print ("Error: %s"%(sql))
-	    print (e)
+            print (e)

@@ -52,5 +52,5 @@ class FilterSet:
 
 if __name__=="__main__":
     filter=Filter()
-    filter.append(keyFilter)
+    filter.append(KeyFilter)
     filter.doFilter()

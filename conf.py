@@ -1,6 +1,6 @@
 
-#dbIp='10.198.19.176'
-dbIp='192.168.56.102'
+dbIp='10.198.19.176'
+#dbIp='192.168.56.102'
 dbUser='wing'
 dbPasswd='wexun'
 dbName='wexun'

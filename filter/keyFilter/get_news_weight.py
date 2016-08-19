@@ -1,16 +1,19 @@
 #!/bin/python
 #encoding=utf-8
 from __future__ import (division,absolute_import,print_function,unicode_literals)
-
 from filter.keyFilter.tfidf_get_news_keyword import tfidf_keyword
 import sys
+prePath='filter/keyFilter/data/'
 try:
         reload(sys)
         sys.setdefaultencoding('utf-8')
 except:
         pass
-        
-prePath='filter/keyFilter/data/'
+
+title=u"湖南省茶博会9月2日开幕 八大茶主题活动等您来“品”"
+label=u"湖南频道"
+text=u"人民网长沙8月18日电 今天湖南省湖南协会发布消息，2016第八届湖南茶业博览会将于9月2日至5日在长沙红星国际会展中心举行。展位面积达2万平方米，截至目前，2200多个展位已全部预订一空。{up}茶博会组委会办公室主任曹文成介绍：湖南茶业博览会是“展示魅力湘茶、弘扬湘茶文化，发展茶叶经济、扩大茶叶消费”的重要平台，已连续举办了七届。在9月2日至5日茶博会期间，还将组织开展“2016第八届湖南茶业博览会开幕式暨潇湘·石门银峰茶推介会”、“2016湖南茶叶“‘十大公共品牌’、‘十大杰出营销经理人’、‘十强最美茶叶村（茶园）’”与 “第三届湖南‘茶与健康’万人广场舞大赛”等八大主题活动。{up}据介绍，石门县将借助本届茶博会开幕式平台举行潇湘·石门银峰茶推介汇报会。石门县是湖南茶叶主产县，是大湘西茶叶产业发展重点县，石门县人民政府将组织全县茶企走进省会长沙，宣传石门县茶历史、茶文化，推介石门县生态有机茶和石门县改革开放以来取得的成绩，届时将邀请社会各界人士和广大市民共品石门银峰茶。"
+
 
 def read_words(filename):
     fo = open(filename, 'r')
@@ -19,22 +22,18 @@ def read_words(filename):
         list.append(line.strip('\r\n'))
     fo.close()
     return list
-    
-title=u"菲外长：中菲一致同意在南海仲裁案后不做挑衅性声明"
-label=u"新闻频道"
-text=u'菲律宾新旧两任总统对待中国态度有明显不同{p}据BBC中文网消息，菲律宾外交部长亚赛8日在接受法新社采访时表示，菲律宾即使下周赢了南海仲裁案，也愿意同中国分享南海争议地区的自然资源。{p}亚赛说，杜特尔特总统领导的政府希望在12日仲裁判决后迅速开始同中国直接会谈，谈判内容包括在菲律宾的专属经济区内联合利用天然气资源和渔场。{p}亚赛说，我们甚至要探索如何联合勘探有关地区，如何能够从有争议的专属经济区共同受益。{p}在阿基诺领导时期，菲律宾向海牙国际仲裁法院提交了诉讼，挑战中国南海主权。{p}此举激怒了中国，中方一再表示不会理睬仲裁。近日，中国在南海北部举行了军事演习。{p}不过，自杜特尔特在6月30日担任菲律宾总统后，摆出了更加和解的姿态。{p}前任总统阿基诺拒绝同中国展开直接谈判，还把中国在南海的行为同纳粹德国在二战前在欧洲的扩张相提并论。{p}亚赛8日表示，杜特尔特不会做类似比喻，并且强调新菲律宾政府要谋求确保同中国尽可能建立最好的关系。{p}他还表示，中国和菲律宾一致同意，在南海仲裁判决做出后，双方不做任何挑衅性声明。他说菲律宾届时会仔细研究判决，并且同盟友协商，然后尽早同中国展开会谈。{p}亚赛说，菲律宾在分享具有丰富渔业资源的黄岩岛问题上持开放态度，菲律宾称黄岩岛位于其专属经济区，但2012年开始被中国控制。{p}亚赛说，菲律宾还会考虑在菲律宾专属经济区内的礼乐滩的天然气资源问题上同中国合作进行联合勘探。不过他坚持说菲律宾不会放弃任何属于自己的海洋权利。{p}杜特尔特和亚赛7日会见了中国驻菲律宾大使赵鉴华。8日赵鉴华大使又在菲律宾外交部现身。{p}另据观察者网此前报道，菲律宾新总统杜特尔特5日表示，如果南海仲裁案的结果对菲律宾有利，他已经准备好和中国对话，避免战争'
-
 
 def json_keywords(title,label,text):
         #news_keyword_dict=get_news_keyword(title,text)
         news_keyword_dict=tfidf_keyword(title,text)  #import tfidf
-        news_keyword_list=news_keyword_dict.items()
+
         first=''
         head1=''
         head2=''
 
-        if len(news_keyword_list)==0:
+        if len(news_keyword_dict)==0:
             print ('error')
+            return head1, head2, []
         else:
             if label and len(label)<6:
                 if label[:2] in [u'凤凰', u'新浪']:
@@ -45,6 +44,7 @@ def json_keywords(title,label,text):
             #新闻贴标签
             classify_list=['国内','国际','社会','生活','财经','娱乐','体育','科技']
             templist=news_keyword_dict.keys()
+
 
             #print first
 
@@ -80,7 +80,7 @@ def json_keywords(title,label,text):
 
                 elif first in set(read_words(prePath+'society.txt')):
                     if news_keyword_dict.has_key(first):
-                        news_keyword_list.remove(first)
+                        del news_keyword_dict[first]
                     head1=classify_list[2]
                     head2=first
 
@@ -101,23 +101,10 @@ def json_keywords(title,label,text):
                 else:
                     head1=classify_list[3]
 
+            news_keyword_list = news_keyword_dict.items()
             news_keyword_list=news_keyword_list[:15]
 
         return head1,head2,news_keyword_list
 
 #json_keywords('news20160728.json','keywordtesttfidf.txt')
-
-if __name__=='__main__':
-    print ("title:",title)
-    print ("label:",label)
-    h1,h2,li=json_keywords(title,label,text)
-    print ("head1:",h1)
-    print ("head2:",h2)
-    print (li)
-    for key in li:
-        print (key[0]+':'+str(key[1])),
-    print ('')
-
-
-
 
