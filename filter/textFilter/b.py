@@ -1,4 +1,4 @@
-from a import TextFilter
+from tfidfPol import TextFilter
 import jieba
 from sklearn.naive_bayes import MultinomialNB
 import logging
