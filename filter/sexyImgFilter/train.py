@@ -20,11 +20,12 @@ class Train:
         self.train_acc = []
         self.test_loss = []
         self.test_acc = []
+        self.oneStep=100
 
     def step(self,stepSize):
-        niter = stepSize/1000
+        niter = stepSize/self.oneStep
         for it in range(niter):
-            self.solver.step(1000)  # SGD by Caffe
+            self.solver.step(self.oneStep)  # SGD by Caffe
             self.train_loss.append(self.solver.net.blobs['loss'].data+0)
             self.train_acc.append(self.solver.net.blobs['accuracy'].data+0)
             self.test_loss.append(self.solver.test_nets[0].blobs['loss'].data+0)
@@ -33,10 +34,10 @@ class Train:
     def drawAll(self):
         _, ax1 = subplots()
         ax2 = ax1.twinx()
-        line1,=ax1.plot(1000*arange(len(self.train_loss)), self.train_loss,'b',label='trainLoss')
-        line2,=ax2.plot(1000*arange(len(self.train_acc)), self.train_acc,'r',label='trainAcc')
-        line3,=ax1.plot(1000*arange(len(self.test_loss)), self.test_loss,'g',label='testLoss')
-        line4,=ax2.plot(1000*arange(len(self.test_acc)), self.test_acc,'y',label='testAcc')
+        line1,=ax1.plot(self.oneStep*arange(len(self.train_loss)), self.train_loss,'b',label='trainLoss')
+        line2,=ax2.plot(self.oneStep*arange(len(self.train_acc)), self.train_acc,'r',label='trainAcc')
+        line3,=ax1.plot(self.oneStep*arange(len(self.test_loss)), self.test_loss,'g',label='testLoss')
+        line4,=ax2.plot(self.oneStep*arange(len(self.test_acc)), self.test_acc,'y',label='testAcc')
         ax1.legend(loc=2)
         ax2.legend(loc=1)
         ax1.set_xlabel('iteration')
@@ -56,8 +57,8 @@ class Train:
     def drawTrain(self):
         _, ax1 = subplots()
         ax2 = ax1.twinx()
-        ax1.plot(1000*arange(len(self.train_loss)), self.train_loss)
-        ax2.plot(1000*arange(len(self.train_acc)), self.train_acc,'r')
+        ax1.plot(self.oneStep*arange(len(self.train_loss)), self.train_loss)
+        ax2.plot(self.oneStep*arange(len(self.train_acc)), self.train_acc,'r')
         ax1.set_xlabel('iteration')
         ax1.set_ylabel('train loss')
         ax2.set_ylabel('train accuracy')
@@ -65,8 +66,8 @@ class Train:
     def drawTest(self):
         _, ax1 = subplots()
         ax2 = ax1.twinx()
-        ax1.plot(1000*arange(len(self.test_loss)), self.test_loss)
-        ax2.plot(1000*arange(len(self.test_acc)), self.test_acc,'r')
+        ax1.plot(self.oneStep*arange(len(self.test_loss)), self.test_loss)
+        ax2.plot(self.oneStep*arange(len(self.test_acc)), self.test_acc,'r')
         ax1.set_xlabel('iteration')
         ax1.set_ylabel('test loss')
         ax2.set_ylabel('test accuracy')
