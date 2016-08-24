@@ -23,3 +23,10 @@ class Analyzer:
         print ('Top 90 :',TPRs[90],FPRs[90])
         plt.plot(FPRs,TPRs)
         plt.show()
+
+if __name__=='__main__':
+    resultPath='data/result.pkl'
+    results,flags=cPickele.load(open(resultPath))
+    results=map(lambda x:x[1],results)
+    analyzer=Analyzer()
+    analyzer.drawROC((results,flags))
