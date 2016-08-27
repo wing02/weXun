@@ -24,10 +24,11 @@ class TextExtract(object):
     re_other = re.compile(r'<[^>]*>', re.I|re.U|re.S)
      
     blockHeight = 11
-    doRemoveLF=False
-    def __init__(self, new_html, join=True):
+    imgLength=20
+
+    def __init__(self, new_html, doRemoveLF=True):
+        self.doRemoveLF=doRemoveLF
         self.html = new_html
-        self.join = join
         self.text_start = 0
         self.text_end = 0
         self.text_body = ''
@@ -87,7 +88,7 @@ class TextExtract(object):
         if len(blocks)==0:
             self.content=''
             return
-        #self.drawBlock(blocks)
+        self.drawBlock(blocks)
         maxBlock=max(blocks)
         #minBlock=self.blockHeight
         minBlock=10
@@ -120,7 +121,7 @@ class TextExtract(object):
         txts=self.re_img.split(self.text_body)
         self.text_body=txts[0]
         for i in range(len(txts)-1):
-            self.text_body+='{img'+str(i)+'$'*40+'}'
+            self.text_body+='{img'+str(i)+'$'*self.imgLength+'}'
             self.text_body+=txts[i+1]
 
     def getImgSrc(self,img):
@@ -146,16 +147,17 @@ if __name__ == "__main__":
     #url='http://ln.qq.com/a/20160723/003673.htm'
     #url='http://www.taiwan.cn/xwzx/la/201607/t20160723_11516742.htm'
     #url='http://www.gov.cn/xinwen/2016-07/23/content_5094173.htm'
-    #url='http://www.taiwan.cn/taiwan/jsxw/201607/t20160723_11516785.htm'
-    #url='http://www.taiwan.cn/xwzx/la/201607/t20160723_11516742.htm'
     #url='http://zz.house.qq.com/a/20160724/004694.htm'
     #url='http://sznews.com/zhuanti/content/2016-08/04/content_13686753_11.htm'
     #url='http://yi.china.com/tuku/11177361/20160805/23208443.html'
     #url='http://www.bannedbook.org/bnews/topimagenews/20160808/568794.html'
     #url='http://news.qq.com/a/20160809/011891.htm'
-    url='http://stock.qq.com/a/20160809/043400.htm'
+    #url='http://stock.qq.com/a/20160809/043400.htm'
+    #url='http://sc.people.com.cn/n2/2016/0818/c345535-28854712-10.html'
+    #url='http://news.qq.com/a/20160827/000128.htm'
     #url='http://news.xinhuanet.com/politics/2016-07/24/c_1119270615.htm'
     #url='http://military.people.com.cn/n1/2016/0724/c1011-28580193.html'
+    url='http://sc.people.com.cn/n2/2016/0817/c345537-28848447.html'
     proxied_request = urllib2.urlopen(url)
 
     #content = proxied_request.read().decode('gbk')
@@ -167,6 +169,6 @@ if __name__ == "__main__":
 
     #f=open('qq','r')
     #content=f.read().decode('u8')
-    text_extract = TextExtract(content)
+    text_extract = TextExtract(content,True)
     print (text_extract.content)
     print (text_extract.imgs)
