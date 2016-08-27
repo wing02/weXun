@@ -47,8 +47,7 @@ class Test:
         image = caffe.io.load_image(srcPath)
         return image
 
-    
-if __name__=="__main__":
+def test1():
     prePath='filter/sexyImgFilter/'
     dataPath='filter/sexyImgFilter/data/test.txt'
     desPath='filter/sexyImgFilter/data/result.pkl'
@@ -66,3 +65,12 @@ if __name__=="__main__":
                 results.append(result)
                 print (result,tmp[1])
     cPickle.dump((results,flags),open(desPath,'w'))
+
+def test2():
+    file='a.jpg'
+    test=Test()
+    result=test.testImg(open(file).read())
+    print (result)
+    
+if __name__=="__main__":
+    test2()
