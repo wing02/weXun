@@ -19,7 +19,7 @@ class DataInserter:
         self.tableName=conf.tableName
         self.tfsUrl='%s:%s'%(conf.dbIp,conf.tfsPort)
         self.dataPrePath='spider/news/'
-        self.tfsPrePath='http://%s:%s/v1/tfs/'%(conf.dbIp,conf.tfsNginxPort)
+        self.tfsPrePath='http://%s:%s/tfs/'%(conf.dbIp,conf.tfsNginxPort)
         self.updateTime=updateTime
 
         self.db = MySQLdb.connect(self.dbIp,self.dbUser,self.dbPasswd,self.dbName, charset='utf8')
@@ -47,26 +47,38 @@ class DataInserter:
         subImageTfsNames=[]
         item=dict()
 
+        content=jsItem['contentWithImg']
+        #drop news that is too short
+        if len(content)>10:
+            return
+        content='<p>'+re.sub('{u?p}','</p><p>',content)+'</p>'
+
         for image in images:
             path=self.dataPrePath+image['path']
             with open(path) as f:
                 imageTfsNames.append(self.tfs.put(f.read()))
-        content=jsItem['contentWithImg']
-        content='<p>'+re.sub('{u?p}','</p><p>',content)+'</p>'
+
         for imageTfsName in imageTfsNames:
             src=self.tfsPrePath+imageTfsName
-            content=re.sub('{img}','<img src="'+src+'">',content,1)
+            content=re.sub('{img}','<p><img align="center" src="'+src+'"></p>',content,1)
         content=re.sub('{img}','',content)
         item['news_data']=self.tfs.put(content.encode('u8'))
 
         for i,image in enumerate(images):
+            if len(images)==2 and i==1:
+                break
             if i==3:
                 break
             path=self.dataPrePath+re.sub('full','thumbs/small',image['path'])
             with open(path) as f:
                 subImageTfsNames.append(self.tfs.put(f.read()))
+
         item['news_imgs']=','.join(subImageTfsNames)
-        item['news_title']=self.escapte(jsItem['title'][:100])
+
+
+        title=re.search('[^|]*',jsItem['title']).group()
+        item['news_title']=self.escape(title[:100])
+
         item['news_resource_link']=re.search('[^?]*',jsItem['url']).group()[:100]
         item['news_time']=jsItem['time']
         item['update_time']=self.updateTime

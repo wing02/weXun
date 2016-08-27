@@ -9,16 +9,19 @@ import time
 
 if __name__=="__main__":
     start=time.clock()
-    update_time='20160817232230'
-    dataInserter=DataInserter(update_time)
-    dataInserter.insertFromRexpath('spider/data/20160817/*/*.json')
-    filterSet=FilterSet(update_time)
-    filterSet.append(keyFilter)
-    filterSet.start()
 
-    tableName='rec_news'
-    updateTime='20160818230000'
-    sharer=Sharer()
-    sharer.doShare(tableName,updateTime)
+    for i in range(17,18):
+        curTime=str(i)
+        update_time='20160817232230'
+        dataInserter=DataInserter(update_time)
+        dataInserter.insertFromRexpath('spider/data/20160817/*/*.json')
+        filterSet=FilterSet(update_time)
+        filterSet.append(keyFilter)
+        filterSet.start()
+
+        tableName='rec_news'
+        updateTime='20160818230000'
+        sharer=Sharer()
+        sharer.doShare(tableName,updateTime)
     end=time.clock()
     print (end-start)

@@ -6,7 +6,7 @@ import os.path as osp
 import MySQLdb
 import pytfs
 from filter.item import Item
-from filter.keyFilter.keyFilter import keyFilter
+from filter.keyFilter.keyFilter import KeyFilter
 
 class FilterSet:
     def __init__(self,updateTime):

@@ -20,7 +20,7 @@ class StaticSpider(NewsSpider):
     #deny_domains=[]
     curTime=time.time()
     strfCur=int(time.strftime('%Y%m%d%H%M%S',time.localtime(curTime)))
-    #days=1
+    days=1
 
     def __init__(self):
         scrapy.Spider.__init__(self)

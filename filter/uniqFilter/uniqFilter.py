@@ -4,8 +4,8 @@ from filter.uniqFilter.simhash.uniquer import Uniquer
 
 class UniqFilter:
     def __init__(self):
-        uniquer=Uniquer()
+        self.uniquer=Uniquer()
 
-    def doFilter(item):
-        if not uniquer.checkNews(item.getTxt()):
+    def doFilter(self,item):
+        if not self.uniquer.checkNews(item.getTxt()):
             item.flag='repeated'

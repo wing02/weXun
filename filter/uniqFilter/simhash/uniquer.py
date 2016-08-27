@@ -13,7 +13,7 @@ class Uniquer(object):
 
     def __init__(self):
         self.hashLen=16#as hex
-        self.db = MySQLdb.connect("localhost",conf.dbUser,conf.dbPasswd,conf.dbName )
+        self.db = MySQLdb.connect(conf.dbIp,conf.dbUser,conf.dbPasswd,conf.dbName )
         self.cursor = self.db.cursor()
         #self.distance=3
 
@@ -21,7 +21,11 @@ class Uniquer(object):
         self.db.close()
 
     def checkNews(self,content,add=True):
-        simLong=getSimhash.getSimhash(content.encode('u8'))
+        try:
+            simLong=getSimhash.getSimhash(content.encode('u8'))
+        except:
+            print content
+            return False
         #logging.info(simLong)
         items=[]
         others=[]

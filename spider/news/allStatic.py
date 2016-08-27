@@ -24,7 +24,7 @@ class ChinaStaticSpider(StaticSpider):
     allowed_domains=['china.com']
     start_urls=cPickle.load(open('../data/chgPage/'+name+'Dynamic_ChgUrl.pkl'))
     #curTime=time.time()
-    days=1
+    #days=1
     custom_settings={
     'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
     }
@@ -41,7 +41,7 @@ class ChinanewsStaticSpider(StaticSpider):
     allowed_domains=['chinanews.com']
     start_urls=cPickle.load(open('../data/chgPage/'+name+'Dynamic_ChgUrl.pkl'))
     #curTime=time.time()
-    days=1
+    #days=1
     custom_settings={
     'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
     }
@@ -58,7 +58,7 @@ class IfengStaticSpider(StaticSpider):
     allowed_domains=['ifeng.com']
     start_urls=cPickle.load(open('../data/chgPage/'+name+'Dynamic_ChgUrl.pkl'))
     #curTime=time.time()
-    days=1
+    #days=1
     custom_settings={
     'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
     }
@@ -76,7 +76,7 @@ class PeopleStaticSpider(StaticSpider):
     start_urls=cPickle.load(open('../data/chgPage/'+name+'Dynamic_ChgUrl.pkl'))
     #curTime=time.time()
     deny_domains=["tv.people.com.cn"]+StaticSpider.deny_domains
-    days=1
+    #days=1
     custom_settings={
     'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
     }
@@ -93,7 +93,7 @@ class QQStaticSpider(StaticSpider):
     allowed_domains=["qq.com"]
     start_urls=cPickle.load(open('../data/chgPage/'+name+'Dynamic_ChgUrl.pkl'))
     #curTime=time.time()
-    days=1
+    #days=1
     deny_domains=["v.qq.com","class.qq.com","club.auto.qq.com","db.house.qq.com","t.qq.com"]+StaticSpider.deny_domains
     custom_settings={
     'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
@@ -114,7 +114,7 @@ class SinaStaticSpider(StaticSpider):
     start_urls=cPickle.load(open('../data/chgPage/'+name+'Dynamic_ChgUrl.pkl'))
     #curTime=time.time()
     deny_domains=['roll.news.sina.com.cn']+StaticSpider.deny_domains
-    days=1
+    #days=1
     custom_settings={
     'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
     }
@@ -131,7 +131,7 @@ class SohuStaticSpider(StaticSpider):
     allowed_domains=['sohu.com']
     start_urls=cPickle.load(open('../data/chgPage/'+name+'Dynamic_ChgUrl.pkl'))
     #curTime=time.time()
-    days=1
+    #days=1
     custom_settings={
     'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
     }
@@ -149,7 +149,7 @@ class SznewsStaticSpider(StaticSpider):
     start_urls=cPickle.load(open('../data/chgPage/'+name+'Dynamic_ChgUrl.pkl'))
     deny_domains=['sike\.news\.cn','info\.search\.news\.cn','qnssl\.com','game\.news\.cn']+StaticSpider.deny_domains
     #curTime=time.time()
-    days=1
+    #days=1
     custom_settings={
     'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
     }
@@ -166,7 +166,7 @@ class WangyiStaticSpider(StaticSpider):
     allowed_domains=['163.com']
     start_urls=cPickle.load(open('../data/chgPage/'+name+'Dynamic_ChgUrl.pkl'))
     #curTime=time.time()
-    days=1
+    #days=1
     custom_settings={
     'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
     }
@@ -187,7 +187,7 @@ class XinhuanetStaticSpider(StaticSpider):
     allowed_domains=["xinhuanet.com","news.cn"]
     start_urls=cPickle.load(open('../data/chgPage/'+name+'Dynamic_ChgUrl.pkl'))
     #curTime=time.time()
-    days=1
+    #days=1
     custom_settings={
     'IMAGES_STORE':osp.join('../data',time.strftime('%Y%m%d',time.localtime(StaticSpider.curTime)),name),
     }
