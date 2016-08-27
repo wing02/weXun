@@ -88,7 +88,7 @@ class TextExtract(object):
         if len(blocks)==0:
             self.content=''
             return
-        self.drawBlock(blocks)
+        #self.drawBlock(blocks)
         maxBlock=max(blocks)
         #minBlock=self.blockHeight
         minBlock=10
