@@ -30,9 +30,10 @@ class ChinaStaticSpider(StaticSpider):
     }
     def parseNews(self, response):
         item=NewsParser(response).getNewsItem()
-        item['spider']=self.name
-        item['crawlTime']=StaticSpider.curTime
-        yield item
+        if item:
+            item['spider']=self.name
+            item['crawlTime']=StaticSpider.curTime
+            yield item
         for url in self.allNewsUrl(response):
             yield scrapy.Request(url,callback=self.parseNews)
 
@@ -47,9 +48,10 @@ class ChinanewsStaticSpider(StaticSpider):
     }
     def parseNews(self, response):
         item=ChinaNewsParser(response).getNewsItem()
-        item['spider']=self.name
-        item['crawlTime']=StaticSpider.curTime
-        yield item
+        if item:
+            item['spider']=self.name
+            item['crawlTime']=StaticSpider.curTime
+            yield item
         for url in self.allNewsUrl(response):
             yield scrapy.Request(url,callback=self.parseNews)
 
@@ -64,9 +66,10 @@ class IfengStaticSpider(StaticSpider):
     }
     def parseNews(self, response):
         item=NewsParser(response).getNewsItem()
-        item['spider']=self.name
-        item['crawlTime']=StaticSpider.curTime
-        yield item
+        if item:
+            item['spider']=self.name
+            item['crawlTime']=StaticSpider.curTime
+            yield item
         for url in self.allNewsUrl(response):
             yield scrapy.Request(url,callback=self.parseNews)
 
@@ -82,9 +85,10 @@ class PeopleStaticSpider(StaticSpider):
     }
     def parseNews(self, response):
         item=PeopleParser(response).getNewsItem()
-        item['spider']=self.name
-        item['crawlTime']=StaticSpider.curTime
-        yield item
+        if item:
+            item['spider']=self.name
+            item['crawlTime']=StaticSpider.curTime
+            yield item
         for url in self.allNewsUrl(response):
             yield scrapy.Request(url,callback=self.parseNews)
 
@@ -120,9 +124,10 @@ class SinaStaticSpider(StaticSpider):
     }
     def parseNews(self, response):
         item=NewsParser(response).getNewsItem()
-        item['spider']=self.name
-        item['crawlTime']=StaticSpider.curTime
-        yield item
+        if item:
+            item['spider']=self.name
+            item['crawlTime']=StaticSpider.curTime
+            yield item
         for url in self.allNewsUrl(response):
             yield scrapy.Request(url,callback=self.parseNews)
 
@@ -137,9 +142,10 @@ class SohuStaticSpider(StaticSpider):
     }
     def parseNews(self, response):
         item=NewsParser(response).getNewsItem()
-        item['spider']=self.name
-        item['crawlTime']=StaticSpider.curTime
-        yield item
+        if item:
+            item['spider']=self.name
+            item['crawlTime']=StaticSpider.curTime
+            yield item
         for url in self.allNewsUrl(response):
             yield scrapy.Request(url,callback=self.parseNews)
 
@@ -155,9 +161,10 @@ class SznewsStaticSpider(StaticSpider):
     }
     def parseNews(self, response):
         item=NewsParser(response).getNewsItem()
-        item['spider']=self.name
-        item['crawlTime']=StaticSpider.curTime
-        yield item
+        if item:
+            item['spider']=self.name
+            item['crawlTime']=StaticSpider.curTime
+            yield item
         for url in self.allNewsUrl(response):
             yield scrapy.Request(url,callback=self.parseNews)
 
@@ -176,9 +183,10 @@ class WangyiStaticSpider(StaticSpider):
             return '20'+result.group(1)+result.group(2)+result.group(3)
     def parseNews(self, response):
         item=NewsParser(response).getNewsItem()
-        item['spider']=self.name
-        item['crawlTime']=StaticSpider.curTime
-        yield item
+        if item:
+            item['spider']=self.name
+            item['crawlTime']=StaticSpider.curTime
+            yield item
         for url in self.allNewsUrl(response):
             yield scrapy.Request(url,callback=self.parseNews)
 
@@ -193,9 +201,10 @@ class XinhuanetStaticSpider(StaticSpider):
     }
     def parseNews(self, response):
         item=XinhuanetParser(response).getNewsItem()
-        item['spider']=self.name
-        item['crawlTime']=StaticSpider.curTime
-        yield item
+        if item:
+            item['spider']=self.name
+            item['crawlTime']=StaticSpider.curTime
+            yield item
         for url in self.allNewsUrl(response):
             yield scrapy.Request(url,callback=self.parseNews)
 
