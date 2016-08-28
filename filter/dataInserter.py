@@ -49,7 +49,7 @@ class DataInserter:
 
         content=jsItem['contentWithImg']
         #drop news that is too short
-        if len(content)>10:
+        if len(content)<10:
             return
         content='<p>'+re.sub('{u?p}','</p><p>',content)+'</p>'
 

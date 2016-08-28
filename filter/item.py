@@ -18,6 +18,7 @@ class Item:
         self.title=result[2]
         self.flag=result[3]
         self.label=result[4]
+        self.url=result[5]
     
     def getImgs(self):
         try:

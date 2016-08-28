@@ -25,7 +25,7 @@ class FilterSet:
     def start(self):
         self.db = MySQLdb.connect(self.dbIp,self.dbUser,self.dbPasswd,self.dbName, charset='utf8')
         self.cursor = self.db.cursor()
-        sql='SELECT news_id,news_data,news_title,news_flag,news_label FROM %s WHERE update_time=%s'%(self.tableName,self.updateTime)
+        sql='SELECT news_id,news_data,news_title,news_flag,news_label,news_resource_link FROM %s WHERE update_time=%s'%(self.tableName,self.updateTime)
         try:
             self.cursor.execute(sql.encode('u8'))
             self.results=self.cursor.fetchall()

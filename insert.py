@@ -3,7 +3,8 @@ from __future__ import (division,absolute_import,print_function,unicode_literals
 import conf
 from filter.dataInserter import DataInserter
 from filter.filterSet import FilterSet
-from filter.keyFilter.keyFilter import keyFilter
+from filter.keyFilter.keyFilter import KeyFilter
+from filter.uniqFilter.uniqFilter import UniqFilter
 from filter.sharer import Sharer
 import time
 
