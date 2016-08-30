@@ -18,6 +18,7 @@ import glob
 import json
 from sklearn.feature_extraction.text import TfidfVectorizer
 from scipy.special import expit
+import cPickle
 
 class PolTfidf:
     def __init__(self):
@@ -70,7 +71,7 @@ class PolTfidf:
     def getScore(self,content):
         xTfidf=self.tfidfVectorizer.transform([content])
         score=self.clf.decision_function(xTfidf)
-        print (self.clf.predict(xTfidf))
+        #print (self.clf.predict(xTfidf))
         return expit(score[0])
 
     def getSenWords(self):
@@ -157,13 +158,22 @@ if __name__=='__main__':
     #logging.basicConfig(level=logging.DEBUG,format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',datefmt='%a, %d %b %Y %H:%M:%S')
     #test()
     polTfidf=PolTfidf()
-    file='filter/polTxtFilter/a.txt'
-    content=open(file).read()
-    content=' '.join(jieba.cut(content))
-    score=polTfidf.getScore(content)
-    print (score)
+    goodFile='filter/polTxtFilter/data/goodTest.json'
+    badFile='filter/polTxtFilter/data/src/bad/minghui.json'
+    file=badFile
+    scores=[]
+    for line in open(file):
+        content=json.loads(line)['contentWithImg']
+        content=re.sub('{up}{img}','',content)
+        content=' '.join(jieba.cut(content))
+        score=polTfidf.getScore(content)
+        scores.append(score)
+        #print (score)
+    #cPickle.dump(scores,open('scores.pkl','w'))
+    cPickle.dump(scores,open('scores2.pkl','w'))
 
-    words=polTfidf.getSenWords()
-    for i in range(1,100):
-        print (words[-i])
+    #words=polTfidf.getSenWords()
+    #for i in range(1,100):
+    #    print (words[-i],end=' ')
+    #print ('\n')
 

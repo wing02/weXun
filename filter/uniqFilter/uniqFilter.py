@@ -7,5 +7,6 @@ class UniqFilter:
         self.uniquer=Uniquer()
 
     def doFilter(self,item):
-        if not self.uniquer.checkNews(item.getTxt()):
+        #if not self.uniquer.checkNews(item.getTxt()):
+        if not self.uniquer.checkNews(item.title):
             item.flag='repeated'

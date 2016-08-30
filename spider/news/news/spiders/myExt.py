@@ -88,7 +88,7 @@ class TextExtract(object):
         if len(blocks)==0:
             self.content=''
             return
-        #self.drawBlock(blocks)
+        self.drawBlock(blocks)
         maxBlock=max(blocks)
         #minBlock=self.blockHeight
         minBlock=10
@@ -157,7 +157,8 @@ if __name__ == "__main__":
     #url='http://news.qq.com/a/20160827/000128.htm'
     #url='http://news.xinhuanet.com/politics/2016-07/24/c_1119270615.htm'
     #url='http://military.people.com.cn/n1/2016/0724/c1011-28580193.html'
-    url='http://sc.people.com.cn/n2/2016/0817/c345537-28848447.html'
+    #url='http://sc.people.com.cn/n2/2016/0817/c345537-28848447.html'
+    url='http://sc.people.com.cn/n2/2016/0817/c345537-28848447-3.html'
     proxied_request = urllib2.urlopen(url)
 
     #content = proxied_request.read().decode('gbk')
@@ -170,5 +171,6 @@ if __name__ == "__main__":
     #f=open('qq','r')
     #content=f.read().decode('u8')
     text_extract = TextExtract(content,True)
+    print ('txt:')
     print (text_extract.content)
     print (text_extract.imgs)
